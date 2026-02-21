@@ -1,5 +1,7 @@
 # Compliance-Dokumentation für ZTA+KI 2026
 
+Beispielhafte Umsetzungsstruktur einer Governance für KI im Kontext ZTA und Industrie 4.0
+
 ## Zusammenfassung
 
 Dieses Verzeichnis enthält Dokumentation und Beispiele zur Implementierung einer Zero Trust Architektur (ZTA) mit KI-Assistenz in der Industrie 4.0. Die Inhalte basieren auf regulatorischen Anforderungen wie dem EU AI Act und Standards wie ISO 42001. Sie umfassen Governance-Rahmenwerke, Policies, Anforderungskataloge und detaillierte Prüfschritte, um die Sicherheit, Nachvollziehbarkeit und Konformität von ZTA- und KI-Systemen in industriellen Umgebungen zu gewährleisten. Die Dokumente dienen als Referenz und Orientierungshilfe und sollten an spezifische Kontexte angepasst werden.
