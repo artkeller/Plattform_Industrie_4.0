@@ -29,14 +29,16 @@ Für alle weiteren Prüfschritte (ZTA-01-002 bis ZTA-01-007) sowie für alle and
 - IEC 62443-3-3: SR 1.x (Identification), SR 2.1 (Use Control), SR 5.x (Restricted Data Flow), SR 6.1 (Monitoring)
 - ISO/IEC 42001: A.7 (Data), A.8 (Transparency), A.10 (Continuous monitoring)
 
-## Changelog Version 3.0
+## Changelog Version 2.0
 
 - Scope klar auf ZTA-01-001 beschränkt und Ergänzungsbedarf für alle anderen Prüfschritte / Anforderungen explizit dokumentiert
 - Evidenz / Nachweis-Spalte neu hinzugefügt
-- Beschreibungen in vollständigen Sätzen, aber weiterhin tabellenoptimiert
 - OT-spezifische Kontextattribute (Prozesszustand) und KI-basierte Verhaltensanalyse stärker hervorgehoben
 
-**Unterschrift / Genehmigung**  
+**Unterschrift / Genehmigung** 
+
 Geschäftsführung _______________________ Datum ________  
-CISO _______________________ Datum ________  
+
+CISO _______________________ Datum ________
+
 AI Risk Owner _______________________ Datum ________
