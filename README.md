@@ -1,1 +1,1 @@
-# Plattform_Industrie_4.0
+# Plattform Industrie 4.0
