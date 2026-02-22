@@ -1,6 +1,8 @@
 # Statement-of-Applicability (SoA)
 
-## Anhang: Vollständiges Statement of Applicability (SoA) – Alle 38 Controls der ISO/IEC 42001:2023 Annex A
+## Anhang
+
+Vollständiges Statement of Applicability (SoA) – Alle 38 Controls der ISO/IEC 42001:2023 Annex A
 
 | Control-ID     | Titel / Beschreibung des Controls                                                                 | Anwendung   | Umsetzung / Referenz im Projekt / Repo                                      | Verantwortlicher          | Status          | Evidenz / Nachweis                                                                 |
 |----------------|---------------------------------------------------------------------------------------------------|-------------|-----------------------------------------------------------------------------|---------------------------|-----------------|------------------------------------------------------------------------------------|
