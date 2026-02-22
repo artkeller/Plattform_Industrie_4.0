@@ -43,7 +43,7 @@ Das Diskussionspapier der UAG „KI für I40-Security“ (Hannover Messe 2024) f
 - **/Compliance**  
   → V1 (ursprünglich) + **V2** (final, QA-gesichert)
 
-- **/research**  
+- **/Research**  
   → **Aktuell noch leer** – wird in den nächsten Wochen gefüllt  
   → Geplante Inhalte:  
     • EU-AI-Act-kompatible Prompt-Workflows (Domain-Pinning, strukturierter JSON-Output, Guardrails)  
