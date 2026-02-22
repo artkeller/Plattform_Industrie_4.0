@@ -1,4 +1,6 @@
-# ZTA+KI 2026 – Zero Trust Architektur mit KI-Assistenz in Industrie 4.0
+# ZTA+KI 2026
+
+Zero Trust Architektur mit KI-Assistenz in Industrie 4.0
 
 **Plattform Industrie 4.0 – Unterarbeitsgruppe „KI für I40-Security“**  
 **Update 2026 – Perspektiven durch den Einsatz generativer KI und Zero Trust**
