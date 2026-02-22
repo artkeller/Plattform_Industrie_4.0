@@ -8,7 +8,7 @@ Dieses Dokument enthält **ausschließlich** die detaillierte Verifikation des P
 
 Es zerlegt die Anforderung ZTA-01-001 in attributspezifische Verifikationspunkte. 
 
-Für alle weiteren Prüfschritte (ZTA-01-002 bis ZTA-01-007) sowie für alle anderen Anforderungen (ZTA-02 ff.) **fehlen** derzeit entsprechende Detail-Module. Diese müssen analog erstellt werden, um eine vollständige, attribut- und prüfschrittgenaue Auditierbarkeit zu erreichen.
+Für alle weiteren Prüfschritte (ZTA-01-002 bis ZTA-01-007) sowie für alle anderen Anforderungen (ZTA-02 ff.) **fehlen** in diesem Beispiel derzeit entsprechende Detail-Module. Diese müssen analog erstellt werden, um eine vollständige, attribut- und prüfschrittgenaue Auditierbarkeit zu erreichen.
 
 ## Verifikationspunkte für ZTA-01-001 (Kontextdatenerfassung)
 
