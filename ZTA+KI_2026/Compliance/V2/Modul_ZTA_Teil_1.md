@@ -58,12 +58,5 @@ Der Katalog ist vollständig auf die folgenden Standards gemappt. Eine detaillie
 - ISO 42001 Annex A: A.2 (Policies), A.5 (Risk), A.7 (Data), A.8 (Transparency), A.9 (Oversight), A.10 (Incident)
 - IEC 62443-3-3: FR1 (Identification), FR2 (Use Control), FR3 (System Integrity), FR5 (Restricted Data Flow), FR6 (Timely Response)
 
-
-Im Anhang dieses Dokuments befindet sich die vollständige Mapping-Tabelle zu allen relevanten Controls (38 aus ISO 42001, SRs aus IEC 62443-3-3, Tenets aus NIST). Der Changelog dokumentiert: In Version 3.0 wurden Umfang erweitert (von ~10 auf >30 Anforderungen), vollständige Sätze und Tabellen eingeführt, Evidenz-Spalte hinzugefügt, Lifecycle-View integriert, Risiko-Matrix und Mapping erstellt, um alle in der QA festgestellten Mängel (Umfang, Operationalisierung, Evidenz, Mapping, Lifecycle) zu beseitigen.
-
-## Mapping zu Kernstandards 
-
-Die neuen Anforderungen ZTA-09 bis ZTA-15 sind vollständig auf die folgenden Standards gemappt. Die detaillierte Statement-of-Applicability-Tabelle (inkl. aller 38 ISO 42001 Controls und IEC 62443 SRs) befindet sich weiterhin im Anhang.
-
 **Unterschrift / Genehmigung**  
 
