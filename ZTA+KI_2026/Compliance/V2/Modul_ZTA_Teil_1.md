@@ -1,4 +1,4 @@
-# Modul_ZTA_Teil_1.md – Version 3.0 (Audit-fähig / Erweiterter generischer Anforderungskatalog) – Fortsetzung
+# Modul_ZTA_Teil_1.md – Version 2.0 (Audit-fähig / Erweiterter generischer Anforderungskatalog) – Fortsetzung
 
 **Hinweis:** Die Erweiterung um ZTA-09 bis ZTA-15 baut direkt auf der bestehenden Struktur auf. Die Tabelle wird fortgesetzt, ohne die vorherigen Zeilen zu wiederholen. Alle neuen Anforderungen sind in vollständigen Sätzen formuliert, enthalten Konformitätsprüfung, Bewertungsstatus, Referenzen und geforderte Evidenz. Sie adressieren weitere Kernaspekte aus NIST SP 800-207 (Tenets), IEC 62443 (OT-spezifisch), EU AI Act (High-Risk-Requirements) und Industrie-4.0-spezifischen Anforderungen (z. B. OT-Resilienz, AI-gestützte Überwachung, Lifecycle-Sicherheit).
 
