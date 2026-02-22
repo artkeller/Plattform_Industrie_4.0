@@ -17,9 +17,10 @@ Für alle weiteren Anforderungen (ZTA-02 bis ZTA-15) **fehlen** derzeit entsprec
 | ZTA-01-005  | Performance unter Last: Die dynamische Bewertung muss auch bei hoher Anfragenrate (≥ 500 Anfragen/s) Latenz < 500 ms einhalten. | Latenz bleibt < 500 ms, keine Fehlentscheidungen oder Timeouts bei definierter Last. | Offen            | EU AI Act Art. 15 (Robustheit), NIST SP 800-207 | Lasttest-Report (z. B. JMeter/Locust), Latenz-Histogramm, Error-Rate = 0 % |
 | ZTA-01-006  | Integration KI-basierter Kontextbewertung: Anomalie-Erkennung durch KI-Modell (z. B. Verhaltensdrift, ungewöhnliche OT-Sequenz) muss in die Policy-Entscheidung einfließen. | Bei KI-erkannter Anomalie (Score > Schwellwert) wird Zugriff blockiert oder auf „human review“ eskaliert. | Offen            | ISO 42001 A.6.2.7, EU AI Act Art. 14 | KI-Inferenz-Log + Policy-Trace, Anomalie-Score + Entscheidung (Beispiel-Log), Alert-Screenshot |
 | ZTA-01-007  | End-to-End-Nachweisbarkeit: Die gesamte Kette von Kontextdatenerfassung → Aggregation → Policy-Entscheidung → Enforcement muss rekonstruierbar sein. | Durchgängiger Trace mit einheitlicher Trace-ID vom Sensor bis zum Enforcement Point. | Offen            | ISO 42001 A.8.4, NIST SP 800-207 Tenet 7 | Vollständiger Trace-Beispiel (Log-Kette mit Trace-ID), Trace-Visualisierung (falls vorhanden) |
-Ergänzungen / Änderungen gegenüber dem Original
 
-Evidenz / Nachweis-Spalte neu hinzugefügt (konkrete, prüfbare Nachweise)
-Beschreibungen etwas ausformuliert (vollständige Sätze), aber nicht die Tabellenstruktur verändert
-Einige Prüfschritte leicht präzisiert / erweitert (OT-Kontext, KI-Integration, Fail-safe klarer)
+## Changelog Version 2.0
+
+- Evidenz / Nachweis-Spalte neu hinzugefügt (konkrete, prüfbare Nachweise)
+- Beschreibungen etwas ausformuliert (vollständige Sätze), aber nicht die Tabellenstruktur verändert
+- Einige Prüfschritte leicht präzisiert / erweitert (OT-Kontext, KI-Integration, Fail-safe klarer)
 Referenzen etwas erweitert und konsistenter gemacht
