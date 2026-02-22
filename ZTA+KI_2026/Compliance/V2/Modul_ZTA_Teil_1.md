@@ -14,7 +14,7 @@ Dieser generische Anforderungskatalog gilt für alle Komponenten einer Zero Trus
 
 Der Anforderungskatalog verfolgt das Ziel, eine sichere, nachvollziehbare, resiliente und konforme Implementierung von ZTA mit KI-Unterstützung in Industrie 4.0 zu ermöglichen. Er minimiert Risiken für Betriebssicherheit, Datenschutz, Grundrechte und OT-Verfügbarkeit. Die Grundprinzipien orientieren sich an den NIST SP 800-207 Tenets: Alle Ressourcen werden als potenziell unsicher betrachtet, Kommunikation wird unabhängig vom Netzwerkort gesichert, Zugriff wird sitzungsbezogen und mit Least Privilege gewährt, Zugriffe werden kontinuierlich verifiziert, und es wird von einem möglichen Kompromiss ausgegangen.
 
-**Hinweis:** Die Anforderung  ZTA-09 bis ZTA-15 baut direkt auf der bestehenden Struktur auf. Die Tabelle wird fortgesetzt, ohne die vorherigen Zeilen zu wiederholen. Alle neuen Anforderungen sind in vollständigen Sätzen formuliert, enthalten Konformitätsprüfung, Bewertungsstatus, Referenzen und geforderte Evidenz. Sie adressieren weitere Kernaspekte aus NIST SP 800-207 (Tenets), IEC 62443 (OT-spezifisch), EU AI Act (High-Risk-Requirements) und Industrie-4.0-spezifischen Anforderungen (z. B. OT-Resilienz, AI-gestützte Überwachung, Lifecycle-Sicherheit).
+**Hinweis:** Die Anforderungen  ZTA-09 bis ZTA-15 adressieren Kernaspekte aus NIST SP 800-207 (Tenets), IEC 62443 (OT-spezifisch), EU AI Act (High-Risk-Requirements) und Industrie-4.0-spezifischen Anforderungen (z. B. OT-Resilienz, AI-gestützte Überwachung, Lifecycle-Sicherheit).
 
 ## Klassifizierung und Risikobewertung
 
