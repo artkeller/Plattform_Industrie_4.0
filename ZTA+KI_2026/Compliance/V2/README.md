@@ -1,4 +1,4 @@
-# Compliance-Dokumentation für ZTA+KI 2026 – Version 2 (QA-gesichert)
+# Compliance-Dokumentation für ZTA+KI 2026
 
 ## Zusammenfassung
 
