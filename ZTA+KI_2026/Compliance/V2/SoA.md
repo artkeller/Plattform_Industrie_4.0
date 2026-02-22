@@ -41,3 +41,12 @@ Vollständiges Statement of Applicability (SoA)
 | A.10.3         | Dieser Control verlangt die Unterstützung von Kunden beim verantwortungsvollen KI-Einsatz.       | Teilweise   | Noch nicht relevant (keine Kundensysteme)                                   | Vertrieb / Legal          | N/A (aktuell)   | Keine Evidenz erforderlich, da aktuell keine Kundensysteme betroffen               |
 
 Diese Tabelle ist nun komplett audit-tauglich in Bezug auf Granularität, Vollständigkeit und Nachweisbarkeit.
+
+| SR-Gruppe      | Beschreibung                                                                                      | Anwendung   | Umsetzung / Referenz                                              | Verantwortlicher   | Status       | Evidenz / Nachweis                                                             |
+|----------------|---------------------------------------------------------------------------------------------------|-------------|-------------------------------------------------------------------|--------------------|--------------|--------------------------------------------------------------------------------|
+| SR 1.1–1.7     | Identifikation und Authentifizierung (User, Device, Service)                                     | Ja          | [Modul_ZTA_Teil_1.md](Modul_ZTA_Teil_1.md) – ZTA-02                                       | IAM-Team           | Erfüllt      | MFA-Konfiguration, Device-Posture-Logs                                         |
+| SR 3.1–3.9     | System- und Datenintegrität                                                                       | Ja          | [Modul_ZTA_Teil_1.md](Modul_ZTA_Teil_1.md) – ZTA-03, ZTA-09                               | SOC                | Erfüllt      | Hashing/Signaturen, Echtzeit-Integritätsprüfung-Logs                           |
+| SR 5.1–5.7     | Restricted Data Flow / Micro-Segmentation                                                         | Ja          | [Modul_ZTA_Teil_1.md](Modul_ZTA_Teil_1.md) – ZTA-06                                       | Netzwerk-Team      | In Umsetzung | Zone/Conduit-Diagramm, Firewall-Rules (Screenshot)                             |
+| SR 6.1         | Timely Response & Monitoring                                                                      | Ja          | [Modul_ZTA_Teil_1.md](Modul_ZTA_Teil_1.md) – ZTA-07 & ZTA-14                              | SOC                | Erfüllt      | SIEM-Dashboard, Alert-Konfiguration                                            |
+
+
