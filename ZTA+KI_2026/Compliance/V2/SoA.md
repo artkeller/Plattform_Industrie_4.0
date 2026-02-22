@@ -40,7 +40,7 @@ Vollständiges Statement of Applicability (SoA)
 | A.10.2         | Dieser Control fordert die Bewertung und Steuerung von KI-Drittanbietern.                        | Teilweise   | [Policy.md](Policy.md) – Third-Party-Aspekte (in Erweiterung)                            | CISO / Legal              | In Umsetzung    | Lieferanten-Bewertungsmatrix (Entwurf) + geplante Klauseln in Verträgen            |
 | A.10.3         | Dieser Control verlangt die Unterstützung von Kunden beim verantwortungsvollen KI-Einsatz.       | Teilweise   | Noch nicht relevant (keine Kundensysteme)                                   | Vertrieb / Legal          | N/A (aktuell)   | Keine Evidenz erforderlich, da aktuell keine Kundensysteme betroffen               |
 
-Diese Tabelle ist nun komplett audit-tauglich in Bezug auf Granularität, Vollständigkeit und Nachweisbarkeit.
+## IEC 62443-3-3 – Ergänzende SRs (Auszug)
 
 | SR-Gruppe      | Beschreibung                                                                                      | Anwendung   | Umsetzung / Referenz                                              | Verantwortlicher   | Status       | Evidenz / Nachweis                                                             |
 |----------------|---------------------------------------------------------------------------------------------------|-------------|-------------------------------------------------------------------|--------------------|--------------|--------------------------------------------------------------------------------|
@@ -50,3 +50,4 @@ Diese Tabelle ist nun komplett audit-tauglich in Bezug auf Granularität, Vollst
 | SR 6.1         | Timely Response & Monitoring                                                                      | Ja          | [Modul_ZTA_Teil_1.md](Modul_ZTA_Teil_1.md) – ZTA-07 & ZTA-14                              | SOC                | Erfüllt      | SIEM-Dashboard, Alert-Konfiguration                                            |
 
 
+Diese Tabellen sind audit-tauglich.
