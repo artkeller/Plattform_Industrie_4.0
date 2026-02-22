@@ -1,8 +1,8 @@
-# Modul_ZTA_Teil_1.md – Version 3.0 (Audit-fähig / Erweiterter generischer Anforderungskatalog)
+# Modul ZTA Teil 1 (Audit-fähiger, exemplarischer, generischer Anforderungskatalog)
 
 ## Version, Stand und Genehmigung
 
-Dieses Dokument stellt die Version 3.0 des generischen Anforderungskatalogs für eine Zero Trust Architektur (ZTA) mit KI-Assistenz in der Industrie 4.0 dar. Es wurde am 22. Februar 2026 erstellt und von der Geschäftsführung, dem Chief Information Security Officer (CISO) sowie dem verantwortlichen AI Risk Owner genehmigt. Die Genehmigung erfolgte durch Unterschriften in der gedruckten Version dieses Dokuments und dient als Nachweis für die formelle Annahme aller hierin festgelegten Anforderungen. Dieses Modul dient als Grundlage für die detaillierten Prüfschritte in Modul ZTA Teil 2 und Teil 3 und ist so gestaltet, dass es eine maximale Auditierbarkeit gewährleistet.
+Dieses Dokument stellt die Version 2.0 des generischen Anforderungskatalogs für eine Zero Trust Architektur (ZTA) mit KI-Assistenz in der Industrie 4.0 dar. Es wurde am xx. xxx 2026 erstellt und von der Geschäftsführung, dem Chief Information Security Officer (CISO) sowie dem verantwortlichen AI Risk Owner genehmigt. Die Genehmigung erfolgte durch Unterschriften in der gedruckten Version dieses Dokuments und dient als Nachweis für die formelle Annahme aller hierin festgelegten Anforderungen. Dieses Modul dient als Grundlage für die detaillierten Prüfschritte in Modul ZTA Teil 2 und Teil 3 und ist so gestaltet, dass es eine maximale Auditierbarkeit gewährleistet.
 
 ## Rahmenbedingungen und Geltungsbereich
 
@@ -11,6 +11,8 @@ Dieser generische Anforderungskatalog gilt für alle Komponenten einer Zero Trus
 ## Ziele und Grundprinzipien
 
 Der Anforderungskatalog verfolgt das Ziel, eine sichere, nachvollziehbare, resiliente und konforme Implementierung von ZTA mit KI-Unterstützung in Industrie 4.0 zu ermöglichen. Er minimiert Risiken für Betriebssicherheit, Datenschutz, Grundrechte und OT-Verfügbarkeit. Die Grundprinzipien orientieren sich an den NIST SP 800-207 Tenets: Alle Ressourcen werden als potenziell unsicher betrachtet, Kommunikation wird unabhängig vom Netzwerkort gesichert, Zugriff wird sitzungsbezogen und mit Least Privilege gewährt, Zugriffe werden kontinuierlich verifiziert, und es wird von einem möglichen Kompromiss ausgegangen.
+
+**Hinweis:** Die Anforderung  ZTA-09 bis ZTA-15 baut direkt auf der bestehenden Struktur auf. Die Tabelle wird fortgesetzt, ohne die vorherigen Zeilen zu wiederholen. Alle neuen Anforderungen sind in vollständigen Sätzen formuliert, enthalten Konformitätsprüfung, Bewertungsstatus, Referenzen und geforderte Evidenz. Sie adressieren weitere Kernaspekte aus NIST SP 800-207 (Tenets), IEC 62443 (OT-spezifisch), EU AI Act (High-Risk-Requirements) und Industrie-4.0-spezifischen Anforderungen (z. B. OT-Resilienz, AI-gestützte Überwachung, Lifecycle-Sicherheit).
 
 ## Klassifizierung und Risikobewertung
 
@@ -23,7 +25,7 @@ Jede Anforderung wird einer Risikoklasse zugeordnet (basierend auf EU AI Act und
 | SL 3 / High Risk              | Schutz gegen gezielte Angriffe mit erheblichen Ressourcen | Prädiktive Wartung mit Sicherheitsrelevanz | Sehr hoch               |
 | SL 4 / Very High Risk         | Schutz gegen staatlich unterstützte Angriffe | Kritische Infrastruktur-Komponenten    | Kritisch                |
 
-## Generischer Anforderungskatalog (erweiterte Tabelle)
+## Generischer Anforderungskatalog
 
 Der folgende Katalog ist thematisch gruppiert und enthält für jede Anforderung eine eindeutige ID, eine vollständige Beschreibung, die Konformitätsprüfung, den Bewertungsstatus (offen / teilweise / erfüllt), Referenzen zu den Kernstandards sowie die geforderte Evidenz. Alle Felder sind in vollständigen Sätzen formuliert, um juristische Lesbarkeit und Auditierbarkeit zu gewährleisten.
 
@@ -54,33 +56,12 @@ Der Katalog ist vollständig auf die folgenden Standards gemappt. Eine detaillie
 - ISO 42001 Annex A: A.2 (Policies), A.5 (Risk), A.7 (Data), A.8 (Transparency), A.9 (Oversight), A.10 (Incident)
 - IEC 62443-3-3: FR1 (Identification), FR2 (Use Control), FR3 (System Integrity), FR5 (Restricted Data Flow), FR6 (Timely Response)
 
-## Anhang: Vollständiges Statement of Applicability und Changelog
 
 Im Anhang dieses Dokuments befindet sich die vollständige Mapping-Tabelle zu allen relevanten Controls (38 aus ISO 42001, SRs aus IEC 62443-3-3, Tenets aus NIST). Der Changelog dokumentiert: In Version 3.0 wurden Umfang erweitert (von ~10 auf >30 Anforderungen), vollständige Sätze und Tabellen eingeführt, Evidenz-Spalte hinzugefügt, Lifecycle-View integriert, Risiko-Matrix und Mapping erstellt, um alle in der QA festgestellten Mängel (Umfang, Operationalisierung, Evidenz, Mapping, Lifecycle) zu beseitigen.
 
-**Unterschrift / Genehmigung**  
-Geschäftsführung _______________________ Datum ________  
-CISO _______________________ Datum ________  
-AI Risk Owner _______________________ Datum ________
-
-**Hinweis:** Die Erweiterung um ZTA-09 bis ZTA-15 baut direkt auf der bestehenden Struktur auf. Die Tabelle wird fortgesetzt, ohne die vorherigen Zeilen zu wiederholen. Alle neuen Anforderungen sind in vollständigen Sätzen formuliert, enthalten Konformitätsprüfung, Bewertungsstatus, Referenzen und geforderte Evidenz. Sie adressieren weitere Kernaspekte aus NIST SP 800-207 (Tenets), IEC 62443 (OT-spezifisch), EU AI Act (High-Risk-Requirements) und Industrie-4.0-spezifischen Anforderungen (z. B. OT-Resilienz, AI-gestützte Überwachung, Lifecycle-Sicherheit).
-
-## Mapping zu Kernstandards (erweiterter Auszug für neue Anforderungen)
+## Mapping zu Kernstandards 
 
 Die neuen Anforderungen ZTA-09 bis ZTA-15 sind vollständig auf die folgenden Standards gemappt. Die detaillierte Statement-of-Applicability-Tabelle (inkl. aller 38 ISO 42001 Controls und IEC 62443 SRs) befindet sich weiterhin im Anhang.
 
-- NIST SP 800-207: Tenet 2 (Secured Communication), Tenet 3 (Per-Session), Tenet 6 (Continuous), Tenet 7 (Data Collection), Automation-Orchestrierung
-- EU AI Act: Art. 10 (Data & Quality), Art. 13 (Transparency), Art. 14 (Oversight), Art. 15 (Accuracy, Robustness, Cybersecurity)
-- ISO 42001 Annex A: A.7 (Data), A.8 (Transparency/Explainability), A.10 (Incident & Improvement)
-- IEC 62443-3-3: SR 3 (Integrity), SR 5 (Restricted Data Flow), SR 6 (Timely Response & Monitoring), SR 7 (Resource Availability)
-
-## Anhang: Vollständiges Statement of Applicability und Changelog (Update)
-
-Der Changelog wird aktualisiert: In Version 3.0 (Erweiterung) wurden ZTA-09 bis ZTA-15 hinzugefügt, um weitere NIST-Tenets, OT-Resilienz-Anforderungen (IEC 62443), AI-spezifische Robustheit (EU AI Act) und Automatisierungs-Aspekte abzudecken. Dies schließt die in der QA identifizierten Lücken zu Umfang, Lifecycle, Monitoring, Automation und OT-spezifischer Resilienz weiter.
-
 **Unterschrift / Genehmigung**  
-Geschäftsführung _______________________ Datum ________  
-CISO _______________________ Datum ________  
-AI Risk Owner _______________________ Datum ________
 
-Falls du möchtest, dass ich den vollständigen aktualisierten Anhang (z. B. erweiterte SoA-Tabelle) oder die nächsten Module (Teil 2/3) entsprechend anpasse, lass es mich wissen! 😊
