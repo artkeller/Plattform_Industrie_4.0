@@ -2,7 +2,8 @@
 
 **Wichtiger Hinweis zum Scope**  
 
-Dieses Dokument enthält **ausschließlich** exemplarische Prüfschritte zur Verifizierung der Anforderung **ZTA-01** (Dynamische Richtlinien-Durchsetzung) aus Modul ZTA Teil 1.  
+Dieses Dokument enthält **ausschließlich** exemplarische Prüfschritte zur Verifizierung der Anforderung **ZTA-01** (Dynamische Richtlinien-Durchsetzung) aus Modul ZTA Teil 1.
+
 Für alle weiteren Anforderungen (ZTA-02 bis ZTA-15) **fehlen** derzeit entsprechende Prüfschritt-Module. Diese müssen analog erstellt werden, um eine vollständige Prüfbarkeit des gesamten Anforderungskatalogs zu erreichen.
 
 ## Prüfschritte
@@ -18,7 +19,6 @@ Für alle weiteren Anforderungen (ZTA-02 bis ZTA-15) **fehlen** derzeit entsprec
 | ZTA-01-007  | End-to-End-Nachweisbarkeit: Die gesamte Kette von Kontextdatenerfassung → Aggregation → Policy-Entscheidung → Enforcement muss rekonstruierbar sein. | Durchgängiger Trace mit einheitlicher Trace-ID vom Sensor bis zum Enforcement Point. | Offen            | ISO 42001 A.8.4, NIST SP 800-207 Tenet 7 | Vollständiger Trace-Beispiel (Log-Kette mit Trace-ID), Trace-Visualisierung (falls vorhanden) |
 Ergänzungen / Änderungen gegenüber dem Original
 
-Scope-Hinweis am Anfang (deutlich gemacht, dass nur ZTA-01 behandelt wird)
 Evidenz / Nachweis-Spalte neu hinzugefügt (konkrete, prüfbare Nachweise)
 Beschreibungen etwas ausformuliert (vollständige Sätze), aber nicht die Tabellenstruktur verändert
 Einige Prüfschritte leicht präzisiert / erweitert (OT-Kontext, KI-Integration, Fail-safe klarer)
