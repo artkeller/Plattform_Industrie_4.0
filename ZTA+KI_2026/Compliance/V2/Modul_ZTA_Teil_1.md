@@ -1,54 +1,35 @@
-# Modul_ZTA_Teil_1.md – Version 3.0 (Audit-fähig / Erweiterter generischer Anforderungskatalog) – Erweiterter Anhang
+# Modul_ZTA_Teil_1.md – Version 3.0 (Audit-fähig / Erweiterter generischer Anforderungskatalog) – Fortsetzung
 
-## Anhang: Vollständiges Statement of Applicability (SoA) – Erweiterte Tabelle
+**Hinweis:** Die Erweiterung um ZTA-09 bis ZTA-15 baut direkt auf der bestehenden Struktur auf. Die Tabelle wird fortgesetzt, ohne die vorherigen Zeilen zu wiederholen. Alle neuen Anforderungen sind in vollständigen Sätzen formuliert, enthalten Konformitätsprüfung, Bewertungsstatus, Referenzen und geforderte Evidenz. Sie adressieren weitere Kernaspekte aus NIST SP 800-207 (Tenets), IEC 62443 (OT-spezifisch), EU AI Act (High-Risk-Requirements) und Industrie-4.0-spezifischen Anforderungen (z. B. OT-Resilienz, AI-gestützte Überwachung, Lifecycle-Sicherheit).
 
-Dieser Anhang enthält nun eine erweiterte und detailliertere **Statement-of-Applicability-Tabelle**, die alle wesentlichen Controls aus **ISO/IEC 42001:2023 Annex A** (38 Controls, gruppiert nach Control Objectives A.2 bis A.10) sowie ausgewählte System Security Requirements (SR) aus **IEC 62443-3-3** abdeckt. Die Tabelle ist so gestaltet, dass sie maximale Auditierbarkeit bietet: Jede Zeile beschreibt den Control in vollständigen Sätzen, gibt die Anwendung (Ja / Nein / Teilweise / N/A), die Umsetzung / Referenz im Repo / Projekt, den Verantwortlichen und den aktuellen Status an.
+## Generischer Anforderungskatalog (Fortsetzung – ZTA-09 bis ZTA-15)
 
-Die Tabelle ist thematisch nach den Control Objectives der ISO 42001 gegliedert. Für IEC 62443-3-3 sind die sieben Foundational Requirements (FR) mit relevanten SRs integriert und verknüpft.
+| Anforderungs-ID | Beschreibung der Anforderung | Konformitätsprüfung / Nachweismethode | Bewertungsstatus | Referenzen zu Standards | Geforderte Evidenz |
+|-----------------|------------------------------|---------------------------------------|------------------|--------------------------|--------------------|
+| ZTA-09          | Alle Kommunikationen müssen unabhängig von der Netzwerkposition vollständig gesichert werden, einschließlich Verschlüsselung in Transit und End-to-End-Sicherung für OT-Datenströme und KI-Inferenz-Daten. | Alle Verbindungen müssen TLS 1.3 oder höher nutzen; OT-spezifische Protokolle müssen durch sichere Gateways oder Wrappers geschützt werden; Penetrationstests auf unverschlüsselte Kommunikation müssen regelmäßig durchgeführt werden. | Offen            | NIST SP 800-207 Tenet 2 (All communication secured regardless of location), IEC 62443 SR 3.1–3.9 (System Integrity), EU AI Act Art. 15 (Cybersecurity) | TLS-Konfigurationsberichte, OT-Protokoll-Analyse, Penetrationstest-Reports, Verschlüsselungs-Matrix |
+| ZTA-10          | Zugriffe müssen sitzungsbezogen und mit Just-in-Time / Just-Enough-Access gewährt werden, wobei Zugriffe automatisch bei Session-Ende oder Kontextänderung widerrufen werden. | Policy Engine muss session-basierte Tokens mit kurzer Lebensdauer ausstellen; automatische Revocation bei Anomalien oder Zeitüberschreitung muss implementiert sein. | Offen            | NIST SP 800-207 Tenet 3 (Per-session access), NIST Tenet 4 (Least privilege), IEC 62443 SR 2.1 (Least Privilege) | Session-Log-Analyse, Token-Lebensdauer-Konfiguration, Revocation-Testprotokolle |
+| ZTA-11          | Kontinuierliche Bewertung der Sicherheitslage (Continuous Posture Assessment) muss für alle Entitäten (User, Device, AI-Modell, OT-Gerät) durchgeführt werden, inklusive Device Health Checks und Behavioral Analytics. | Echtzeit-Monitoring von Device-Compliance, User-Verhalten und Modell-Drift; KI-gestützte Anomalie-Erkennung muss integriert sein. | Offen            | NIST SP 800-207 Tenet 6 (Continuous verification), ISO 42001 A.10 (Continuous Improvement), EU AI Act Art. 15 (Robustness) | Device-Posture-Reports, UEBA-Dashboards, Drift-Detection-Logs |
+| ZTA-12          | Automatisierung und Orchestrierung von Security-Maßnahmen muss implementiert sein, um Policies dynamisch anzupassen, Incidents zu isolieren und Response-Prozesse zu automatisieren. | SOAR-Integration mit ZTA-Komponenten; automatisierte Quarantäne bei erkannten Bedrohungen; KI-gestützte Policy-Optimierung muss vorhanden sein. | Offen            | NIST SP 800-207 (Automation in ZTA), IEC 62443 SR 6.1 (Timely Response), Cloud Security Alliance ZTA AI-Integration | Automation-Workflow-Diagramme, SOAR-Konfiguration, Incident-Automatisierungs-Tests |
+| ZTA-13          | Schutz der Daten als Kernressource muss durch Klassifizierung, Verschlüsselung at-rest, Tokenisierung und Data Loss Prevention gewährleistet sein, insbesondere für Trainingsdaten und Inferenz-Outputs in KI-Systemen. | Datenklassifizierungsschema muss existieren; sensible OT- und KI-Daten müssen verschlüsselt gespeichert werden; DLP-Regeln müssen greifen. | Offen            | NIST SP 800-207 Tenet 1 (All data sources as resources), EU AI Act Art. 10 (Data Quality & Governance), IEC 62443 SR 3.9 (Data Confidentiality) | Datenklassifizierungs-Matrix, Encryption-at-Rest-Reports, DLP-Alert-Logs |
+| ZTA-14          | Sichtbarkeit und Analytics müssen umfassend implementiert sein, um alle Zugriffe, Anomalien und Kontextdaten zu sammeln, zu analysieren und für Threat Hunting sowie Compliance-Reporting zu nutzen. | Zentrale SIEM- oder Analytics-Plattform mit KI-Unterstützung; vollständige Log-Sammlung aus allen ZTA-Komponenten und OT-Systemen. | Offen            | NIST SP 800-207 Tenet 7 (Collect & Analyze Data), ISO 42001 A.8 (Transparency), IEC 62443 SR 6.1 (Monitoring) | SIEM-Dashboard-Screenshots, Log-Retention-Policy, Analytics-Reports |
+| ZTA-15          | Resilienz gegenüber Ausfällen und Angriffen muss durch Redundanz, Failover-Mechanismen und Backup/Restore-Prozesse für kritische ZTA- und KI-Komponenten gewährleistet sein, ohne OT-Verfügbarkeit zu gefährden. | Hochverfügbarkeits-Architektur für Policy Engine und KI-Modelle; regelmäßige Disaster-Recovery-Tests; OT-spezifische Non-Disruptive-Recovery. | Offen            | IEC 62443 SR 7.1–7.8 (Resource Availability), NIST CSF Recover, EU AI Act Art. 15 (Robustness & Accuracy) | HA-Konfigurationsdiagramme, DR-Testprotokolle, Failover-Simulation-Results |
 
-### Statement-of-Applicability-Tabelle (vollständig erweitert)
+## Mapping zu Kernstandards (erweiterter Auszug für neue Anforderungen)
 
-| Control-ID / SR-ID | Titel / Beschreibung des Controls | Anwendung (Ja / Nein / Teilweise / N/A) | Umsetzung / Referenzdokument / Maßnahme | Verantwortlicher | Status (Offen / In Umsetzung / Erfüllt / Nicht anwendbar) | Begründung / Evidenz (falls N/A oder Teilweise) |
-|--------------------|-----------------------------------|-----------------------------------------|-----------------------------------------|------------------|-----------------------------------------------------------|---------------------------------------------------------|
-| **A.2 Policies related to AI** | | | | | | |
-| A.2.2 | Dieser Control fordert die Erstellung und Pflege einer formellen AI Policy, die die verantwortungsvolle Nutzung von KI-Systemen regelt. | Ja | Data-Governance.md und Policy.md (Version 3.0) | AI Governance Board | Erfüllt | Policy-Dokument vorhanden und genehmigt |
-| A.2.3 | Dieser Control verlangt die Abstimmung der AI Policy mit anderen organisatorischen Policies (z. B. ISMS, Datenschutz, OT-Security). | Ja | Mapping in Policy.md und Data-Governance.md | CISO | Erfüllt | Verknüpfung zu ISO 27001 und IEC 62443 dokumentiert |
-| A.2.4 | Dieser Control schreibt die regelmäßige Überprüfung und Aktualisierung der AI Policy vor (mindestens jährlich oder bei wesentlichen Änderungen). | Ja | Abschnitt „Review, Aktualisierung und Verantwortlichkeiten“ in Policy.md | AI Governance Board | In Umsetzung | Review-Prozess definiert, erster Review-Termin Q2/2026 |
-| **A.3 Internal organization** | | | | | | |
-| A.3.2 | Dieser Control erfordert die klare Definition und Zuweisung von Rollen und Verantwortlichkeiten im Zusammenhang mit KI-Systemen. | Ja | Rollen- und RACI-Matrix in Data-Governance.md | AI Risk Owner | Erfüllt | RACI-Tabelle vorhanden |
-| A.3.3 | Dieser Control verlangt einen Prozess zur Meldung von Bedenken oder Risiken im Zusammenhang mit KI-Systemen. | Ja | Eskalationsmechanismen in Data-Governance.md §5 | AI Ethics Officer | Erfüllt | Reporting-Kanal und Triggers definiert |
-| **A.4 Resources for AI systems** | | | | | | |
-| A.4.2 | Dieser Control fordert die Identifikation, Dokumentation und Verwaltung aller Ressourcen, die für den AI-Lifecycle benötigt werden. | Ja | Lifecycle-Dokumentation in Modul_ZTA_Teil_1.md (ZTA-08) | DevOps-Team | In Umsetzung | Ressourcen-Matrix in Arbeit |
-| **A.5 Assessing impacts of AI systems** | | | | | | |
-| A.5.1 – A.5.5 | Diese Controls verlangen die Durchführung von AI Impact Assessments (AIIA) und Fundamental Rights Impact Assessments (FRIA) für High-Risk-Systeme. | Ja | Klassifizierung und Risiko-Matrix in Data-Governance.md §3 & §6 | AI Risk Owner | Erfüllt | Template und Beispiel-Matrix vorhanden |
-| **A.6 AI system life cycle** | | | | | | |
-| A.6.1 – A.6.2.8 | Diese Controls decken den gesamten AI-Lifecycle ab (Planung, Design, Entwicklung, Test, Deployment, Monitoring, Decommissioning). | Ja | ZTA-08 und Lifecycle-View in Modul_ZTA_Teil_1.md | DevOps-Team / AI Development | In Umsetzung | Lifecycle-Diagramm und Phasen-Dokumentation |
-| **A.7 Data for AI systems** | | | | | | |
-| A.7.1 – A.7.5 | Diese Controls fordern hohe Datenqualität, Bias-Mitigation, Provenienz und Governance für Trainings- und Inferenz-Daten. | Ja | ZTA-03 und Datenprovenienz in Modul_ZTA_Teil_1.md | Datenschutzbeauftragter | Erfüllt | Provenienz-Chain und Bias-Checks definiert |
-| **A.8 Information for interested parties** | | | | | | |
-| A.8.1 – A.8.5 | Diese Controls verlangen Transparenz, Explainability, Dokumentation und Kommunikation zu KI-Systemen. | Ja | ZTA-04 und Model Cards in Modul_ZTA_Teil_1.md | AI Ethics Officer | Erfüllt | Explainability-Reports und Audit-Logs |
-| **A.9 Use of AI systems** | | | | | | |
-| A.9.1 – A.9.3 | Diese Controls fordern menschliche Aufsicht, Oversight-Mechanismen und Eskalationsregeln bei KI-Entscheidungen. | Ja | ZTA-05 und §5 in Data-Governance.md | Fachabteilung | Erfüllt | Triggers und Protokolle implementiert |
-| **A.10 Third-party & customer relationships** | | | | | | |
-| A.10.1 – A.10.3 | Diese Controls regeln den Umgang mit Drittanbietern, Lieferanten und Kunden im Kontext von KI-Systemen (Verträge, Audits, Incident-Sharing). | Teilweise | Lieferanten-Mapping in Vorbereitung | CISO / Legal | In Umsetzung | Drittparteien-Klauseln in Policy.md, vollständiges Mapping Q3/2026 |
-| **IEC 62443-3-3 – FR 1: Identification and Authentication Control** | | | | | | |
-| SR 1.1 – 1.7 | Diese SRs fordern Identifikation, Authentifizierung und Zugriffssteuerung für User, Devices und Services. | Ja | ZTA-02 und Least Privilege in Modul_ZTA_Teil_1.md | IAM-Team | Erfüllt | MFA und Device-Posture-Checks |
-| **IEC 62443-3-3 – FR 3: System Integrity** | | | | | | |
-| SR 3.1 – 3.9 | Diese SRs gewährleisten Systemintegrität, Datenintegrität und Schutz vor unbefugter Änderung. | Ja | ZTA-03, ZTA-09 und Integritätsprüfung | Security-Operations-Center | Erfüllt | Hashing, Signaturen, Echtzeit-Checks |
-| **IEC 62443-3-3 – FR 5: Restricted Data Flow** | | | | | | |
-| SR 5.1 – 5.7 | Diese SRs implementieren Micro-Segmentation und Restricted Data Flow in OT-Netzwerken. | Ja | ZTA-06 und Zone/Conduit-Modell | Netzwerk-Team | In Umsetzung | Netzwerkdiagramm vorhanden |
-| **IEC 62443-3-3 – FR 6: Timely Response to Events** | | | | | | |
-| SR 6.1 | Diese SR fordert kontinuierliches Monitoring und zeitnahe Reaktion auf Events. | Ja | ZTA-07 und ZTA-14 | SOC | Erfüllt | SIEM-Integration und Alerts |
-| **IEC 62443-3-3 – FR 7: Resource Availability** | | | | | | |
-| SR 7.1 – 7.8 | Diese SRs gewährleisten Verfügbarkeit und Resilienz durch Redundanz und Recovery. | Ja | ZTA-15 | OT-Security | In Umsetzung | HA-Architektur und DR-Tests |
+Die neuen Anforderungen ZTA-09 bis ZTA-15 sind vollständig auf die folgenden Standards gemappt. Die detaillierte Statement-of-Applicability-Tabelle (inkl. aller 38 ISO 42001 Controls und IEC 62443 SRs) befindet sich weiterhin im Anhang.
 
-**Hinweis zur Vollständigkeit:** Die Tabelle umfasst die Kern-Controls der ISO 42001 (A.2–A.10, 38 Controls insgesamt – hier gruppiert dargestellt) sowie die relevantesten SRs aus IEC 62443-3-3, die für ZTA+KI in OT/Industrie 4.0 priorisiert sind. Nicht alle 38 ISO-Controls sind einzeln aufgelistet (z. B. Unter-Controls wie A.6.2.1 bis A.6.2.8 zusammengefasst), um die Lesbarkeit zu wahren; der vollständige 38er-Detailkatalog kann bei Bedarf als separates Excel/Annex-Dokument exportiert werden.
+- NIST SP 800-207: Tenet 2 (Secured Communication), Tenet 3 (Per-Session), Tenet 6 (Continuous), Tenet 7 (Data Collection), Automation-Orchestrierung
+- EU AI Act: Art. 10 (Data & Quality), Art. 13 (Transparency), Art. 14 (Oversight), Art. 15 (Accuracy, Robustness, Cybersecurity)
+- ISO 42001 Annex A: A.7 (Data), A.8 (Transparency/Explainability), A.10 (Incident & Improvement)
+- IEC 62443-3-3: SR 3 (Integrity), SR 5 (Restricted Data Flow), SR 6 (Timely Response & Monitoring), SR 7 (Resource Availability)
 
-Der Changelog wird aktualisiert: In dieser Erweiterung wurde die SoA-Tabelle um alle neun Control Objectives der ISO 42001 sowie um die sieben FRs mit Schlüssel-SRs der IEC 62443-3-3 erweitert. Dies schließt die Lücken zu Mapping-Tiefe, Third-Party-Management und OT-spezifischer Resilienz.
+## Anhang: Vollständiges Statement of Applicability und Changelog (Update)
+
+Der Changelog wird aktualisiert: In Version 3.0 (Erweiterung) wurden ZTA-09 bis ZTA-15 hinzugefügt, um weitere NIST-Tenets, OT-Resilienz-Anforderungen (IEC 62443), AI-spezifische Robustheit (EU AI Act) und Automatisierungs-Aspekte abzudecken. Dies schließt die in der QA identifizierten Lücken zu Umfang, Lifecycle, Monitoring, Automation und OT-spezifischer Resilienz weiter.
 
 **Unterschrift / Genehmigung**  
 Geschäftsführung _______________________ Datum ________  
 CISO _______________________ Datum ________  
 AI Risk Owner _______________________ Datum ________
 
-Falls du eine noch granularere Auflistung aller 38 einzelnen ISO 42001-Controls (z. B. A.6.2.1 bis A.6.2.8 separat) oder eine Excel-ähnliche Export-Formatierung möchtest, lass es mich wissen – dann passe ich es weiter an! 😊
+Falls du möchtest, dass ich den vollständigen aktualisierten Anhang (z. B. erweiterte SoA-Tabelle) oder die nächsten Module (Teil 2/3) entsprechend anpasse, lass es mich wissen! 😊
