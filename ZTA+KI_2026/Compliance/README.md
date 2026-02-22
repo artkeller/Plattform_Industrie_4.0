@@ -5,7 +5,7 @@ Dieser Ordner enthält die Compliance-Dokumente zur Kombination von **Zero Trust
 
 ## Warum gibt es V1 und V2?
 
-- **V1** (die Dateien direkt in diesem Ordner)  
+- **V1** (Unterordner `/V1`)  
   → Erste konzeptionelle Version (2025 – Anfang 2026)  
   → Rohentwürfe von Governance, Policy und den drei Modulen ZTA Teil 1–3  
   → Kompakt, teilweise stichpunktartig, ohne Evidenzspalten, ohne vollständiges SoA-Mapping  
