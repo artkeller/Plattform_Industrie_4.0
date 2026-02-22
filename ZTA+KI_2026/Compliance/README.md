@@ -2,7 +2,9 @@
 
 ## Zusammenfassung
 
-Dieses Verzeichnis `/ZTA+KI_2026/Compliance/V2` enthält die **erweiterte, QA-gesicherte und auditfähigere Version 2** der Compliance-Dokumente für eine Zero Trust Architektur (ZTA) mit KI-Assistenz im Industrie-4.0-Kontext. Im Vergleich zur V1 (im Parent-Ordner) wurden die Inhalte stark operationalisiert: vollständige Sätze statt Stichpunkte, Evidenz-Nachweis-Spalten, detaillierte Rollen/RACI, Risiko-Matrizen, KPIs, Lifecycle-Abdeckung, Review-Prozesse und ein separates SoA-Dokument mit Mapping aller 38 ISO/IEC 42001 Annex-A-Controls. Die Dokumente sind für C-Level, Legal, CISO, Auditoren und Implementierer konzipiert und gewährleisten höhere Konformität mit EU AI Act, ISO/IEC 42001, NIST SP 800-207, IEC 62443 und ISO 27001. V2 dient als zertifizierbare Vorlage (nahe 10/10 Audit-Reife).
+Es gibt die Verzeichnisse `V1` und `V2`.
+
+Das Verzeichnis `/ZTA+KI_2026/Compliance/V2` enthält die **erweiterte, QA-gesicherte und auditfähigere Version 2** der Compliance-Dokumente für eine Zero Trust Architektur (ZTA) mit KI-Assistenz im Industrie-4.0-Kontext. Im Vergleich zur V1 (im Parent-Ordner) wurden die Inhalte stark operationalisiert: vollständige Sätze statt Stichpunkte, Evidenz-Nachweis-Spalten, detaillierte Rollen/RACI, Risiko-Matrizen, KPIs, Lifecycle-Abdeckung, Review-Prozesse und ein separates SoA-Dokument mit Mapping aller 38 ISO/IEC 42001 Annex-A-Controls. Die Dokumente sind für C-Level, Legal, CISO, Auditoren und Implementierer konzipiert und gewährleisten höhere Konformität mit EU AI Act, ISO/IEC 42001, NIST SP 800-207, IEC 62443 und ISO 27001. V2 dient als zertifizierbare Vorlage (nahe 10/10 Audit-Reife).
 
 ## File-Struktur
 
