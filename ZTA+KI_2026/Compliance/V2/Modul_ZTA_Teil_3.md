@@ -37,8 +37,4 @@ Für alle weiteren Prüfschritte (ZTA-01-002 bis ZTA-01-007) sowie für alle and
 
 **Unterschrift / Genehmigung** 
 
-Geschäftsführung _______________________ Datum ________  
 
-CISO _______________________ Datum ________
-
-AI Risk Owner _______________________ Datum ________
