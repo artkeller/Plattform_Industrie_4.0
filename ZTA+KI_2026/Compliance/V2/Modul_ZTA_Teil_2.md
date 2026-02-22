@@ -1,5 +1,3 @@
-# Modul_ZTA_Teil_2.md – Version 3.0
-
 # Modul ZTA Teil 2 – Prüfschritte zur Dynamischen Richtlinienanpassung (ZTA-01)
 
 **Wichtiger Hinweis zum Scope**  
