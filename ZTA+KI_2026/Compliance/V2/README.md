@@ -29,7 +29,9 @@ Die Dateien sind thematisch gegliedert:
 ## Erklärung der einzelnen Files
 
 ### Data-_und_AI-Governance.md
-Dieses Dokument stellt das erweiterte Data- und AI-Governance-Rahmenwerk dar (V2). Es richtet sich primär an Geschäftsführung, C-Level und Legal. Es umfasst Rahmenbedingungen (§1), Ziele (§2), Klassifizierung von KI-Systemen (§3), Rollen & RACI-Matrix (§4), menschliche Aufsicht mit Eskalationstriggers (§5), Risikomanagement mit Beispiel-Matrix (§6), vollständiges Controls-Mapping / SoA (§7), Monitoring/KPIs/Review (§8) sowie Anhänge. 
+Dieses Dokument stellt das erweiterte Data- und AI-Governance-Rahmenwerk dar (V2). 
+
+Es richtet sich primär an Geschäftsführung, C-Level und Legal. Es umfasst Rahmenbedingungen (§1), Ziele (§2), Klassifizierung von KI-Systemen (§3), Rollen & RACI-Matrix (§4), menschliche Aufsicht mit Eskalationstriggers (§5), Risikomanagement mit Beispiel-Matrix (§6), vollständiges Controls-Mapping / SoA (§7), Monitoring/KPIs/Review (§8) sowie Anhänge. 
 
 Im Vergleich zu V1 wurde es um formale RACI, Risiko-Matrix, KPIs, Review-Zyklus und detailliertes SoA-Mapping erweitert, um ISO 42001 Stage-1/2-Readiness zu erreichen.
 
