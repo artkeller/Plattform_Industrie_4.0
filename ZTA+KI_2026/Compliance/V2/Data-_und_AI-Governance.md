@@ -33,7 +33,7 @@ Im Kontext des EU AI Act (Verordnung (EU) 2024/1689) besteht die Pflicht zur Sel
 
 Im Gegensatz dazu betont IEC 62443 eine kosten-nutzen-orientierte Klassifizierung (SL 1-4), die Überklassifizierung vermeidet, da höhere Levels explizite Kostensteigerungen bedeuten. Empfehlung: Führen Sie eine dokumentierte Assessment durch, nutzen Sie EU-Beispiele für Non-High-Risk (Annex III-Ausnahmen: enge prozedurale Tasks, Unterstützung menschlicher Entscheidungen). Bei Unsicherheiten: Konsultieren Sie den EU AI Office oder externe Experten, um echte Risiken zu priorisieren und "Panik-Klassifizierungen" zu verhindern.
 
-## Generischer Anforderungskatalog (erweiterte Tabelle)
+## Generischer Anforderungskatalog (
 
 Der folgende Katalog ist thematisch gruppiert und enthält für jede Anforderung eine eindeutige ID, eine vollständige Beschreibung, die Konformitätsprüfung, den Bewertungsstatus, Referenzen zu den Kernstandards sowie die geforderte Evidenz. Alle Felder sind in vollständigen Sätzen formuliert, um juristische Lesbarkeit und Auditierbarkeit zu gewährleisten.
 
