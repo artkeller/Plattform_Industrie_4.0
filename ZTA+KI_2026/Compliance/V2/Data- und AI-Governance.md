@@ -2,7 +2,7 @@
 
 ## Version, Stand und Genehmigung
 
-Dieses Dokument stellt die Version 3.0 des Data- und AI-Governance-Rahmenwerks dar, das am 22. Februar 2026 erstellt wurde. Es wurde von der Geschäftsführung, dem Chief Information Security Officer (CISO) und dem Datenschutzbeauftragten genehmigt, um eine maximale Auditierbarkeit zu gewährleisten. Die Genehmigung erfolgte durch Unterschriften, die in der gedruckten Version dieses Dokuments vorliegen, und dient als Nachweis für die formelle Annahme aller hierin festgelegten Regelungen.
+Dieses Dokument stellt die Version 2.0 des Data- und AI-Governance-Rahmenwerks dar, das am xx. xxx 2026 erstellt wurde. Es wurde von der Geschäftsführung, dem Chief Information Security Officer (CISO) und dem Datenschutzbeauftragten genehmigt, um eine maximale Auditierbarkeit zu gewährleisten. Die Genehmigung erfolgte durch Unterschriften, die in der gedruckten Version dieses Dokuments vorliegen, und dient als Nachweis für die formelle Annahme aller hierin festgelegten Regelungen.
 
 ## Rahmenbedingungen und Geltungsbereich
 
