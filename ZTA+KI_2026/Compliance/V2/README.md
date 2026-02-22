@@ -39,8 +39,6 @@ Exemplarische Prüfschritte zur Verifizierung der Dynamischen Richtlinienanpassu
 ### Modul_ZTA_Teil_3.md
 Detaillierte attributbasierte Verifikation der Kontextdatenerfassung – ausschließlich für Prüfschritt ZTA-01-001 (V2). Tabelle mit Verifikationspunkten (ZTA-01-001-01 bis -07) für User-Identität, Geräteintegrität, Netzwerk, OT-Prozesszustand, Verhalten usw., inkl. Evidenz-Spalte. Scope-Hinweis: Nur ZTA-01-001; weitere Prüfschritte und Anforderungen fehlen und müssen ergänzt werden.
 
-### SoA.md
-Das eigenständige **Statement of Applicability** (V2) mit granularer Auflistung aller 38 Controls aus ISO/IEC 42001 Annex A sowie relevanter IEC 62443 SRs. Tabelle mit Control-ID, Titel/Beschreibung, Anwendung, Umsetzung/Referenz, Verantwortlichem, Status und Evidenz/Nachweis. Dieses Dokument fasst das Mapping zentral zusammen und dient als Kernstück für ISO-42001-Zertifizierung oder EU-AI-Act-Conformity-Assessment.
 
 
 ```mermaid
@@ -108,3 +106,6 @@ graph LR
     classDef normal fill:#334155,stroke:#94a3b8,color:#e2e8f0
     classDef detail fill:#065f46,stroke:#6ee7b7,color:#fff
 ```
+
+### SoA.md
+Das eigenständige **Statement of Applicability** (V2) mit granularer Auflistung aller 38 Controls aus ISO/IEC 42001 Annex A sowie relevanter IEC 62443 SRs. Tabelle mit Control-ID, Titel/Beschreibung, Anwendung, Umsetzung/Referenz, Verantwortlichem, Status und Evidenz/Nachweis. Dieses Dokument fasst das Mapping zentral zusammen und dient als Kernstück für ISO-42001-Zertifizierung oder EU-AI-Act-Conformity-Assessment.
