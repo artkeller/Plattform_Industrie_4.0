@@ -1,4 +1,6 @@
-# Modul ZTA Teil 1 (Audit-fähiger, exemplarischer, generischer Anforderungskatalog)
+# Modul ZTA Teil 1
+
+Audit-fähiger, exemplarischer, generischer Anforderungskatalog
 
 ## Version, Stand und Genehmigung
 
