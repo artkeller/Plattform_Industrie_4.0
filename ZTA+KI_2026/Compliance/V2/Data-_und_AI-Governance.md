@@ -55,9 +55,9 @@ Der folgende Katalog ist thematisch gruppiert und enthält für jede Anforderung
 | ZTA-14          | Sichtbarkeit und Analytics müssen umfassend implementiert sein, um alle Zugriffe, Anomalien und Kontextdaten zu sammeln, zu analysieren und für Threat Hunting sowie Compliance-Reporting zu nutzen. | Zentrale SIEM- oder Analytics-Plattform mit KI-Unterstützung; vollständige Log-Sammlung aus allen ZTA-Komponenten und OT-Systemen. | Offen            | NIST SP 800-207 Tenet 7 (Collect & Analyze Data), ISO 42001 A.8 (Transparency), IEC 62443 SR 6.1 (Monitoring) | SIEM-Dashboard-Screenshots, Log-Retention-Policy, Analytics-Reports |
 | ZTA-15          | Resilienz gegenüber Ausfällen und Angriffen muss durch Redundanz, Failover-Mechanismen und Backup/Restore-Prozesse für kritische ZTA- und KI-Komponenten gewährleistet sein, ohne OT-Verfügbarkeit zu gefährden. | Hochverfügbarkeits-Architektur für Policy Engine und KI-Modelle; regelmäßige Disaster-Recovery-Tests; OT-spezifische Non-Disruptive-Recovery. | Offen            | IEC 62443 SR 7.1–7.8 (Resource Availability), NIST CSF Recover, EU AI Act Art. 15 (Robustness & Accuracy) | HA-Konfigurationsdiagramme, DR-Testprotokolle, Failover-Simulation-Results |
 
-## Mapping zu Kernstandards (erweiterter Auszug für neue Anforderungen)
+## Mapping zu Kernstandards 
 
-Die neuen Anforderungen ZTA-09 bis ZTA-15 sind vollständig auf die folgenden Standards gemappt. Die detaillierte Statement-of-Applicability-Tabelle (inkl. aller 38 ISO 42001 Controls und IEC 62443 SRs) befindet sich weiterhin im Anhang.
+Die Anforderungen ZTA-09 bis ZTA-15 sind vollständig auf die folgenden Standards gemappt. Die detaillierte Statement-of-Applicability-Tabelle (inkl. aller 38 ISO 42001 Controls und IEC 62443 SRs) befindet sich weiterhin im Anhang.
 
 - NIST SP 800-207: Tenet 2 (Secured Communication), Tenet 3 (Per-Session), Tenet 6 (Continuous), Tenet 7 (Data Collection), Automation-Orchestrierung
 - EU AI Act: Art. 10 (Data & Quality), Art. 13 (Transparency), Art. 14 (Oversight), Art. 15 (Accuracy, Robustness, Cybersecurity)
