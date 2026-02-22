@@ -1,4 +1,6 @@
-# Modul ZTA Teil 2 – Prüfschritte zur Dynamischen Richtlinienanpassung (ZTA-01)
+# Modul ZTA Teil 2
+
+Prüfschritte zur Dynamischen Richtlinienanpassung (ZTA-01)
 
 **Wichtiger Hinweis zum Scope**  
 
