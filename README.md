@@ -4,7 +4,7 @@ Aktuelle und geplante Themen:
 
 - **ZTA+KI 2026**  
   Zero Trust Architektur mit KI-Assistenz in Industrie 4.0  
-  → [Zum Projekt](/tree/main/ZTA%2BKI_2026)
+  → [Zum Projekt](ZTA%2BKI_2026)
 
 Weitere Projekte folgen.
 
