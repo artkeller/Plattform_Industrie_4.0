@@ -14,7 +14,7 @@ Die Dateien sind thematisch gegliedert:
 
 - **Compliance / Governance**  
   - [Data-_und_AI-Governance.md](Data-_und_AI-Governance.md)
-  - [Data-_und_AI-Governance.html](artkeller.github.io/ZTA+KI_2026/Data-_und_AI-Governance.html)
+  - [Data-_und_AI-Governance.html](https://artkeller.github.io/ZTA+KI_2026/Data-_und_AI-Governance.html)
 
 - **Policies**  
   - [Policy.md](Policy.md)
