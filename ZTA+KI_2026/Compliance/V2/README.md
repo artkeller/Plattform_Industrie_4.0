@@ -19,6 +19,8 @@ Die Dateien sind thematisch gegliedert:
 
 - **Policies**  
   - [Policy.md](Policy.md)
+  - [Policy.pdf](https://artkeller.github.io/ZTA+KI_2026/Policy.pdf)
+  - [Policy.html](https://artkeller.github.io/ZTA+KI_2026/Policy.html)
 
 - **Modules ZTA 1–3**  
   - [Modul_ZTA_Teil_1.md](Modul_ZTA_Teil_1.md)  
