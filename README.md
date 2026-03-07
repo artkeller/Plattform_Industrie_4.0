@@ -1,6 +1,6 @@
 # Plattform Industrie 4.0
-[![Release](https://img.shields.io/badge/release-WORK%20IN%20PROGRESS-pink?style=plastic)](https://github.com/Platform-Industry-40/ZTA-Industrial-AI)
-[![Release](https://img.shields.io/badge/release-WORK%20IN%20PROGRESS-pink?style=social)](https://github.com/Platform-Industry-40/ZTA-Industrial-AI)
+[![Release](https://img.shields.io/badge/release-WORK%20IN%20PROGRESS-pink?style=plastic)]()
+[![Release](https://img.shields.io/badge/release-WORK%20IN%20PROGRESS-pink?style=social)]()
 
 Aktuelle und geplante Themen:
 
