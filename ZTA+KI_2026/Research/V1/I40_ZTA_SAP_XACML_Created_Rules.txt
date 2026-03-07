@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xacml3:PolicySet
+    xmlns:xacml3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    PolicySetId="SAP_BAPI_USER_GET_DETAIL_Access_PolicySet"
+    Version="1.0"
+    PolicyCombiningAlgorithm="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-overrides">
+    
+    <xacml3:Description>
+        Zero Trust Access Control Policies for SAP function module BAPI_USER_GET_DETAIL.
+        Enforces least privilege, secure remote access, and data handling requirements.
+        
+        Mapped Requirements:
+        - REQ-SAP-BAPIUSER-001: Least Privilege for BAPI_USER_GET_DETAIL execution.
+        - REQ-SAP-BAPIUSER-002: Logging obligations for successful/failed executions.
+        - REQ-SAP-BAPIUSER-003: Secure remote access (channel security, technical user types).
+        - REQ-SAP-BAPIUSER-004: Secure handling of retrieved sensitive data (calling application certification, masking obligation).
+    </xacml3:Description>
+
+    <xacml3:Target>
+        <xacml3:AnyOf>
+            <xacml3:AllOf>
+                <!-- Resource: SAP Function Module -->
+                <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">sap-function-module</xacml3:AttributeValue>
+                    <xacml3:AttributeDesignator
+                        AttributeId="urn:sap:resource:type"
+                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                        DataType="http://www.w3.org/2001/XMLSchema#string"
+                        MustBePresent="true"/>
+                </xacml3:Match>
+                <!-- Resource ID: BAPI_USER_GET_DETAIL -->
+                <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BAPI_USER_GET_DETAIL</xacml3:AttributeValue>
+                    <xacml3:AttributeDesignator
+                        AttributeId="urn:sap:resource:id"
+                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                        DataType="http://www.w3.org/2001/XMLSchema#string"
+                        MustBePresent="true"/>
+                </xacml3:Match>
+                <!-- Action: Execute -->
+                <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">execute</xacml3:AttributeValue>
+                    <xacml3:AttributeDesignator
+                        AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                        DataType="http://www.w3.org/2001/XMLSchema#string"
+                        MustBePresent="true"/>
+                </xacml3:Match>
+            </xacml3:AllOf>
+        </xacml3:AnyOf>
+    </xacml3:Target>
+
+    <!-- Policy 1: Permit Access for Authorized Administrative & Technical Roles -->
+    <xacml3:Policy
+        PolicyId="Permit_Authorized_BAPI_USER_GET_DETAIL_Access"
+        Version="1.0"
+        RuleCombiningAlgorithm="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides">
+        
+        <xacml3:Description>
+            Permit access to BAPI_USER_GET_DETAIL for explicitly authorized administrative or
+            technical users only when adhering to least privilege, secure channel, and
+            secure data handling requirements.
+        </xacml3:Description>
+
+        <xacml3:Target/> <!-- Policy applies to all requests matching PolicySet target -->
+
+        <!-- Rule 1.1: Permit Access for Dedicated Administrative Roles -->
+        <xacml3:Rule RuleId="Permit_Administrative_Role_Access" Effect="Permit">
+            <xacml3:Description>
+                (REQ-SAP-BAPIUSER-001, 003, 004) Permit execution for dedicated administrative roles.
+                Requires S_RFC and S_USER_GRP authorizations, SNC, and certified calling application.
+            </xacml3:Description>
+            <xacml3:Condition>
+                <xacml3:And>
+                    <!-- Subject must have an administrative role -->
+                    <xacml3:Or>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SAP_ADMINISTRATOR</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SAP_SECURITY_ADMIN</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                    </xacml3:Or>
+                    <!-- REQ-SAP-BAPIUSER-001: S_RFC Authorization Check (FUGR='SU_USER', ACTVT='16') -->
+                    <xacml3:And>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">FUGR</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_rfc:type"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SU_USER</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_rfc:name"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">16</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_rfc:activity"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                    </xacml3:And>
+                    <!-- REQ-SAP-BAPIUSER-001: S_USER_GRP Authorization Check (ACTVT='05' or '03') -->
+                    <xacml3:And>
+                        <xacml3:Or>
+                            <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                                <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">05</xacml3:AttributeValue>
+                                <xacml3:AttributeDesignator
+                                    AttributeId="urn:sap:subject:authorization:s_user_grp:activity"
+                                    Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string"
+                                    MustBePresent="true"/>
+                            </xacml3:Match>
+                            <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                                <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">03</xacml3:AttributeValue>
+                                <xacml3:AttributeDesignator
+                                    AttributeId="urn:sap:subject:authorization:s_user_grp:activity"
+                                    Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                    DataType="http://www.w3.org/2001/XMLSchema#string"
+                                    MustBePresent="true"/>
+                            </xacml3:Match>
+                        </xacml3:Or>
+                        <!-- Subject's authorized user groups must include the queried user group. Admins might have '*' -->
+                        <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of">
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_user_grp:group"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:resource:bapi_user_get_detail:queried_user_group"
+                                Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Apply>
+                    </xacml3:And>
+                    <!-- REQ-SAP-BAPIUSER-003: Secure Communication Protocol (e.g., SNC) -->
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SNC</xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:environment:channel_security_protocol"
+                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                            DataType="http://www.w3.org/2001/XMLSchema#string"
+                            MustBePresent="true"/>
+                    </xacml3:Match>
+                    <!-- REQ-SAP-BAPIUSER-004: Calling application must be certified for secure data handling -->
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">true</xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:calling_application:data_handling_certified"
+                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:application"
+                            DataType="http://www.w3.org/2001/XMLSchema#boolean"
+                            MustBePresent="true"/>
+                    </xacml3:Match>
+                </xacml3:And>
+            </xacml3:Condition>
+            <xacml3:ObligationExpressions>
+                <!-- REQ-SAP-BAPIUSER-002: Obligation to log successful execution with full details -->
+                <xacml3:ObligationExpression ObligationId="urn:sap:obligation:log_activity_full_details" FulfillOn="Permit">
+                    <xacml3:AttributeAssignmentExpression AttributeId="event_type">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BAPI_USER_GET_DETAIL_execution_success</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <xacml3:AttributeAssignmentExpression AttributeId="log_level">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">INFO</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <!-- Additional attributes like subject.id, resource.id, action.id, queried user/group would be assigned here -->
+                </xacml3:ObligationExpression>
+                <!-- REQ-SAP-BAPIUSER-004: Obligation to enforce data masking on sensitive returned fields -->
+                <xacml3:ObligationExpression ObligationId="urn:sap:obligation:enforce_data_masking" FulfillOn="Permit">
+                    <xacml3:AttributeAssignmentExpression AttributeId="masked_fields">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PASSWORD_HASH,USER_PASSWORD_DATE,ETC_SENSITIVE_FIELDS</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <xacml3:AttributeAssignmentExpression AttributeId="masking_policy_id">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SAP_BAPI_USER_GET_DETAIL_SensitiveDataMasking</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                </xacml3:ObligationExpression>
+            </xacml3:ObligationExpressions>
+        </xacml3:Rule>
+
+        <!-- Rule 1.2: Permit Access for Dedicated Technical Users -->
+        <xacml3:Rule RuleId="Permit_Technical_User_Access" Effect="Permit">
+            <xacml3:Description>
+                (REQ-SAP-BAPIUSER-001, 003, 004) Permit execution for dedicated technical RFC users.
+                Requires least privilege S_RFC/S_USER_GRP, SNC, and certified calling application.
+            </xacml3:Description>
+            <xacml3:Condition>
+                <xacml3:And>
+                    <!-- Subject must be a technical user -->
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">technical</xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:subject:user_type"
+                            Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                            DataType="http://www.w3.org/2001/XMLSchema#string"
+                            MustBePresent="true"/>
+                    </xacml3:Match>
+                    <!-- Technical users must be associated with an identified RFC destination -->
+                    <xacml3:AttributeDesignator
+                        AttributeId="urn:sap:subject:rfc_destination_id"
+                        Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                        DataType="http://www.w3.org/2001/XMLSchema#string"
+                        MustBePresent="true"/>
+                    <!-- REQ-SAP-BAPIUSER-001: S_RFC Authorization Check (FUGR='SU_USER', ACTVT='16') - Least Privilege -->
+                    <xacml3:And>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">FUGR</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_rfc:type"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SU_USER</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_rfc:name"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">16</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_rfc:activity"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                    </xacml3:And>
+                    <!-- REQ-SAP-BAPIUSER-001: S_USER_GRP Authorization Check - (strictly limited scope) -->
+                    <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of">
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:subject:authorization:s_user_grp:group"
+                            Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                            DataType="http://www.w3.org/2001/XMLSchema#string"
+                            MustBePresent="true"/>
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:resource:bapi_user_get_detail:queried_user_group"
+                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                            DataType="http://www.w3.org/2001/XMLSchema#string"
+                            MustBePresent="true"/>
+                    </xacml3:Apply>
+                    <xacml3:Or>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">05</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_user_grp:activity"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                        <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">03</xacml3:AttributeValue>
+                            <xacml3:AttributeDesignator
+                                AttributeId="urn:sap:subject:authorization:s_user_grp:activity"
+                                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                DataType="http://www.w3.org/2001/XMLSchema#string"
+                                MustBePresent="true"/>
+                        </xacml3:Match>
+                    </xacml3:Or>
+                    <!-- REQ-SAP-BAPIUSER-003: Secure Communication Protocol (e.g., SNC) -->
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SNC</xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:environment:channel_security_protocol"
+                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                            DataType="http://www.w3.org/2001/XMLSchema#string"
+                            MustBePresent="true"/>
+                    </xacml3:Match>
+                    <!-- REQ-SAP-BAPIUSER-004: Calling application must be certified for secure data handling -->
+                    <xacml3:Match MatchId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">true</xacml3:AttributeValue>
+                        <xacml3:AttributeDesignator
+                            AttributeId="urn:sap:calling_application:data_handling_certified"
+                            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:application"
+                            DataType="http://www.w3.org/2001/XMLSchema#boolean"
+                            MustBePresent="true"/>
+                    </xacml3:Match>
+                </xacml3:And>
+            </xacml3:Condition>
+            <xacml3:ObligationExpressions>
+                <!-- REQ-SAP-BAPIUSER-002: Obligation to log successful execution with full details -->
+                <xacml3:ObligationExpression ObligationId="urn:sap:obligation:log_activity_full_details" FulfillOn="Permit">
+                    <xacml3:AttributeAssignmentExpression AttributeId="event_type">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BAPI_USER_GET_DETAIL_execution_success</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <xacml3:AttributeAssignmentExpression AttributeId="log_level">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">INFO</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <!-- Additional attributes like subject.id, resource.id, action.id, queried user/group would be assigned here -->
+                </xacml3:ObligationExpression>
+                <!-- REQ-SAP-BAPIUSER-004: Obligation to enforce data masking on sensitive returned fields -->
+                <xacml3:ObligationExpression ObligationId="urn:sap:obligation:enforce_data_masking" FulfillOn="Permit">
+                    <xacml3:AttributeAssignmentExpression AttributeId="masked_fields">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">PASSWORD_HASH,USER_PASSWORD_DATE,ETC_SENSITIVE_FIELDS</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <xacml3:AttributeAssignmentExpression AttributeId="masking_policy_id">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SAP_BAPI_USER_GET_DETAIL_SensitiveDataMasking</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                </xacml3:ObligationExpression>
+            </xacml3:ObligationExpressions>
+        </xacml3:Rule>
+
+        <!-- Rule 1.3: Deny All Other Access to BAPI_USER_GET_DETAIL -->
+        <xacml3:Rule RuleId="Deny_Default_BAPI_USER_GET_DETAIL_Access" Effect="Deny">
+            <xacml3:Description>
+                (REQ-SAP-BAPIUSER-001) Deny access to BAPI_USER_GET_DETAIL if not explicitly permitted by other rules.
+                This rule enforces the principle of 'Default Deny' in Zero Trust.
+            </xacml3:Description>
+            <xacml3:Target/>
+            <xacml3:Condition>
+                <!-- Always true if not previously permitted, effectively a default deny -->
+                <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                    <xacml3:Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:false"/>
+                </xacml3:Apply>
+            </xacml3:Condition>
+            <xacml3:ObligationExpressions>
+                <!-- REQ-SAP-BAPIUSER-002: Obligation to log failed execution with details -->
+                <xacml3:ObligationExpression ObligationId="urn:sap:obligation:log_activity_full_details" FulfillOn="Deny">
+                    <xacml3:AttributeAssignmentExpression AttributeId="event_type">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">BAPI_USER_GET_DETAIL_execution_failed</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <xacml3:AttributeAssignmentExpression AttributeId="log_level">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">WARNING</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <xacml3:AttributeAssignmentExpression AttributeId="failure_reason">
+                        <xacml3:AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Unauthorized_Access_Attempt_Default_Deny</xacml3:AttributeValue>
+                    </xacml3:AttributeAssignmentExpression>
+                    <!-- Additional attributes like subject.id, resource.id, action.id, queried user/group would be assigned here -->
+                </xacml3:ObligationExpression>
+            </xacml3:ObligationExpressions>
+        </xacml3:Rule>
+
+    </xacml3:Policy>
+</xacml3:PolicySet>

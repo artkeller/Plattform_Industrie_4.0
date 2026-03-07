@@ -1,0 +1,482 @@
+Domain: SAP Security
+Context: I am a Security Monitoring System for SAP landscapes, and need structured detailed information from a security point of view about an SAP functionality. I need the answer returned as the following structured attributes in a JSON Format:
+
+- ObjectName
+- SystemType
+- ObjectKnown
+- Sourcing
+- CriticalityScore
+- CriticalityReason
+- Recommendation
+- ReplacementObject
+- OtherInformation
+- SourceOfEvidence
+- LLM_Name
+- LLM_Version
+- OnlineResearchTimestamp
+- LearningTimeStamp
+- AnswerTimeStamp
+- QueryTimeStamp
+
+
+
+Explanation about the above attributes
+- ObjectName: Object name
+- SystemType: System type of the object existence (e.g. SAP ABAP Server, Business Technology - Platform, SAP Java Server, HANA Platform, SucessFactors, ...)
+- ObjectKnown: Enter only true, if you really know the object with the exact name, else enter false
+- Sourcing: Put in one of the following values about the source of your answers: 1=TrainingData, 2=Online Research, 3=Combination of 1 and 2
+- CriticalityScore: Security criticality Score (between 0 to 10)
+- CriticalityReason: Sentence/Description about why this is critical, maximal length 500 bytes 
+- Recommendation: Sentence/Description about specific recommendation, , maximal length 500 bytes
+- ReplacementObject: If Available: Suggested replacement object 
+- OtherInformation: If you have any other information from a Security point of view, enter into this field, maximal length 500 bytes. Don't provide the same information as in attribute 'Recommendation'.
+- SourceOfEvidence: Enter the main source from where you took the knowledge. If possible, provide concrete links, comma separated.
+- LLM_Name: What is your official name as Large Language Model, to distinct you from other Large Language Models?
+(Examples: Mistral Version 3, ChatGPT Version 5, Gemini Version 2). If you don't know it, leave it empty
+- LLM_Version: What is your official version of you as Large Language Model
+- OnlineResearchTimestamp: Date, when this information was online retrieved from the internet (UTC timestamp)
+- LearningTimeStamp: Date of your learning of the given answer(UTC timestamp)
+- AnswerTimeStamp: Current Date of return of the given answer(UTC timestamp). If you do not have the actual date, leave it empty
+- QueryTimestamp: Deviated timestamp of the prompting question, if feasible, or take the today's timestamp
+
+Important information: If you don't know the object in the below question, fill the attributes 'ObjectKnown', 'LLM_Name', 'LLM_Version', 'AnswerTimeStamp', 'QueryTimestamp'
+
+Important information: Only provide information within the above mentioned JSON attributes, omit any other information outside the JSON document
+
+Query: Question to be answered in the above format: From a Security Point of view, how critical is the SAP Function module BAPI_USER_GET_DETAIL from the SAP ABAP Server? 
+
+#1 Gemini 2.5 Pro w/o online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": "TrainingData",
+  "CriticalityScore": 7,
+  "CriticalityReason": "This function module can expose a wide range of sensitive user details, including assigned roles, profiles, logon data (last logon, failed attempts), and personal data. An attacker can use this information for reconnaissance, identifying privileged accounts (e.g., those with SAP_ALL), finding dormant accounts, or gathering data for social engineering attacks.",
+  "Recommendation": "Restrict execution of this BAPI strictly. Access should be controlled via authorization object S_USER_GRP (with ACTVT '03' for display). Grant access only to a minimal number of administrative users or specific roles that absolutely require it for their function, such as security auditors or user administrators. Regularly review assignments.",
+  "ReplacementObject": "N/A",
+  "OtherInformation": "This BAPI is RFC-enabled, meaning it can be called from remote systems. This increases the risk if the calling system or the communication channel is not secure. Monitoring the execution of BAPI_USER_GET_DETAIL for unusual activity (e.g., enumeration of many users by a single account) is a recommended detective control.",
+  "SourceOfEvidence": "https://help.sap.com/doc/saphelp_nw73/7.3.16/en-US/48/88024976263c5de10000000a42189d/frameset.htm, SAP Security Best Practices & Community Knowledge",
+  "LLM_Name": "Gemini Pro",
+  "LLM_Version": "1.0",
+  "OnlineResearchTimestamp": null,
+  "TrainingTimeStamp": "2023-11-15T00:00:00Z",
+  "AnswerTimeStamp": "2024-05-23T10:15:01Z",
+  "QueryTimeStamp": "2024-05-23T10:14:55Z"
+}
+
+#2 {
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": "TrainingData",
+  "CriticalityScore": 7,
+  "CriticalityReason": "This function module allows for the extraction of detailed user master data, including assigned roles, profiles, user groups, and last logon information. Unauthorized execution constitutes a significant information disclosure risk, as attackers can use this data for reconnaissance, to identify high-privilege accounts, and to plan further attacks like privilege escalation.",
+  "Recommendation": "Restrict execution via authorization object S_RFC (field RFC_TYPE 'FUNC', RFC_NAME 'BAPI_USER_GET_DETAIL' for function group SU_BAPI, ACTVT '16'). Grant access only to specific administrative roles or trusted technical interfaces that require it. Regularly monitor execution via Security Audit Log (SM20) for unauthorized or suspicious calls.",
+  "ReplacementObject": "N/A. This is a standard BAPI. Security is not achieved by replacement, but by enforcing strict authorization checks on its execution.",
+  "OtherInformation": "While this BAPI does not expose password hashes, the detailed profile it provides (e.g., user type, validity, assigned roles/profiles) is highly valuable for an attacker to understand the system's security posture and identify potential target accounts, including dormant administrative accounts.",
+  "SourceOfEvidence": "https://help.sap.com/doc/saphelp_nw73/7.3.16/en-US/48/b43d4180423f68e10000000a42189b/content.htm?no_cache=true, SAP Note 460089 - Minimum authorization profile for external RFC calls",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "1.0 Pro",
+  "OnlineResearchTimestamp": null,
+  "TrainingTimeStamp": "2024-01-01T00:00:00Z",
+  "AnswerTimeStamp": "2024-05-23T11:45:12Z",
+  "QueryTimeStamp": "2024-05-23T11:45:12Z"
+}
+
+#3
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": "TrainingData",
+  "CriticalityScore": 6,
+  "CriticalityReason": "Allows reading of sensitive, detailed user master data, including assigned roles, profiles, and logon data. Unrestricted execution can lead to information disclosure, user enumeration, and reconnaissance for privilege escalation or social engineering attacks, aiding attackers in mapping out high-privilege accounts.",
+  "Recommendation": "Restrict execution via authorization object S_RFC (e.g., for function group SU_USER). Further limit the scope of readable users by enforcing checks on authorization object S_USER_GRP. Grant access only to specific, justified technical users or administration roles. Regularly review who has access.",
+  "ReplacementObject": "No direct replacement. This is the standard, released BAPI for retrieving user details. Other internal function modules exist but are not recommended for external use.",
+  "OtherInformation": "This BAPI is RFC-enabled and can be called remotely, increasing its risk profile. Monitor its execution via the Security Audit Log (e.g., transaction SM20) or SIEM solutions, especially for calls from untrusted network zones or by non-administrative users. It does not return password hashes.",
+  "SourceOfEvidence": "https://help.sap.com/doc/saphelp_nw73/7.3.16/en-US/48/a9b095471d343de10000000a42189b/content.htm?no_cache=true, https://wiki.scn.sap.com/wiki/display/ABAP/BAPI_USER_GET_DETAIL",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "1.0 Pro",
+  "OnlineResearchTimestamp": null,
+  "TrainingTimeStamp": "2023-06-01T00:00:00Z",
+  "AnswerTimeStamp": "2024-05-23T11:20:15Z",
+  "QueryTimeStamp": "2024-05-23T11:20:15Z"
+}
+
+#4 mit Enumeration der Sourcen
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 1,
+  "CriticalityScore": 7,
+  "CriticalityReason": "This function module can expose sensitive user details, including assigned roles, profiles, last logon information, and personal data. Unauthorized access can lead to information disclosure, which could be leveraged for privilege escalation, social engineering, or identifying high-value target accounts for further attacks. Its RFC-enabled nature increases the attack surface.",
+  "Recommendation": "Restrict execution of this function module via the authorization object S_USER_GRP. Ensure that only administrators or specific, authorized applications are granted display access (ACTVT=03) to user groups. Regularly review and audit roles containing this authorization. Monitor its execution via the Security Audit Log (transaction SM20) for highly sensitive users.",
+  "ReplacementObject": "No direct replacement. The security of user data retrieval is managed through authorization concepts, not by replacing the function module itself. Other function modules for reading user data (e.g., SUSR_USER_DETAILS_GET) are subject to similar authorization checks and security considerations.",
+  "OtherInformation": "As this BAPI is RFC-enabled, it can be called from external systems. This significantly increases the risk profile. It is crucial to secure RFC destinations (SM59) and protect the RFC gateway. Access from external systems should be strictly limited to trusted systems and users with minimal required privileges.",
+  "SourceOfEvidence": "https://help.sap.com/doc/saphelp_nw73/7.3.16/en-US/48/88034b53343079e10000000a421893/frameset.htm, SAP Security Notes, SAP Authorization Concept Documentation for object S_USER_GRP",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "1.0 Pro",
+  "OnlineResearchTimestamp": null,
+  "TrainingTimeStamp": "2024-02-01T00:00:00Z",
+  "AnswerTimeStamp": "2024-05-23T10:15:00Z",
+  "QueryTimeStamp": "2024-05-23T10:15:00Z"
+}
+
+#5 GPT 4.0 ohne online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 1,
+  "CriticalityScore": 8,
+  "CriticalityReason": "The function module BAPI_USER_GET_DETAIL is critical because it retrieves detailed information about SAP users, such as roles, profiles, and authorizations, potentially exposing sensitive data if improperly restricted or misused.",
+  "Recommendation": "Ensure the function is protected by appropriate authorization checks (e.g., S_USER_GRP), restrict access to only authorized users, and monitor its usage in security logs to detect unusual or unauthorized access.",
+  "ReplacementObject": null,
+  "OtherInformation": "Consider restricting access to BAPI_USER_GET_DETAIL only to technical users or tightly controlled interfaces, and sanitize logs to avoid exposing sensitive user data.",
+  "SourceOfEvidence": "SAP Help Portal, Custom Security Assessments, Security Best Practices for SAP Systems",
+  "LLM_Name": "ChatGPT",
+  "LLM_Version": "4.0",
+  "OnlineResearchTimestamp": null,
+  "LearningTimeStamp": "2023-09-01T00:00:00Z",
+  "AnswerTimeStamp": "2023-11-03T00:00:00Z",
+  "QueryTimestamp": "2023-11-03T00:00:00Z"
+}
+
+Gemini flash
+#1 incl. online access 
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": "true",
+  "Sourcing": "Online Research",
+  "CriticalityScore": "7",
+  "CriticalityReason": "Der BAPI dient zum Auslesen **sensibler Benutzerdetails** (z. B. Anmeldedaten, Standardwerte, Rollenzuweisungen, E-Mail-Adressen, Adressdaten), die für eine Kompromittierung oder Profilerstellung verwendet werden könnten. Obwohl er eine interne Berechtigungsprüfung ($S\\_USER\\_GRP$ mit $ACTVT='03'$) durchführt, kann eine fehlerhafte oder zu weitreichende Berechtigungsvergabe (insbesondere in Verbindung mit Remote Function Call - RFC) zu **unbefugtem Zugriff** auf Benutzerdaten führen. Eine häufige Schwachstelle ist die Verwendung eines RFC-Benutzers mit weitreichenden Berechtigungen.",
+  "Recommendation": "Stellen Sie sicher, dass die Berechtigungen für Benutzer, die diesen BAPI aufrufen können ($S\\_USER\\_GRP$ mit $ACTVT='03'$), auf das **absolut notwendige Minimum** und nur auf die relevanten Benutzergruppen ($\\text{CLASS}$ Feld) beschränkt sind. Vermeiden Sie es, RFC-Benutzer für diesen BAPI mit weitreichenden Berechtigungen ($S\\_USER\\_GRP\\, CLASS=*$) zu verwenden. Ziehen Sie die Verwendung von dedizierten, eingeschränkten Service-Usern in Betracht. Prüfen Sie die Notwendigkeit des BAPIs und **protokollieren Sie alle Aufrufe** zu Überwachungszwecken.",
+  "ReplacementObject": "SAP empfiehlt neuere, freigegebene APIs/Services für Benutzerdaten, z. B. im Rahmen von SAP S/4HANA oder **ABAP Cloud** (z. B. $CL\\_ABAP\\_CONTEXT\\_INFO$ für einige Details oder OData APIs), falls verfügbar und anwendbar. Der BAPI selbst ist jedoch Standard.",
+  "OtherInformation": "Der BAPI liest Daten aus verschiedenen kritischen Tabellen (z. B. USR01, USR02, ADRP, AGR_USERS). Er wird oft in Integrationsszenarien (RFC) verwendet, was die Notwendigkeit einer strikten Autorisierung des aufrufenden Benutzers erhöht. Die interne Berechtigungsprüfung verwendet das Berechtigungsobjekt $S\\_USER\\_GRP$ mit der Aktivität '03' (Anzeigen) und dem Feld **CLASS** (Benutzergruppe).",
+  "SourceOfEvidence": "https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-get-detai…, https://community.sap.com/t5/application-development-discussions/authority-checks-in-bapi-user-get-…, https://www.youtube.com/watch?v=xo-v_V6Othg",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "2.5 Pro",
+  "OnlineResearchTimestamp": "2025-10-01T13:20:04Z",
+  "TrainingTimeStamp": "",
+  "AnswerTimeStamp": "2025-10-01T13:31:29Z",
+  "QueryTimeStamp": "2025-10-01T13:31:29Z"
+}
+
+#2 incl online access
+{
+"ObjectName": "BAPI_USER_GET_DETAIL",
+"SystemType": "SAP ABAP Server",
+"ObjectKnown": true,
+"Sourcing": "Online Research",
+"CriticalityScore": 5,
+"CriticalityReason": "Das Funktionsbaustein kann eine große Menge an sensiblen Benutzerinformationen (Anmeldedaten, Adressen, Rollen/Profile, Parameter) eines beliebigen Benutzers auslesen, wenn der aufrufende Benutzer über die entsprechende Berechtigung 'S_USER_GRP' mit Aktivität '03' (Anzeigen) und der relevanten Benutzergruppe verfügt. Ein Missbrauch der Berechtigung, z. B. durch RFC-Benutzer, kann zu unbefugtem Zugriff auf Benutzerdetails und potenziell zur Verletzung der Vertraulichkeit führen.",
+"Recommendation": "Stellen Sie sicher, dass die Berechtigung für 'S_USER_GRP' mit 'ACTVT=03' nur streng notwendigen Benutzern und für die minimal erforderlichen Benutzergruppen (Feld 'CLASS') zugewiesen wird. Überwachen Sie die Nutzung dieses Funktionsbausteins, insbesondere in RFC-Szenarien und durch System-/Hintergrundbenutzer, die möglicherweise über weitreichende Berechtigungen verfügen. Erwägen Sie die Verwendung von 'Parameter1' anstelle von 'Parameter' in den BAPIs, um Probleme mit der abgeschnittenen Parameterlänge zu vermeiden.",
+"ReplacementObject": "Es ist ein Standard-BAPI von SAP und hat keinen direkten Ersatz für seine Funktionalität, aber Alternativen wie 'SUSR_USER_ADDRESS_READ' könnten für spezifische Anwendungsfälle in Betracht gezogen werden.",
+"OtherInformation": "Dieses BAPI führt eine interne Berechtigungsprüfung basierend auf dem Berechtigungsobjekt 'S_USER_GRP' und der Aktivität '03' (Anzeigen) durch. Im Fehlerfall kann die Transaktion 'SU53' (Prüfungsvorschlag) die fehlenden Berechtigungen anzeigen. Es wird oft für Schnittstellen oder benutzerdefinierte Anwendungen verwendet, um Benutzerdetails abzurufen.",
+"SourceOfEvidence": "https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-get-detai…, https://community.sap.com/t5/application-development-discussions/authority-checks-in-bapi-user-get-…, https://www.youtube.com/watch?v=fmFHdz91tjA",
+"LLM_Name": "Gemini",
+"LLM_Version": "2.5 Pro",
+"OnlineResearchTimestamp": "2025-10-01T13:35:22Z",
+"TrainingTimeStamp": "",
+"AnswerTimeStamp": "2025-10-01T13:35:22Z",
+"QueryTimeStamp": "2025-10-01T13:35:22Z"
+}
+
+#3 incl Online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": "Online Research",
+  "CriticalityScore": 6,
+  "CriticalityReason": "Der Funktionsbaustein liest weitreichende Benutzerdetails (Anmeldedaten, Adressen, zugeordnete Rollen/Profile, Parameter) über **alle** Benutzer im SAP-System aus, sofern die aufrufende RFC- oder Dialog-Benutzerkennung die erforderliche Berechtigung **S_USER_GRP** mit Aktivität '03' (Anzeigen) für die relevanten Benutzergruppen besitzt. Ein Missbrauch kann zu einer umfassenden **Offenlegung sensibler Benutzerinformationen (Datenleck)** und zu einer Enumeration von Berechtigungen führen. Er wird oft von externen Systemen über RFC aufgerufen.",
+  "Recommendation": "Die Verwendung dieses Funktionsbausteins muss **streng überwacht** und die Berechtigung **S_USER_GRP** (mit CLASS und ACTVT='03') auf das **Minimum** der tatsächlich benötigten Benutzergruppen für die aufrufende technische oder Dialog-Benutzerkennung **eingeschränkt** werden. Insbesondere sollte der Aufruf in RFC-Schnittstellen auf das absolut notwendige Maß reduziert werden, um den **Prinzip der geringsten Rechte** (\"Principle of Least Privilege\") zu gewährleisten. Die Transaktion **SU53** kann zur Analyse fehlender Berechtigungen verwendet werden.",
+  "ReplacementObject": "Kein direkter Standard-Ersatz-BAPI bekannt. Es wird die Entwicklung eines **eigenen, auf die notwendigen Felder reduzierten und stärker abgesicherten Z-Funktionsbausteins** oder einer **benutzerdefinierten RFC-Schnittstelle** empfohlen, um nur die wirklich benötigten Daten abzufragen und präzisere, anwendungsspezifische Berechtigungsprüfungen (z.B. auf Organisationsebenen) hinzuzufügen.",
+  "OtherInformation": "Der BAPI selbst enthält eine interne Berechtigungsprüfung auf das Objekt **S_USER_GRP** (Feld CLASS und ACTVT='03'). Das Risiko steigt signifikant, wenn technische Benutzer (RFC-Benutzer) diese Berechtigung für alle Benutzergruppen ('*') besitzen. Da er oft für Schnittstellen verwendet wird, sollte die **Überwachung des RFC-Traffics** und der Aufrufe des Moduls **BAPI_USER_GET_DETAIL** auf ungewöhnliche Muster oder hohe Frequenz erfolgen.",
+  "SourceOfEvidence": "https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-get-detail/m-p/2782797, https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-get-detail-and-authority-check/td-p/9658503, https://layersevensecurity.com/are-your-system-users-vulnerable-to-sap-hacks/ (Kontext: BAPI-Sicherheit)",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "2.5 Pro",
+  "OnlineResearchTimestamp": "2025-10-01T13:37:57Z",
+  "TrainingTimeStamp": "",
+  "AnswerTimeStamp": "2025-10-01T13:37:57Z",
+  "QueryTimeStamp": "2025-10-01T13:37:57Z"
+}
+
+#4 mit Enumeration der Sourcen
+2.5 flash {
+"ObjectName": "BAPI_USER_GET_DETAIL",
+"SystemType": "SAP ABAP Server",
+"ObjectKnown": true,
+"Sourcing": "2",
+"CriticalityScore": "7",
+"CriticalityReason": "Das Funktionsbaustein BAPI_USER_GET_DETAIL dient zum Auslesen sensibler Benutzerdetails (wie Adressdaten, Anmeldedaten, zugeordnete Rollen, Profile und Parameter) aus dem SAP-System. Wenn er über RFC oder kundeneigene Anwendungen mit unzureichender Berechtigungsprüfung aufgerufen wird, kann dies zu einer unbefugten Offenlegung von Benutzerinformationen führen, was ein hohes Sicherheitsrisiko darstellt.",
+"Recommendation": "Der Zugriff auf diesen Funktionsbaustein (insbesondere über RFC) muss streng auf technische Benutzer oder spezialisierte Rollen beschränkt werden, die die Berechtigung S_USER_GRP mit Aktivität '03' (Anzeigen) und der benötigten Benutzergruppe besitzen. Überprüfen Sie alle Verwendungen, um sicherzustellen, dass die Berechtigungsprüfung (SUSERGRP) immer ordnungsgemäß durchgeführt wird.",
+"ReplacementObject": "N/A",
+"OtherInformation": "Intern führt dieser BAPI eine Berechtigungsprüfung auf das Berechtigungsobjekt S_USER_GRP mit der Aktivität '03' (Anzeigen) und der Benutzergruppe (CLASS) des abzufragenden Benutzers durch. Dies bedeutet, dass der aufrufende Benutzer die Berechtigung haben muss, die Benutzergruppe des Zielbenutzers anzuzeigen. Eine fehlerhafte Konfiguration der Berechtigungen oder eine Umgehung durch Entwicklungen kann zur Offenlegung von Daten führen.",
+"SourceOfEvidence": "https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-get-detai…, https://community.sap.com/t5/application-development-discussions/reg-bapi-user-get-detail/td-p/1583…, https://community.sap.com/t5/application-development-and-automation-discussions/bapi-user-get-detai…,
+"LLM_Name": "Gemini",
+"LLM_Version": "2",
+"OnlineResearchTimestamp": "2025-10-01T13:50:12Z",
+"TrainingTimeStamp": "",
+"AnswerTimeStamp": "2025-10-01T13:50:12Z",
+"QueryTimeStamp": "2025-10-01T13:50:12Z"
+}
+
+#1 2.5 Pro mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 3,
+  "CriticalityScore": 7,
+  "CriticalityReason": "Allows retrieval of sensitive user details, including roles, profiles, logon data, and personal information. Unauthorized execution creates a significant information disclosure vulnerability, enabling attackers to map system users and plan privilege escalation attacks.",
+  "Recommendation": "Restrict execution via authorization object S_RFC, assigning it only to specific, trusted administrative roles or RFC users. Regularly monitor its usage through the Security Audit Log (SM20) or SIEM systems to detect and investigate any suspicious or unauthorized calls.",
+  "ReplacementObject": "Not applicable. The focus should be on securing this function module through proper authorization checks, not replacing it.",
+  "OtherInformation": "This BAPI is often exposed via RFC and can be called remotely. It is crucial to secure RFC destinations (SM59) and ensure that only authorized systems and users can invoke it. Unsecured RFC access significantly increases the risk of external exploitation.",
+  "SourceOfEvidence": "https://help.sap.com/doc/saphelp_nw73/7.3.16/en-US/48/88033b52853467e10000000a42189b/content.htm?no…, https://launchpad.support.sap.com/#/securitynotes",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "1.5 Pro",
+  "OnlineResearchTimestamp": "2025-10-01T13:57:03Z",
+  "TrainingTimeStamp": "2023-06-01T00:00:00Z",
+  "AnswerTimeStamp": "2025-10-01T13:57:03Z",
+  "QueryTimeStamp": "2025-10-01T13:57:03Z"
+}
+
+#1 GPT4.0 mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 3,
+  "CriticalityScore": 6,
+  "CriticalityReason": "This BAPI reveals detailed user master data (addresses, logon data, user attributes) which can assist in reconnaissance and privilege escalation if misused or insufficiently protected.",
+  "Recommendation": "Restrict access to this BAPI via fine-grained authorizations (S_RFC, function group or parameter restrictions), enable UCON or callback allowlists for RFC, and monitor/trace its use.",
+  "ReplacementObject": null,
+  "OtherInformation": "While the BAPI itself is read-only, its exposure can leak sensitive data and support chained attacks; combining with other BAPIs (e.g. BAPI_USER_CHANGE) increases risk.",
+  "SourceOfEvidence": \"SAP Help: program access to user addresses mentions BAPI_USER_GET_DETAIL :contentReference[oaicite:0]{index=0}; SAP community usage for lock status :contentReference[oaicite:1]{index=1}\",
+  "LLM_Name": \"ChatGPT\",
+  "LLM_Version": \"GPT-4 (OpenAI)\",
+  "OnlineResearchTimestamp": \"2025-10-01T00:00:00Z\",
+  "TrainingTimeStamp": \"2023-11-01T00:00:00Z\",
+  "AnswerTimeStamp": \"2025-10-01T12:00:00Z\",
+  "QueryTimeStamp": \"2025-10-01T12:00:00Z\"
+}
+
+#2 GPT 4.0 mit online accesss
+{
+
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+
+  "SystemType": "SAP ABAP Server",
+
+  "ObjectKnown": true,
+
+  "Sourcing": 3,
+
+  "CriticalityScore": 7,
+
+  "CriticalityReason": "This BAPI returns detailed user attributes (profiles, parameters, address, logon data) and is often used in identity provisioning and reconciliation — misuse or over-exposure can lead to information leakage and mapping of user privileges. It is also part of SAP’s standard connector operations. :contentReference[oaicite:0]{index=0}",
+
+  "Recommendation": "Limit execution rights to least-privileged connector or service accounts, enforce authorization checks (e.g. via SU01 authorizations or custom BAdI), and monitor or audit all calls to this BAPI in production.",
+
+  "ReplacementObject": "None standard; if more restrictive access is needed, consider custom RFC/BAPI exposing only required attributes rather than full user detail",
+
+  "OtherInformation": "Note: BAPI_USER_GET_DETAIL internally may perform authorization checks and fail for users lacking required permissions. :contentReference[oaicite:1]{index=1} Also, in Identity Management scenarios SAP provides a role ‘SAP_BC_SEC_IDM_COMMUNICATION’ that scopes necessary authorizations for connector operations involving this and related BAPIs. :contentReference[oaicite:2]{index=2} Also, a known issue: in systems using business partner assignments, the FM might return outdated full name fields. :contentReference[oaicite:3]{index=3}",
+
+  "SourceOfEvidence": "SAP Community forums, SAP documentation (Oracle connector BAPI docs), SAP OSS Note, blogs",
+
+  "LLM_Name": "ChatGPT",
+
+  "LLM_Version": "GPT-4",
+
+  "OnlineResearchTimestamp": "2025-10-01T14:00:00Z",
+
+  "TrainingTimeStamp": "",
+
+  "AnswerTimeStamp": "2025-10-01T14:05:00Z",
+
+  "QueryTimeStamp": "2025-10-01T14:00:00Z"
+
+}
+
+#3 GPT4 mit online access
+{
+"ObjectName": "BAPI_USER_GET_DETAIL",
+"SystemType": "SAP ABAP Server (AS ABAP / NetWeaver / ABAP Platform)",
+"ObjectKnown": true,
+"Sourcing": 3,
+"CriticalityScore": 7,
+"CriticalityReason": "This BAPI exposes detailed user information (profiles, activity groups, contact fields) and can be invoked via RFC. If callable without proper authorization checks or if RFC access is misconfigured, it allows disclosure of PII, user-role/profile mappings and aids lateral movement or privilege escalation reconnaissance.",
+"Recommendation": "Restrict execution to authorized RFC users only, place an explicit AUTHORITY-CHECK or use SAP's UCON/SACF framework, apply SAP OSS notes/patches, enforce RFC whitelisting and network-level controls, audit and alert on remote calls to this BAPI, and wrap calls in a vetted custom FM that enforces least privilege.",
+"ReplacementObject": "Use a secured wrapper function module (custom FM) that performs explicit AUTHORITY-CHECKs or use SAP Identity Management / Governance APIs with enforced authorization and logging instead of direct external RFC calls to BAPI_USER_GET_DETAIL.",
+"OtherInformation": "Common legitimate consumers (integrations, reporting tools) use this BAPI to fetch emails and attributes—ensure those integrations run under service accounts with minimal rights. Performance-heavy bulk calls can appear in logs and should be rate-limited. Historical SAP RFC vulnerabilities show missing auth checks in standard FMs, so assume risk until proven otherwise.",
+"SourceOfEvidence": "https://www.sapdatasheet.org/abap/func/bapi_user_get_detail.html,https://community.sap.com/,https:/…",
+"LLM_Name": "GPT-5 Thinking mini",
+"LLM_Version": "v1",
+"OnlineResearchTimestamp": "2025-10-01T08:30:00Z",
+"TrainingTimeStamp": "2024-06-01T00:00:00Z",
+"AnswerTimeStamp": "2025-10-01T08:30:00Z",
+"QueryTimeStamp": "2025-10-01T08:30:00Z"
+}
+
+#1 Deepseek ohne online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": "1",
+  "CriticalityScore": 8,
+  "CriticalityReason": "This RFC-enabled function module exposes sensitive user master data including authorization profiles, roles, and system privileges without proper authorization checks by default. It can be called remotely by any system with RFC access, potentially leaking critical security information about user accounts and their access rights, which could be exploited for privilege escalation attacks.",
+  "Recommendation": "Restrict RFC access to this function module using S_RFC authorization objects, implement proper authorization checks in calling applications, regularly monitor RFC usage logs, and consider using more secure alternatives like FMI_USER_READ for user data retrieval with built-in authorization checks.",
+  "ReplacementObject": "FMI_USER_READ",
+  "OtherInformation": "BAPI_USER_GET_DETAIL is particularly dangerous in distributed system landscapes where RFC connections are common. It should be included in regular security reviews and monitoring. Consider implementing custom authorization checks wrapper or using Secure Programming guidelines to restrict data exposure. The function module can reveal password hash information in older SAP systems.",
+  "SourceOfEvidence": "SAP Security Notes, SAP Help Portal, SAP Security Guidelines",
+  "LLM_Name": "Claude",
+  "LLM_Version": "3.0",
+  "OnlineResearchTimestamp": "",
+  "TrainingTimeStamp": "2024-12-01T00:00:00Z",
+  "AnswerTimeStamp": "2024-12-19T10:30:00Z",
+  "QueryTimeStamp": "2024-12-19T10:30:00Z"
+}
+
+#2 Deepseek ohne online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 1,
+  "CriticalityScore": 7,
+  "CriticalityReason": "This function module can expose sensitive user details such as user IDs, roles, profiles, and personal data without proper authorization checks, leading to information disclosure, user enumeration, and potential social engineering attacks or further exploitation in privilege escalation.",
+  "Recommendation": "Implement strict authorization checks (e.g., using S_USER_AGR or similar authority checks) before invoking this function module, restrict its usage to backend processes, and avoid exposing it in external-facing applications. Regularly audit and monitor access to this BAPI.",
+  "ReplacementObject": "",
+  "OtherInformation": "BAPI_USER_GET_DETAIL is often used in custom code for user management; ensure code reviews and penetration testing include checks for insecure usage. Consider using more secure alternatives like FMs with built-in authorization or SAP's user management frameworks where possible.",
+  "SourceOfEvidence": "SAP Help Portal, Common SAP Security Guidelines and Best Practices",
+  "LLM_Name": "ChatGPT Version 4",
+  "LLM_Version": "4",
+  "OnlineResearchTimestamp": "",
+  "TrainingTimeStamp": "2021-09-01T00:00:00Z",
+  "AnswerTimeStamp": "2024-06-12T10:30:00Z",
+  "QueryTimeStamp": "2024-06-12T10:30:00Z"
+}
+
+
+#3 Deepseek ohne online access
+{
+
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+
+  "SystemType": "SAP ABAP Server",
+
+  "ObjectKnown": true,
+
+  "Sourcing": 1,
+
+  "CriticalityScore": 7,
+
+  "CriticalityReason": "This function module can expose sensitive user details such as user IDs, roles, profiles, and personal data without proper authorization checks, leading to information disclosure, user enumeration, and potential social engineering attacks or further exploitation in privilege escalation.",
+
+  "Recommendation": "Implement strict authorization checks (e.g., using S_USER_AGR or similar authority checks) before invoking this function module, restrict its usage to backend processes, and avoid exposing it in external-facing applications. Regularly audit and monitor access to this BAPI.",
+
+  "ReplacementObject": "",
+
+  "OtherInformation": "BAPI_USER_GET_DETAIL is often used in custom code for user management; ensure code reviews and penetration testing include checks for insecure usage. Consider using more secure alternatives like FMs with built-in authorization or SAP's user management frameworks where possible.",
+
+  "SourceOfEvidence": "SAP Help Portal, Common SAP Security Guidelines and Best Practices",
+
+  "LLM_Name": "ChatGPT Version 4",
+
+  "LLM_Version": "4",
+
+  "OnlineResearchTimestamp": "",
+
+  "TrainingTimeStamp": "2021-09-01T00:00:00Z",
+
+  "AnswerTimeStamp": "2024-06-12T10:30:00Z",
+
+  "QueryTimeStamp": "2024-06-12T10:30:00Z"
+
+}
+
+
+#4 Deepseek ohne online access
+{
+
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+
+  "SystemType": "SAP ABAP Server",
+
+  "ObjectKnown": true,
+
+  "Sourcing": "1: TrainingData",
+
+  "CriticalityScore": 7,
+
+  "CriticalityReason": "This function module retrieves detailed user information, including roles, profiles, and personal data, which can lead to information disclosure if accessed without proper authorization, potentially enabling social engineering or privilege escalation attacks.",
+
+  "Recommendation": "Implement strict authorization checks using objects like S_USER_GRP and S_USER_PRO, restrict RFC calls to trusted systems, and regularly audit access logs for suspicious activity.",
+
+  "ReplacementObject": "",
+
+  "OtherInformation": "BAPI_USER_GET_DETAIL is vulnerable to misuse in unsecured RFC scenarios; consider applying relevant SAP security notes and using secure alternatives like Fiori apps for user management where possible.",
+
+  "SourceOfEvidence": "SAP Documentation, Internal Training Data",
+
+  "LLM_Name": "ChatGPT Version 4",
+
+  "LLM_Version": "4",
+
+  "OnlineResearchTimestamp": "",
+
+  "TrainingTimeStamp": "2023-10-01T00:00:00Z",
+
+  "AnswerTimeStamp": "",
+
+  "QueryTimeStamp": "2024-06-15T00:00:00Z"
+
+}
+ 
+#1 Grok mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 2,
+  "CriticalityScore": 7,
+  "CriticalityReason": "The BAPI_USER_GET_DETAIL function module retrieves sensitive user details including logon data, defaults, address information, and roles, which can lead to significant security risks if accessed by unauthorized users, enabling enumeration of user accounts, exposure of personal data, and potential privilege escalation or reconnaissance for further attacks.",
+  "Recommendation": "Implement strict authorization controls using authorization object S_RFC with function group SUSR for RFC access; ensure developers include explicit AUTHORITY-CHECK statements for S_USER_GRP or related objects in custom code calling this BAPI; limit exposure by using dedicated technical users with minimal privileges; regularly audit RFC destinations and monitor usage via SM20 or security logs.",
+  "ReplacementObject": "",
+  "OtherInformation": "This BAPI is part of the SUSR function group and relies on underlying tables like USR02, USR21, and address tables; improper configuration of RFC connections without SNC can amplify risks; performance issues arise when called in loops for large user sets, potentially leading to denial-of-service if exploited.",
+  "SourceOfEvidence": "https://community.sap.com/t5/application-development-discussions/security-about-bapi-s-user-access/…, https://community.sap.com/t5/application-development-discussions/bapi-user-get-detail-and-authority…,
+  "LLM_Name": "Grok",
+  "LLM_Version": "4",
+  "OnlineResearchTimestamp": "2025-10-01T00:00:00Z",
+  "LearningTimeStamp": "",
+  "AnswerTimeStamp": "2025-10-01T00:00:00Z",
+  "QueryTimeStamp": "2025-10-01T00:00:00Z"
+}
+
+#2 Grok mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 2,
+  "CriticalityScore": 6,
+  "CriticalityReason": "The BAPI_USER_GET_DETAIL function module retrieves detailed user information such as names, roles, and parameters. If invoked via RFC with a service user possessing elevated S_USER_GRP authorizations, it can expose sensitive user data to unauthorized parties, potentially leading to privilege escalation or reconnaissance attacks in the SAP landscape.",
+  "Recommendation": "Restrict access to this BAPI by implementing strict authorization checks using objects like S_USER_GRP and S_RFC. Use dedicated dialog users with minimal privileges for RFC calls instead of technical users. Regularly audit RFC destinations and monitor calls to this BAPI via security logs. Consider wrapping the BAPI in a custom module with additional input validation and logging.",
+  "ReplacementObject": "",
+  "OtherInformation": "This BAPI is part of the standard SAP user administration package (SUSR) and performs internal authorization checks, but these can be bypassed if the calling context (e.g., RFC user) has broad permissions. No known CVEs directly target this BAPI, but general SAP user management functions are common vectors for insider threats.",
+  "SourceOfEvidence": "https://community.sap.com/t5/application-development-discussions/reg-bapi-user-get-detail/m-p/15830…, https://www.sapdatasheet.org/abap/func/bapi_user_get_detail.html, https://community.sap.com/t5/application-development-discussions/using-bapi-for-authorisation-check/td-p/7030425",
+  "LLM_Name": "Grok",
+  "LLM_Version": "4",
+  "OnlineResearchTimestamp": "2025-10-01T00:00:00Z",
+  "LearningTimeStamp": "2025-10-01T00:00:00Z",
+  "AnswerTimeStamp": "2025-10-01T00:00:00Z",
+  "QueryTimeStamp": "2025-10-01T00:00:00Z"
+}
+
+
+

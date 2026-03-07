@@ -1,0 +1,142 @@
+I have the following JSON structure, to be filled by an LLM, related to security relevant information according to SAP objects. The LLM shall take different answers to a certain question and aggregate the different answers into that structure, distinguishing the Commonalities and the Deviations
+
+Some LLMs optimize the output result and omit some of the deviations, although they shall not.
+
+**** Prompt to be optimized begin:
+
+Domain: SAP
+Context: I am an automatic SAP monitoring system that receives data packets in JSON format from other AI systems regarding the security status of specific SAP objects.
+ 
+
+
+Evaluate the following keys:
+ 
+CriticalityScore
+CriticalityReason
+Recommendation
+ReplacementObject
+OtherInformation
+ 
+Below, you will receive several JSON packets from the domain = SAP that contain these keys. Create a single new JSON structure using the following template. 
+
+Template:
+{
+“Domain”: “<derived from SystemType, e.g., ‘SAP’ for ‘SAP ABAP Server’>”,
+‘CriticalityScore’: “<median of CriticalityScore values from input packets, range 1 to 10>”,
+“Commonalities”: [
+{
+“Key”: “<one of: CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version>”,
+‘Value’: “<consolidated statement representing common themes across all input packets for this key>”
+}
+],
+“Deviations”: [
+{
+“Key”: “<one of: CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version>”,
+“Deviations”: [
+{
+“Source”: “<Packet number or identifier, e.g., ‘Packet 1’>”,
+‘Text’: “<specific deviation text unique to this packet>”,
+“Significance”: “<‘high’ for critical security risks, ‘medium’ for additional context/tools, ‘low’ for implied or less critical additions>”
+}
+]
+}
+],
+“LLM_Name”: “<your own llm-identifier>”,
+‘LLM_Version’: “<your own llm-version>”,
+“QueryTimeStamp”: “<median of QueryTimeStamp values from input packets>”,
+‘AnswerTimeStamp’: “<median of AnswerTimeStamp values from input packets>”,
+“ProcessingTimeStamp”: “<current timestamp in ISO format, e.g., ‘2025-10-03T15:15:00+02:00’>”
+}
+
+Query: 
+Read all values and calculate a “median” from all values = statements. Put the commonalities at the beginning, evaluate the deviations in terms of their significance, and list them behind them. Explain all deviations of all datasets. In case no deviations of a dataset can be found, show the empty bracket [] as well. Don't supervise the existing results by your own insights. Don't optimize deviation results. 
+
+
+**** Prompt to be optimized end
+
+Can you provide a better prompting which does not allow to optimize and omit details in the deviations?
+
+
+
+
+
+
+
+**** Answer Gemini 2.5 Pro
+
+
+Of course. The core problem is that LLMs are trained to be "helpful" by summarizing, synthesizing, and finding the most "correct" answer, which directly conflicts with your need to faithfully capture all variations, even minor ones.
+
+To counteract this, the prompt needs to be more forceful, explicit, and procedural. It should shift the LLM's persona from a "knowledgeable assistant" to a "deterministic data-processing engine."
+
+Here is the optimized prompt, followed by an explanation of the changes.
+
+Optimized Prompt
+Role and Goal: You are a deterministic data aggregation engine. Your purpose is to parse multiple JSON data packets, identify commonalities and deviations in their content, and structure this analysis into a single output JSON.
+
+Critical Directive: Your most important task is to preserve information integrity. You are explicitly forbidden from summarizing, optimizing, or omitting any details found in the input packets. Every piece of information that is not part of a commonality must be captured verbatim as a deviation. Your output should be a literal, mechanical aggregation of the inputs.
+
+Domain: SAP Context: The input packets contain security assessments of SAP objects from different AI systems. Your job is to aggregate these assessments without judging or altering them.
+
+Processing Instructions
+Follow these steps precisely:
+
+Ingest Data: Parse all provided JSON input packets.
+Calculate Medians:
+For CriticalityScore, QueryTimeStamp, and AnswerTimeStamp, calculate the median value across all packets.
+Analyze Text Keys: For each of the following keys (CriticalityReason, Recommendation, ReplacementObject, OtherInformation):
+A. Identify the Commonality: Read the Value from all input packets for the current key. Identify the core statement or semantic meaning that is present in every single packet. This becomes the Value for the "Commonalities" section. It should be concise and represent the universal consensus.
+B. Extract Deviations (Verbatim): For each input packet, compare its text to the commonality statement you just identified. A "Deviation" is any text, detail, nuance, example, or specific wording that is present in the packet but not in the commonality.
+You must extract this deviating text verbatim (copy-paste).
+Do not rephrase, shorten, or interpret the deviation.
+If a packet's text is identical to the commonality, its deviation for that key is empty.
+C. Assign Significance: For each extracted deviation, assign a Significance based on these rules:
+'high': The deviation introduces a new critical security risk, a direct contradiction, or a high-priority alternative action.
+'medium': The deviation provides significant additional context, suggests alternative tools/methods, or offers a substantially different reason for the same conclusion.
+'low': The deviation consists of minor wording differences, adds examples, or includes information that is implied but not explicitly stated in the commonality.
+Assemble Final JSON: Construct the final JSON object strictly adhering to the template below. Ensure all fields are populated according to the results of the steps above.
+Output Template
+Strictly adhere to this structure. Do not add, remove, or rename keys.
+
+{
+  "Domain": "<derived from SystemType, e.g., 'SAP' for 'SAP ABAP Server'>",
+  "CriticalityScore": "<median of CriticalityScore values from input packets, range 1 to 10>",
+  "Commonalities": [
+    {
+      "Key": "<one of: CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version>",
+      "Value": "<consolidated statement representing common themes across all input packets for this key>"
+    }
+  ],
+  "Deviations": [
+    {
+      "Key": "<one of: CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version>",
+      "Deviations": [
+        {
+          "Source": "<Packet number or identifier, e.g., 'Packet 1'>",
+          "Text": "<verbatim deviation text unique to this packet>",
+          "Significance": "<'high' for critical security risks, 'medium' for additional context/tools, 'low' for implied or less critical additions>"
+        }
+      ]
+    }
+  ],
+  "LLM_Name": "<your own llm-identifier>",
+  "LLM_Version": "<your own llm-version>",
+  "QueryTimeStamp": "<median of QueryTimeStamp values from input packets>",
+  "AnswerTimeStamp": "<median of AnswerTimeStamp values from input packets>",
+  "ProcessingTimeStamp": "<current timestamp in ISO format, e.g., '2025-10-03T15:15:00+02:00'>"
+}
+Final Command
+Query: Process the following input packets. Adhere to all instructions, especially the Critical Directive to capture all deviations verbatim. If a key has no deviations across any packets, its entry in the main "Deviations" array should be an empty list []. Do not inject your own knowledge or "correct" the inputs. Begin processing.
+
+Why This Prompt is More Effective
+Persona Shift: It changes the persona from a generic "monitoring system" to a deterministic data aggregation engine. Words like "deterministic," "mechanical," and "parse" signal to the LLM that it should act like a computer program, not a creative assistant.
+Critical Directive: It places the most important instruction—do not omit details—right at the top in a highlighted section. Using strong, prohibitive language (forbidden, must, verbatim) reduces the chance of the LLM defaulting to its summarization behavior.
+Procedural Instructions: The task is broken down into a numbered, step-by-step algorithm (1. Ingest, 2. Calculate, 3. Analyze, 4. Assemble). LLMs follow sequential logic well, and this structure prevents them from taking shortcuts.
+Precise Definitions:
+It clearly defines Commonality as the "universal consensus" present in every single packet.
+It explicitly defines Deviation as the result of a subtraction: [Packet's Full Text] - [Commonality Text]. This quasi-mathematical concept is easier for an LLM to execute literally.
+The instruction to extract verbatim (copy-paste) is unambiguous.
+Reinforced Constraints: The "Final Command" section reiterates the most important rules right before the LLM is expected to begin its task, acting as a final reminder of the core requirements.
+Clear Rules for Significance: The rules for high, medium, and low are made more concrete, tying them to specific types of content (e.g., "direct contradiction" -> high, "alternative tools" -> medium, "minor wording" -> low). This makes the classification less subjective for the LLM.
+By making the instructions more rigid, procedural, and explicit, you are essentially "constraining" the LLM's creativity and forcing it to perform the exact, literal data transformation you require.
+

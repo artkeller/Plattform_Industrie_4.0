@@ -1,0 +1,872 @@
+Domain: Industry 4.0 security
+Context: I am a Zero Trust Runtime for a machine building manufacturer (robotics), located in the EU and need structured detailed information from the following point of views (scope):
+-  Economic situation with our partners in U.S., Singapor, Shenzen, Malaysia, India with respect to political economic stability
+- Influence of new regulations since July 2025 related to the U.S. (import/export)
+
+
+I need the answer returned as the following structured attributes in a JSON:
+
+- AnalyzedCountry
+- DateOfEvidence
+- TypeOfRegulation
+- DescriptionOfRegulation
+- ImpactOfRegulation
+- ConsequencesOfRegulation
+- ClassificationScoreOfRegulation
+- OtherInformation
+- SourceOfEvidence
+- Sourcing
+- LLM_Name
+- LLM_Version
+- OnlineResearchTimestamp
+- LearningTimeStamp
+- AnswerTimeStamp
+- QueryTimeStamp
+
+Explanation about the above attributes
+
+- AnalyzedCountry: Country for which the examination took place
+- DateOfEvidence: Date, when the regulation was activated
+- TypeOfRegulation: Typical regulation types are tolls, embargos, etc. Please find a suitable classification
+- DescriptionOfRegulation: Short Text (max 500 bytes) to describe the regulation
+- ImpactOfRegulation: Describe the influences and burdens of the regulation
+- ConsequencesOfRegulation: Describe the consequences of the regulation, related to our partner ships in the supply chain, and to our export business
+- ClassificationScoreOfRegulation: Provide a Score between 1 (=maximal impact) to 10 (=no change)
+- LLM_Name: What is your official name as Large Language Model, to distinct you from other Large Language Models?
+(Examples: Mistral Version 3, ChatGPT Version 5, Gemini Version 2). If you don't know it, leave it empty
+- OtherInformation: If you have any other information from a Security point of view, enter into this field, maximal length 500 bytes. Don't provide the same information as in attribute 'Recommendation'.
+- SourceOfEvidence: Enter the main source from where you took the knowledge. If possible, provide concrete links, comma separated.
+- Sourcing: Put in one of the following values about the source of your answers: 1=TrainingData, 2=Online Research, 3=Combination of 1 and 2
+- LLM_Version: What is your official version of you as Large Language Model
+- OnlineResearchTimestamp: Date, when this information was online retrieved from the internet (UTC timestamp)
+- LearningTimeStamp: Date of your learning of the given answer(UTC timestamp)
+- AnswerTimeStamp: Current Date of return of the given answer(UTC timestamp). If you do not have the actual date, leave it empty
+- QueryTimestamp: Deviated timestamp of the prompting question, if feasible, or take the today's timestamp
+
+
+Important information: Answers to be returned by each country, as mentioned above
+
+Important Information: Our Partners are working on a common IT platform with us together. This is a machine development platform (engineering level)
+
+Important Information: We need actual data. Please consider actual data from the internet from July 2025 until October 2025, if you can retrieve online information
+
+Query: Question to be answered in the above format: We have a contractual obligation to deliver a machine into the EU, and need supply of parts by all above mentioned countries. Which impact have new regulations on this delivery?
+
+
+#1 Gemini 2.5 Pro
+[
+  {    "AnalyzedCountry": "United States",
+    "DateOfEvidence": "2025-09-02",
+    "TypeOfRegulation": "Section 232 National Security Investigation",
+    "DescriptionOfRegulation": "The U.S. Department of Commerce initiated a Section 232 investigation into the imports of robotics and industrial machinery to determine their effects on national security. This could lead to tariffs or quotas on these products.",
+    "ImpactOfRegulation": "The investigation creates uncertainty for exporters of robotics and industrial machinery to the U.S. If tariffs or quotas are imposed, it will increase the cost of these goods for U.S. buyers and could reduce demand for foreign-made machinery.",
+    "ConsequencesOfRegulation": "For your company, this could mean higher costs for U.S.-made components if you source any. If you export machinery to the U.S., you could face new trade barriers. This could also disrupt the supply chain for your partners in the U.S. who may rely on imported machinery.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "The U.S. is also experiencing a period of low public trust in the federal government, which could lead to further policy instability. The economic outlook for 2025 is for below-trend growth.",
+    "SourceOfEvidence": "https://www.thompsonhinesmartrade.com/2025/09/department-of-commerce-initiates-section-232-investigation-of-imports-of-robotics-and-industrial-machinery/, https://www.spglobal.com/ratings/en/regulatory/article/economic-outlook-us-q4-2025-below-trend-growth-persists-amid-a-swirl-of-policy-shifts-s101646549, https://ourpublicservice.org/publications/the-state-of-public-trust-in-government-2025/",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T15:50:00Z",
+    "LearningTimeStamp": "2025-10-02T15:50:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:50:00Z",
+    "QueryTimeStamp": "2025-10-02T15:50:00Z"  },  {    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-08-07",
+    "TypeOfRegulation": "Reciprocal Tariffs",
+    "DescriptionOfRegulation": "The U.S. has imposed a 10% reciprocal tariff on goods from Singapore, which is the baseline rate for many countries.",
+    "ImpactOfRegulation": "This tariff will increase the cost of Singaporean goods for U.S. importers and could make them less competitive compared to domestic products or goods from countries with lower tariffs.",
+    "ConsequencesOfRegulation": "Your partners in Singapore will face higher costs when exporting to the U.S. This could lead them to seek other markets or increase their prices, which could affect your supply chain costs if you source components from them that are first exported to the U.S. However, Singapore's economy is expected to perform well in 2025, which could mitigate some of the negative impacts.",
+    "ClassificationScoreOfRegulation": 6,
+    "OtherInformation": "Singapore maintains a very open and business-friendly economy and is a hub for technology and innovation. It has a strong free trade agreement with the U.S., which could help to mitigate some of the tariff impacts. The political situation is stable.",
+    "SourceOfEvidence": "https://www.sidley.com/en/insights/newsupdates/2025/08/implications-of-us-tariffs-on-southeast-asia-navigating-the-trade-tumult, https://www.mti.gov.sg/Newsroom/Press-Releases/2025/08/MTI-Upgrades-2025-GDP-Growth-Forecast-to-1_5-to-2_5-Per-Cent, https://www.state.gov/reports/2025-investment-climate-statements/singapore",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T15:50:00Z",
+    "LearningTimeStamp": "2025-10-02T15:50:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:50:00Z",
+    "QueryTimeStamp": "2025-10-02T15:50:00Z"  },  {    "AnalyzedCountry": "Shenzhen, China",
+    "DateOfEvidence": "2025-08-11",
+    "TypeOfRegulation": "Reciprocal Tariffs and Trade Deal",
+    "DescriptionOfRegulation": "The U.S. and China have a new trade deal in 2025. As part of the deal, the U.S. will reduce its tariffs on Chinese imports to a flat rate of 55%, down from 145%. In exchange, China will lower its tariffs on American goods to 10%. However, there is a temporary 30% tariff rate on Chinese goods.",
+    "ImpactOfRegulation": "While the new trade deal reduces tariffs, they are still substantial. The 30% temporary tariff will increase the cost of Chinese goods for U.S. importers. This will affect Shenzhen, a major tech and manufacturing hub. The deal does, however, reduce the extreme uncertainty of the previous trade war.",
+    "ConsequencesOfRegulation": "Your partners in Shenzhen will face continued cost pressures when exporting to the U.S., which could impact your supply chain. The focus on technology self-reliance in China could also lead to changes in the availability and cost of certain components. The business environment in China for foreign companies can be challenging due to a restrictive business environment and the government's use of legal and regulatory tools.",
+    "ClassificationScoreOfRegulation": 4,
+    "OtherInformation": "Shenzhen is aiming for a 5.5% economic growth rate in 2025. China as a whole remains a challenging market for foreign investors due to a sluggish economy and a restrictive business environment. The government's focus on national security can create uncertainty for foreign businesses.",
+    "SourceOfEvidence": "https://www.tradeimex.in/blogs/us-china-trade-deal-2025-impact-on-exports-imports-tariffs, https://www.globaltimes.cn/page/202502/1329054.shtml, https://www.state.gov/reports/2025-investment-climate-statements/china",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T15:50:00Z",
+    "LearningTimeStamp": "2025-10-02T15:50:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:50:00Z",
+    "QueryTimeStamp": "2025-10-02T15:50:00Z"  },  {    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-08-07",
+    "TypeOfRegulation": "Reciprocal Tariffs and New Trade Agreement",
+    "DescriptionOfRegulation": "The U.S. has lowered its tariffs on Malaysian goods to 19% as part of a new trade agreement. In return, Malaysia has committed to purchasing U.S. equipment and reducing its own tariffs and non-tariff barriers.",
+    "ImpactOfRegulation": "The new trade agreement provides more stability and predictability for Malaysian exporters to the U.S. The lower tariff rate of 19% is an improvement over the previous rate, but still represents a significant cost.",
+    "ConsequencesOfRegulation": "Your partners in Malaysia will benefit from the improved trade relationship with the U.S., which could lead to more stable supply chains and pricing. The Malaysian economy is also on a strong footing, which is a positive sign for business continuity. The government is committed to fiscal sustainability, which suggests a stable political and economic environment.",
+    "ClassificationScoreOfRegulation": 5,
+    "OtherInformation": "Malaysia's economy is projected to grow between 4% and 4.8% in 2025. The government is focused on structural reforms to make the country more resilient and competitive. This is a positive sign for long-term partnerships.",
+    "SourceOfEvidence": "https://research.hktdc.com/en/article/MjA5MjkwOTE3Mw, https://www.bnm.gov.my/-/gdp25f, https://mof.gov.my/portal/en/news/press-release/fiscal-policy-committee-2025",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T15:50:00Z",
+    "LearningTimeStamp": "2025-10-02T15:50:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:50:00Z",
+    "QueryTimeStamp": "2025-10-02T15:50:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-08-01",
+    "TypeOfRegulation": "Tariffs",
+    "DescriptionOfRegulation": "The U.S. has imposed a 25% tariff on all Indian goods. This is accompanied by an 'unspecified penalty' related to India's trade relationship with Russia.",
+    "ImpactOfRegulation": "This is a significant trade barrier that will make Indian goods much more expensive in the U.S. market. It will negatively impact a wide range of Indian industries, including gems and jewelry, which is a major export to the U.S.",
+    "ConsequencesOfRegulation": "Your partners in India will face major challenges in the U.S. market. This could lead to them seeking alternative markets, which could disrupt your supply chain if you rely on them for U.S.-specific products. The political stability in India is strong, but these trade tensions with the U.S. will create economic headwinds. The Indian economy is still projected to grow strongly in 2025, which might help to absorb some of the shock.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "India's economic outlook for 2025 is strong, with GDP growth projected to be around 6.4%. The political situation is stable, with the current government expected to continue its focus on economic reforms and national security. However, the trade dispute with the U.S. is a major risk factor.",
+    "SourceOfEvidence": "https://www.ibullssecurities.com/blog/us-india-trade-deal-tariffs-and-negotiations-2025, https://www.pib.gov.in/PressNoteDetails.aspx?NoteId=155121&ModuleId=3, https://apcoworldwide.com/blog/india-2025-outlook/",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T15:50:00Z",
+    "LearningTimeStamp": "2025-10-02T15:50:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:50:00Z",
+    "QueryTimeStamp": "2025-10-02T15:50:00Z"
+  }
+]
+
+#2
+[
+  {    "AnalyzedCountry": "U.S.",
+    "DateOfEvidence": "2025-07-24",
+    "TypeOfRegulation": "Reciprocal Tariff",
+    "DescriptionOfRegulation": "The U.S. has implemented a new 'Reciprocal Tariff Policy' which imposes additional import duties on a wide range of products. Initially a 10% ad valorem duty was applied, which was later increased to 30% for the EU.",
+    "ImpactOfRegulation": "Increased costs for imported goods and components, leading to higher production costs for manufacturers in the EU that rely on U.S. parts. This can also lead to trade tensions and retaliatory tariffs.",
+    "ConsequencesOfRegulation": "For your machine delivery to the EU, parts sourced from the U.S. will be more expensive. This could impact your profit margins or necessitate a price increase for the final product. It may also disrupt your supply chain if U.S. partners are unable to absorb the tariff costs.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "The U.S. has also imposed a 25% tariff on all steel and aluminum imports. This will further increase the cost of raw materials and components for machine building.",
+    "SourceOfEvidence": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202501564, https://www.whitehouse.gov/presidential-actions/2025/07/further-modifying-the-reciprocal-tariff-rates/",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "",
+    "OnlineResearchTimestamp": "2025-10-02T15:54:00Z",
+    "LearningTimeStamp": "2025-10-02T15:54:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:54:00Z",
+    "QueryTimeStamp": "2025-10-02T15:54:00Z"  },  {    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-08-12",
+    "TypeOfRegulation": "Not specified in the provided context.",
+    "DescriptionOfRegulation": "Singapore's economy is performing well with an upgraded GDP growth forecast of 1.5% to 2.5% for 2025. The country benefits from its strategic role in the global semiconductor supply chain.",
+    "ImpactOfRegulation": "No new negative regulations from Singapore were found that would directly impact your business. The stable economic situation is a positive factor for your partnership.",
+    "ConsequencesOfRegulation": "The positive economic outlook in Singapore is beneficial for your supply chain partnership. Your partners in Singapore are likely to be reliable and financially stable.",
+    "ClassificationScoreOfRegulation": 10,
+    "OtherInformation": "The Johor-Singapore Special Economic Zone (JS-SEZ) is a new development that could present opportunities for deeper regional collaboration and economic integration.",
+    "SourceOfEvidence": "https://www.singstat.gov.sg/gdp, https://www.dbs.com.sg/sme/businessclass/strategy-and-outlook/five-key-economic-themes",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "",
+    "OnlineResearchTimestamp": "2025-10-02T15:54:00Z",
+    "LearningTimeStamp": "2025-10-02T15:54:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:54:00Z",
+    "QueryTimeStamp": "2025-10-02T15:54:00Z"  },  {    "AnalyzedCountry": "Shenzen",
+    "DateOfEvidence": "2025-02-26",
+    "TypeOfRegulation": "Not specified in the provided context.",
+    "DescriptionOfRegulation": "Shenzhen, as a major tech hub in China, has a growth target of 5.5% for 2025. China's overall economic policy is becoming more relaxed to support growth.",
+    "ImpactOfRegulation": "No new negative regulations from Shenzhen/China were found that would directly impact your business. The focus on technological innovation and a supportive monetary policy are positive signs.",
+    "ConsequencesOfRegulation": "Your partners in Shenzhen are likely to be at the forefront of technological advancements. The stable economic environment is beneficial for your partnership.",
+    "ClassificationScoreOfRegulation": 9,
+    "OtherInformation": "China's focus on AI and technology finance could present opportunities for collaboration and innovation within your machine development platform.",
+    "SourceOfEvidence": "https://www.cnbayarea.org.cn/english/News/content/post_1282452.html, https://www.deloitte.com/cn/en/services/consulting/perspectives/deloitte-research-issue-95.html",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "",
+    "OnlineResearchTimestamp": "2025-10-02T15:54:00Z",
+    "LearningTimeStamp": "2025-10-02T15:54:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:54:00Z",
+    "QueryTimeStamp": "2025-10-02T15:54:00Z"  },  {    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-08-12",
+    "TypeOfRegulation": "Reciprocal Tariff",
+    "DescriptionOfRegulation": "The U.S. has advised Malaysia will receive a 25% reciprocal tariff. This is an increase from a previous tariff. The full impact is still being assessed.",
+    "ImpactOfRegulation": "Increased costs for goods and components sourced from Malaysia. This could disrupt the supply chain and increase production costs.",
+    "ConsequencesOfRegulation": "Parts supplied from Malaysia for your machine will likely be more expensive due to the U.S. tariffs. You should assess the potential cost increase with your Malaysian partners and explore mitigation strategies.",
+    "ClassificationScoreOfRegulation": 4,
+    "OtherInformation": "Malaysia's economy remains resilient with projected growth of 4%-4.8% in 2025. The government is implementing fiscal reforms to increase its revenue base.",
+    "SourceOfEvidence": "https://www.mfat.govt.nz/en/trade/mfat-market-reports/malaysia-trade-and-economic-update-q1-august-2025, https://www.bnm.gov.my/-/qb25q2_en_pr",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "",
+    "OnlineResearchTimestamp": "2025-10-02T15:54:00Z",
+    "LearningTimeStamp": "2025-10-02T15:54:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:54:00Z",
+    "QueryTimeStamp": "2025-10-02T15:54:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-10-01",
+    "TypeOfRegulation": "Tariff",
+    "DescriptionOfRegulation": "The Asian Development Bank (ADB) has cited the impact of 50% U.S. tariffs on Indian exports, which has led to a downgrade in India's growth outlook.",
+    "ImpactOfRegulation": "Significant cost increases for goods and components sourced from India. This is a major risk for your supply chain.",
+    "ConsequencesOfRegulation": "Your supply of parts from India will be heavily impacted by the U.S. tariffs. You need to urgently discuss the consequences with your Indian partners. This could necessitate finding alternative suppliers or re-negotiating contracts.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "Despite the tariffs, the Reserve Bank of India (RBI) has an optimistic outlook for the Indian economy, with a revised GDP growth forecast of 6.8% for FY2025-26. This indicates underlying economic strength.",
+    "SourceOfEvidence": "https://m.economictimes.com/news/economy/indicators/rbi-gdp-growth-report-update-mpc-meeting-2025-1st-october-fy26-growth-forecast-revised-to-6-8/articleshow/124247528.cms",
+    "Sourcing": 2,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "",
+    "OnlineResearchTimestamp": "2025-10-02T15:54:00Z",
+    "LearningTimeStamp": "2025-10-02T15:54:00Z",
+    "AnswerTimeStamp": "2025-10-02T15:54:00Z",
+    "QueryTimeStamp": "2025-10-02T15:54:00Z"
+  }
+]
+
+#3
+[
+  {    "AnalyzedCountry": "United States",
+    "DateOfEvidence": "2025-10-01",
+    "TypeOfRegulation": "Tariffs and Trade Investigations",
+    "DescriptionOfRegulation": "In October 2025, the US initiated Section 232 investigations into imports of robotics and industrial machinery. This follows the implementation of tariffs on a wide range of goods, including a 10% universal tariff and additional tariffs on automobiles and auto parts from the EU, effective from August/September 2025.",
+    "ImpactOfRegulation": "These regulations will increase the cost of importing components from the U.S. and create uncertainty in the supply chain. The Section 232 investigation could lead to further tariffs or quotas on robotics and machinery, directly impacting your business.",
+    "ConsequencesOfRegulation": "Your company will likely face higher costs for parts sourced from the U.S., which could affect the final price of your machines. The ongoing investigation creates a risk of further supply chain disruptions and may require you to seek alternative suppliers.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "The current trade policy in the U.S. shows a trend towards protectionism. This, coupled with ongoing geopolitical tensions, could lead to further trade disputes. It is advisable to monitor the situation closely and diversify your supply chain.",
+    "SourceOfEvidence": "https://globaltaxnews.ey.com/news/2025-1948-us-trade-developments-include-announced-new-tariffs-on-pharmaceuticals-section-232-investigations-into-imports-including-robotics-industrial-machinery-ppe-and-medical-equipment, https://policy.trade.ec.europa.eu/consultations/information-gathering-notice-under-regulation-eu-no-6542014-new-us-tariffs-imports-originating-or-eu_en",
+    "Sourcing": 3,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T13:55:00Z",
+    "LearningTimeStamp": "2025-10-02T13:55:00Z",
+    "AnswerTimeStamp": "2025-10-02T13:55:00Z",
+    "QueryTimeStamp": "2025-10-02T13:55:00Z"  },  {    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-10-01",
+    "TypeOfRegulation": "Digital Economy Agreement and Business Grant",
+    "DescriptionOfRegulation": "Singapore and the EFTA states concluded a Digital Economy Agreement (DEA) in July 2025 to facilitate digital trade. In addition, the Singaporean government is introducing a 'Business Adaptation Grant' in October 2025 to help businesses cope with rising costs and global trade disruptions.",
+    "ImpactOfRegulation": "The DEA will make it easier and more efficient to collaborate with your Singaporean partners on your common IT platform. The Business Adaptation Grant will provide financial support to your partners, enhancing their stability and reliability.",
+    "ConsequencesOfRegulation": "The DEA will streamline your joint machine development efforts. The grant will help your Singaporean partners to remain competitive and resilient, which is beneficial for your supply chain.",
+    "ClassificationScoreOfRegulation": 9,
+    "OtherInformation": "Singapore's economy is performing well, with GDP growth forecasts upgraded for 2025. The government is proactive in supporting businesses, which makes Singapore a stable and reliable partner.",
+    "SourceOfEvidence": "https://www.efta.int/media-resources/news/efta-and-singapore-conclude-negotiations-digital-economy-agreement, https://www.pinsentmasons.com/out-law/news/singapore-new-business-grants",
+    "Sourcing": 3,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T13:55:00Z",
+    "LearningTimeStamp": "2025-10-02T13:55:00Z",
+    "AnswerTimeStamp": "2025-10-02T13:55:00Z",
+    "QueryTimeStamp": "2025-10-02T13:55:00Z"  },  {    "AnalyzedCountry": "China (Shenzhen)",
+    "DateOfEvidence": "2025-06-26",
+    "TypeOfRegulation": "Export Controls",
+    "DescriptionOfRegulation": "In June 2025, China introduced new export licensing requirements for certain rare earth elements. These materials are critical for many high-tech applications, including robotics.",
+    "ImpactOfRegulation": "This regulation could lead to significant supply chain disruptions and increased costs for essential components. Procuring these materials from China will now involve more bureaucracy and uncertainty.",
+    "ConsequencesOfRegulation": "Your company may face delays in production if you rely on Chinese suppliers for these rare earth elements. You may need to find alternative sources, which could be difficult and costly. This could also impact the technical specifications of your machines if you are forced to use different materials.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "China's economy is facing some stress, which could lead to more protectionist measures. The government is also heavily promoting the use of AI in its industries ('AI+'), which could make Chinese partners both more advanced and more competitive.",
+    "SourceOfEvidence": "https://www.taylorwessing.com/en/insights-and-events/insights/2025/06/chinas-rare-earth-export-controls-implications-for-european-life-sciences, https://merics.org/en/comment/chinas-ai-drive-aims-integration-across-sectors-wake-call-europe",
+    "Sourcing": 3,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T13:55:00Z",
+    "LearningTimeStamp": "2025-10-02T13:55:00Z",
+    "AnswerTimeStamp": "2025-10-02T13:55:00Z",
+    "QueryTimeStamp": "2025-10-02T13:55:00Z"  },  {    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-07-14",
+    "TypeOfRegulation": "Export Controls",
+    "DescriptionOfRegulation": "Malaysia introduced a new directive in July 2025 that imposes controls on the export of high-performance AI chips. The measure is intended to prevent the use of these chips in the proliferation of weapons of mass destruction.",
+    "ImpactOfRegulation": "If your machines use advanced AI chips sourced from Malaysia, this regulation will add an extra layer of compliance and could lead to delays. You will need to provide detailed information about the end-use and end-user of the chips.",
+    "ConsequencesOfRegulation": "You will need to work closely with your Malaysian partners to ensure compliance with the new export control directive. This will require robust documentation and could slow down the procurement process. Failure to comply could result in the denial of export licenses.",
+    "ClassificationScoreOfRegulation": 4,
+    "OtherInformation": "Malaysia's economy is showing resilience. The new export control directive reflects Malaysia's commitment to international security standards and its alignment with US export control policies.",
+    "SourceOfEvidence": "https://sanctionsnews.bakermckenzie.com/malaysia-introduces-new-export-control-directive-for-advanced-ai-chips/",
+    "Sourcing": 3,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T13:55:00Z",
+    "LearningTimeStamp": "2025-10-02T13:55:00Z",
+    "AnswerTimeStamp": "2025-10-02T13:55:00Z",
+    "QueryTimeStamp": "2025-10-02T13:55:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-10-01",
+    "TypeOfRegulation": "Free Trade Agreement",
+    "DescriptionOfRegulation": "India and the EU are in the final stages of negotiating a Free Trade Agreement (FTA), which is expected to be concluded by the end of 2025. The agreement will reduce tariffs and non-tariff barriers on a wide range of goods, including machinery and auto parts.",
+    "ImpactOfRegulation": "The FTA will have a positive impact on your business by reducing the cost of parts sourced from India. It will also simplify trade procedures and create a more predictable business environment.",
+    "ConsequencesOfRegulation": "This FTA will strengthen your partnership with Indian suppliers, making them more cost-competitive. It will also make your final products more competitive in the EU market. The agreement will foster deeper economic ties between India and the EU.",
+    "ClassificationScoreOfRegulation": 9,
+    "OtherInformation": "India's economy is experiencing strong growth, with the RBI upgrading its GDP forecast for FY 2025-26. The Indian government is actively promoting manufacturing through initiatives like 'Make in India'.",
+    "SourceOfEvidence": "https://www.indiratrade.com/blog/india%E2%80%93eu-trade-deal-by-2025-unlocking-new-opportunities-for-investors/9536, https://www.pib.gov.in/PressReleasePage.aspx?PRID=2173560",
+    "Sourcing": 3,
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0",
+    "OnlineResearchTimestamp": "2025-10-02T13:55:00Z",
+    "LearningTimeStamp": "2025-10-02T13:55:00Z",
+    "AnswerTimeStamp": "2025-10-02T13:55:00Z",
+    "QueryTimeStamp": "2025-10-02T13:55:00Z"
+  }
+]
+
+
+Grok 4
+
+#1
+{
+  "regulations": [
+    {
+      "AnalyzedCountry": "United States",
+      "DateOfEvidence": "2025-07-23",
+      "TypeOfRegulation": "Export Promotion Executive Order",
+      "DescriptionOfRegulation": "Executive Order titled 'Promoting the Export of the American AI Technology Stack' establishes a program to support exports of full-stack AI technologies, including hardware, models, and applications, through industry consortia, federal financing, and compliance with export controls.",
+      "ImpactOfRegulation": "Facilitates easier export of AI and related tech components for robotics, reducing barriers via incentives and coordination, but requires compliance with existing export regimes which may add administrative steps.",
+      "ConsequencesOfRegulation": "Positive for partnerships; enhances supply of US robotics parts to EU by promoting exports to allies, strengthening joint IT platform development without major disruptions to contractual deliveries.",
+      "ClassificationScoreOfRegulation": 9,
+      "OtherInformation": "US political stability under Trump administration is moderate with tariff escalations, but economic growth projected at 2.5% in 2025; from security view, Zero Trust benefits from promoted secure AI stacks, mitigating supply chain risks in Industry 4.0.",
+      "SourceOfEvidence": "https://www.whitehouse.gov/presidential-actions/2025/07/promoting-the-export-of-the-american-ai-tec…, https://www.torrestradelaw.com/posts/U.S.-Executive-Order-Propels-American-AI-Exports/417",
+      "Sourcing": 2,
+      "LLM_Name": "Grok",
+      "LLM_Version": "Grok 4",
+      "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+      "LearningTimeStamp": "2025-10-02T11:00:00Z",
+      "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+      "QueryTimeStamp": "2025-10-02T09:00:00Z"
+    },
+    {
+      "AnalyzedCountry": "Singapore",
+      "DateOfEvidence": "2025-07-01",
+      "TypeOfRegulation": "None",
+      "DescriptionOfRegulation": "No new export regulations identified since July 2025 affecting technology or robotics supply chains.",
+      "ImpactOfRegulation": "No additional burdens; existing controls from April 2025 on semiconductors and AI remain, focusing on compliance to prevent circumvention.",
+      "ConsequencesOfRegulation": "Minimal impact on partnerships; smooth supply of parts to EU for machine delivery, supporting collaborative IT platform without delays.",
+      "ClassificationScoreOfRegulation": 10,
+      "OtherInformation": "Singapore maintains high political and economic stability, with 3.2% GDP growth forecast for 2025; security-wise, robust export controls enhance Zero Trust by reducing risks of unauthorized tech diversion in shared engineering platforms.",
+      "SourceOfEvidence": "https://www.mti.gov.sg/Newsroom/Press-Releases/2025/04/Joint-Advisory-Export-controls-on-advanced-s…, https://www.trade.gov/country-commercial-guides/singapore-supply-chain-resilience",
+      "Sourcing": 2,
+      "LLM_Name": "Grok",
+      "LLM_Version": "Grok 4",
+      "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+      "LearningTimeStamp": "2025-10-02T11:00:00Z",
+      "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+      "QueryTimeStamp": "2025-10-02T09:00:00Z"
+    },
+    {
+      "AnalyzedCountry": "China",
+      "DateOfEvidence": "2025-07-16",
+      "TypeOfRegulation": "Export Control Catalog Revision",
+      "DescriptionOfRegulation": "Updated catalog of prohibited/restricted export technologies, adding battery cathode material preparation (e.g., lithium iron phosphate) to restricted list requiring licenses; minor removals in other areas.",
+      "ImpactOfRegulation": "Limited to specific battery tech; no direct burdens on robotics parts unless involving restricted materials, but increases scrutiny on dual-use tech exports.",
+      "ConsequencesOfRegulation": "Low disruption to Shenzhen-based supplies for EU delivery; partnerships on IT platform unaffected, though potential delays if parts include batteries; promotes international cooperation.",
+      "ClassificationScoreOfRegulation": 8,
+      "OtherInformation": "China's economic stability challenged by US tensions, 4.8% growth in 2025; security perspective: Heightened controls aid Zero Trust by limiting proliferation risks, but geopolitical strains may affect long-term supply chain reliability.",
+      "SourceOfEvidence": "https://www.chinadailyhk.com/hk/article/615994, https://www.gide.com/en/news-insights/china-strengthens-export-controls-and-proposes-new-licensing-rules/",
+      "Sourcing": 2,
+      "LLM_Name": "Grok",
+      "LLM_Version": "Grok 4",
+      "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+      "LearningTimeStamp": "2025-10-02T11:00:00Z",
+      "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+      "QueryTimeStamp": "2025-10-02T09:00:00Z"
+    },
+    {
+      "AnalyzedCountry": "Malaysia",
+      "DateOfEvidence": "2025-07-14",
+      "TypeOfRegulation": "Trade Permit Requirement",
+      "DescriptionOfRegulation": "Mandates 30-day advance notification to authorities for export, transshipment, or transit of high-performance US-origin AI chips, aiming to prevent diversion; under Strategic Trade Act.",
+      "ImpactOfRegulation": "Introduces delays and administrative burdens for parts containing US AI chips; requires permits not previously needed, increasing compliance costs.",
+      "ConsequencesOfRegulation": "Potential 30-day delays in supply chain for robotics machines to EU, affecting contractual timelines; impacts joint IT platform if AI components involved, risking partnership strains.",
+      "ClassificationScoreOfRegulation": 3,
+      "OtherInformation": "Malaysia enjoys strong political stability post-2025 elections, 5.1% GDP growth; from security angle, aligns with global controls to bolster Zero Trust, reducing transshipment vulnerabilities in Industry 4.0 supply chains.",
+      "SourceOfEvidence": "https://www.reuters.com/world/asia-pacific/malaysia-says-trade-permit-required-ai-chips-us-origin-2…, https://www.bloomberg.com/news/articles/2025-07-14/malaysia-to-require-permits-on-trade-of-high-end…,
+      "Sourcing": 2,
+      "LLM_Name": "Grok",
+      "LLM_Version": "Grok 4",
+      "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+      "LearningTimeStamp": "2025-10-02T11:00:00Z",
+      "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+      "QueryTimeStamp": "2025-10-02T09:00:00Z"
+    },
+    {
+      "AnalyzedCountry": "India",
+      "DateOfEvidence": "2025-07-24",
+      "TypeOfRegulation": "None (FTA Signing)",
+      "DescriptionOfRegulation": "No new restrictive export regulations; UK-India FTA signed, reducing tariffs on 90% of lines, but US imposed 25% tariffs on Indian goods (unrelated to EU).",
+      "ImpactOfRegulation": "No burdens from new regs; FTA eases some trade but US tariffs affect exports to US, not EU; overall neutral for tech supply.",
+      "ConsequencesOfRegulation": "No impact on parts supply to EU or machine delivery; supports stable partnerships on engineering platform, with potential indirect benefits from diversified trade.",
+      "ClassificationScoreOfRegulation": 10,
+      "OtherInformation": "India's economy robust at 7% growth, political stability improving; security-wise, SCOMET list ensures controlled exports, enhancing Zero Trust in collaborative robotics development amid global tensions.",
+      "SourceOfEvidence": "https://www.cfr.org/article/export-controls-balancing-tensions-between-us-and-indian-priorities, https://www.reuters.com/world/india/india-file-tariff-blow-unlikely-deter-us-firms-2025-08-06/",
+      "Sourcing": 2,
+      "LLM_Name": "Grok",
+      "LLM_Version": "Grok 4",
+      "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+      "LearningTimeStamp": "2025-10-02T11:00:00Z",
+      "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+      "QueryTimeStamp": "2025-10-02T09:00:00Z"
+    }
+  ]
+}
+
+#2
+[
+  {
+    "AnalyzedCountry": "United States",
+    "DateOfEvidence": "2025-09-24",
+    "TypeOfRegulation": "Section 232 Investigation",
+    "DescriptionOfRegulation": "The US Department of Commerce initiated a Section 232 investigation into imports of robotics and industrial machinery to assess national security impacts, potentially leading to tariffs or restrictions.",
+    "ImpactOfRegulation": "Primarily targets US imports, increasing costs for US buyers of foreign robotics parts; indirect effects on global pricing and supply chain dynamics due to potential retaliatory measures from trading partners.",
+    "ConsequencesOfRegulation": "Minimal direct impact on US exports of parts to EU for machine assembly; however, could strain US-EU partnerships if EU retaliates, potentially delaying deliveries. No major disruption to current contractual obligations.",
+    "ClassificationScoreOfRegulation": "8",
+    "OtherInformation": "From a security perspective, the investigation highlights vulnerabilities in global supply chains for critical tech like robotics, emphasizing the need for Zero Trust architectures to mitigate risks from foreign dependencies in shared IT platforms.",
+    "SourceOfEvidence": "https://www.whitecase.com/insight-alert/trump-administration-initiates-section-232-investigation-ro…, https://www.reuters.com/world/us/us-opens-tariff-probes-into-medical-equipment-robotics-industrial-…,
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-04-28",
+    "TypeOfRegulation": "Enhanced Export Control Enforcement",
+    "DescriptionOfRegulation": "US and Singapore agreed to strengthen export control enforcement, increasing scrutiny and penalties for violations in tech and semiconductor sectors.",
+    "ImpactOfRegulation": "Heightens compliance requirements for Singapore-based suppliers of tech components, potentially slowing export processes and raising costs due to additional due diligence.",
+    "ConsequencesOfRegulation": "Slight delays in parts supply from Singapore to EU; impacts shared IT platform development minimally, but requires partners to verify compliance in contractual deliveries to avoid disruptions.",
+    "ClassificationScoreOfRegulation": "9",
+    "OtherInformation": "Security implications include bolstered defenses against tech diversion, aligning with Zero Trust principles by enforcing stricter access controls in cross-border engineering collaborations.",
+    "SourceOfEvidence": "https://www.wilmerhale.com/en/insights/client-alerts/20250428-the-united-states-and-singapore-signa…,
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "China",
+    "DateOfEvidence": "2025-09-29",
+    "TypeOfRegulation": "Export Control Expansion (50% Rule)",
+    "DescriptionOfRegulation": "BIS issued an interim final rule expanding Entity List restrictions to subsidiaries owned 50% or more by listed entities, targeting circumvention in chipmaking and advanced tech exports.",
+    "ImpactOfRegulation": "Increases due diligence burdens for exporters, restricts US-origin tech to Chinese affiliates, raising costs and delaying shipments of components with US content.",
+    "ConsequencesOfRegulation": "Significant risk of supply disruptions from Shenzhen partners to EU assembly; potential halts in parts delivery affecting contractual machine obligations, straining supply chain partnerships and requiring alternative sourcing.",
+    "ClassificationScoreOfRegulation": "3",
+    "OtherInformation": "Heightened risks to shared IT platforms from potential tech diversion; recommends Zero Trust Runtime enhancements for monitoring cross-border data flows in robotics engineering to prevent security breaches.",
+    "SourceOfEvidence": "https://www.reuters.com/business/autos-transportation/us-expands-export-blacklist-include-subsidiar…, https://www.strtrade.com/trade-news-resources/str-trade-report/trade-report/october/export-controls…,
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-07-05",
+    "TypeOfRegulation": "AI Chip Export Restrictions",
+    "DescriptionOfRegulation": "US preparing new restrictions on AI chip exports to Malaysia over concerns of smuggling to China, affecting semiconductor supply chains.",
+    "ImpactOfRegulation": "Tightens controls on high-tech exports, requiring enhanced verification and potentially limiting availability of advanced components for robotics.",
+    "ConsequencesOfRegulation": "Moderate delays in Malaysian parts supply to EU; impacts export business by increasing compliance costs, but current contracts likely unaffected short-term; monitor for escalation in shared platform development.",
+    "ClassificationScoreOfRegulation": "6",
+    "OtherInformation": "From security viewpoint, underscores transshipment risks in Southeast Asia; Zero Trust measures should include supplier vetting protocols to secure engineering-level IT integrations against unauthorized diversions.",
+    "SourceOfEvidence": "https://techwireasia.com/2025/07/ai-chip-curbs-malaysia-thailand/",
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-07-01",
+    "TypeOfRegulation": "General Semiconductor Export Controls",
+    "DescriptionOfRegulation": "Ongoing US export controls on advanced semiconductors extended to partners like India, focusing on preventing diversion to restricted entities.",
+    "ImpactOfRegulation": "Imposes additional licensing and compliance for tech exports, slightly elevating costs and administrative burdens in the supply chain.",
+    "ConsequencesOfRegulation": "Low direct impact on parts supply from India to EU; minimal effects on partnerships or export business, with stable delivery for current obligations; supports resilient shared IT platforms.",
+    "ClassificationScoreOfRegulation": "9",
+    "OtherInformation": "Security benefits from aligned controls, reducing proliferation risks; integrate Zero Trust verifications in India-EU collaborations to maintain integrity of machine development platforms.",
+    "SourceOfEvidence": "https://www.csis.org/analysis/limits-chip-export-controls-meeting-china-challenge, https://thediplomat.com/2025/07/southeast-asias-transshipment-dilemma-in-the-china-us-trade-war/",
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  }
+]
+
+#3
+[
+  {
+    "AnalyzedCountry": "United States",
+    "DateOfEvidence": "2025-09-29",
+    "TypeOfRegulation": "Export Control",
+    "DescriptionOfRegulation": "The US Bureau of Industry and Security (BIS) broadened export controls with a new '50 percent rule' effective September 29, 2025, reducing the de minimis threshold for controlled items and requiring licenses for exports containing more than 50% foreign content in certain technologies, including semiconductors and robotics components.",
+    "ImpactOfRegulation": "Increases compliance burdens for US exporters of high-tech parts, requiring additional licenses and documentation, leading to higher costs and potential delays in supply chains involving controlled technologies.",
+    "ConsequencesOfRegulation": "For partnerships with US suppliers, this could delay delivery of robotics parts to the EU due to licensing requirements, especially if components include Asian-sourced materials; may strain the common IT platform development by slowing prototype iterations and increasing costs, affecting contractual obligations.",
+    "ClassificationScoreOfRegulation": 5,
+    "OtherInformation": "From a security perspective, enhanced export controls may indirectly bolster Zero Trust implementations by limiting technology proliferation, but could expose supply chains to insider threats during compliance audits. Political stability in the US remains volatile due to ongoing tariff escalations, potentially disrupting partner collaborations.",
+    "SourceOfEvidence": "https://www.strtrade.com/trade-news-resources/str-trade-report/trade-report/october/export-controls…,
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T00:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "China",
+    "DateOfEvidence": "2025-08-29",
+    "TypeOfRegulation": "Export Control",
+    "DescriptionOfRegulation": "The US Department of Commerce's BIS issued a rule closing an export controls loophole for foreign-owned semiconductor fabrication facilities in China, effective August 29, 2025, restricting US-origin advanced semiconductor equipment and technology exports to such entities.",
+    "ImpactOfRegulation": "Severely limits access to US-controlled technologies for Chinese manufacturers, increasing costs for alternative sourcing and causing production bottlenecks in semiconductor-dependent industries like robotics.",
+    "ConsequencesOfRegulation": "Shenzhen partners face significant delays and cost hikes in supplying robotics parts to the EU, potentially breaching delivery timelines; disrupts integrated IT platform development, forcing redesigns and risking contractual penalties for the EU machine delivery.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "Security implications include heightened risks of IP theft attempts in response to restrictions, necessitating stronger Zero Trust measures in cross-border data sharing on the engineering platform. Economic stability in China is strained by retaliatory tariffs, with GDP growth projected to slow to 4.5% in Q4 2025 amid supply chain rerouting.",
+    "SourceOfEvidence": "https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned…,
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T00:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-08-27",
+    "TypeOfRegulation": "Tariff",
+    "DescriptionOfRegulation": "The US imposed a 50% tariff on select Indian exports, including electronics and machinery parts, effective August 27, 2025, as part of reciprocal trade measures under the Trump administration.",
+    "ImpactOfRegulation": "Dramatically raises the cost of Indian-sourced components entering the US market, with spillover effects on global pricing and supply chain logistics for non-US destinations.",
+    "ConsequencesOfRegulation": "Indian partners' parts for the EU machine become 50% more expensive if routed through US intermediaries, leading to overall cost overruns and potential delays; hampers collaborative engineering on the IT platform, threatening timely EU delivery.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "In terms of security, tariff-induced supply shifts may increase reliance on less vetted suppliers, elevating cyber risks in the Zero Trust Runtime environment. India's political-economic stability is moderate, with 6.8% GDP growth forecasted for 2025 despite trade frictions.",
+    "SourceOfEvidence": "https://www.india-briefing.com/news/us-india-tariff-50-percent-new-rules-impact-exporters-39458.htm…,
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T00:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-07-31",
+    "TypeOfRegulation": "Trade Agreement",
+    "DescriptionOfRegulation": "Malaysia and the US concluded a new bilateral trade agreement on July 31, 2025, effective August 7, 2025, which revises tariffs to 19% on Malaysian goods and includes provisions for electronics and machinery supply chains.",
+    "ImpactOfRegulation": "Mitigates potential tariff escalations, providing predictability but still imposing moderate duties that could marginally increase component costs.",
+    "ConsequencesOfRegulation": "Stabilizes supply from Malaysian partners, minimizing disruptions to EU machine delivery; supports ongoing IT platform integration with minimal cost adjustments, though monitoring for implementation is advised.",
+    "ClassificationScoreOfRegulation": 6,
+    "OtherInformation": "Security-wise, the agreement may facilitate secure data exchanges under aligned standards, aiding Zero Trust adoption. Malaysia's economic stability is improving, with 5.2% growth expected in 2025, bolstered by diversified trade alliances.",
+    "SourceOfEvidence": "https://research.hktdc.com/en/article/MjA5MjkwOTE3Mw",
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T00:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-08-01",
+    "TypeOfRegulation": "Tariff",
+    "DescriptionOfRegulation": "The US applied a 10% baseline reciprocal tariff on Singaporean exports, effective August 1, 2025, with potential escalation to 25% if negotiations falter, targeting high-tech and pharmaceutical goods.",
+    "ImpactOfRegulation": "Introduces modest cost increases for Singapore-sourced precision parts, affecting competitiveness in global supply chains without major overhauls.",
+    "ConsequencesOfRegulation": "Slightly elevates expenses for robotics components from Singapore, with low risk of delays to EU delivery; minor adjustments needed in the shared IT platform budgeting, preserving partnership dynamics.",
+    "ClassificationScoreOfRegulation": 7,
+    "OtherInformation": "Regarding security, stable trade relations support robust Zero Trust frameworks in joint developments. Singapore maintains high political-economic stability, with 3.5% GDP growth projected for Q4 2025 amid regional tensions.",
+    "SourceOfEvidence": "https://www.easyship.com/blog/trump-singapore-tariffs",
+    "Sourcing": "2",
+    "LLM_Name": "Grok 4",
+    "LLM_Version": "4",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T00:00:00Z"
+  }
+]
+
+ChatGPT Normal (GPT 5 mini)
+
+#1
+#1
+[
+  {
+    "AnalyzedCountry": "United States (origin of regulation)",
+    "DateOfEvidence": "2025-09-29",
+    "TypeOfRegulation": "Export control / Entity-List expansion (Affiliates/50%-ownership rule)",
+    "DescriptionOfRegulation": "Bureau of Industry and Security (Commerce) adopted an interim final rule broadening the Entity List/MEU restrictions to automatically capture foreign affiliates that are 50%+ owned by listed parties (closing ownership/circumvention loopholes).",
+    "ImpactOfRegulation": "Wider license requirements for exports of dual-use and advanced tech to many more entities / subsidiaries; greater due-diligence and compliance burden for firms exporting U.S. origin items or U.S.-controlled technology; potential disruption where parts or tooling pass through affected affiliates.",
+    "ConsequencesOfRegulation": "For your EU delivery: increased risk that a parts supplier (or its subsidiary) in e.g. China, Singapore, India or elsewhere may be effectively blocked or require BIS license. This can cause shipment delays, licensing paperwork, denied exports, and require re-routing/sourcing from non-affected vendors. Compliance costs and transaction time increase; possible need for pre-shipment end-user checks and legal review.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "Immediate action advised: audit upstream suppliers for ownership ties to listed entities; strengthen export controls compliance (ECCN checks, end-use/end-user screening) on the engineering platform integrations.",
+    "SourceOfEvidence": "U.S. Commerce/BIS press releases and Federal Register, Reuters, legal-practice analyses. https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china, https://www.reuters.com/business/autos-transportation/us-expands-export-blacklist-include-subsidiaries-2025-09-29/, https://www.federalregister.gov/documents/2025/09/16/2025-17893/additions-and-revisions-to-the-entity-list, https://www.sidley.com/en/insights/newsupdates/2025/10/us-commerce-department-bureau-of-industry-and-security-adopts-50-percent-rule-for-export-controls",
+    "Sourcing": 2,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "Thinking mini",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "China (Shenzhen / PRC supply base)",
+    "DateOfEvidence": "2025-09-16",
+    "TypeOfRegulation": "Entity additions & export compliance / domestic export rule changes (China)",
+    "DescriptionOfRegulation": "U.S. Entity List additions and the BIS 'affiliates/50%' rule increase restrictions on Chinese entities and their foreign affiliates; concurrently, PRC regulatory changes (2025 tax/export filings and selective raw-material export restrictions) tighten export compliance on exporters in China.",
+    "ImpactOfRegulation": "Suppliers in Shenzhen may be newly subject to U.S. license requirements (through being affiliates), or face PRC procedural changes that slow customs/tax clearance. Cross-border shipments with U.S. origin tech or U.S.-controlled components risk license denial or additional scrutiny. Sourcing of semiconductors, specialized components and tooling is particularly at risk.",
+    "ConsequencesOfRegulation": "High risk of delays or refusal of supply from Shenzhen-based vendors if they are linked (≥50% ownership/affiliate) to listed entities; potential need to re-source components or obtain export licenses; contractual delivery timelines to EU may be missed. Increased KYC, supplier audits and substitute-sourcing costs.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "Security: device/firmware supply chain risk rises—ensure provenance checks on firmware/toolchains and cryptographic signing; blocklist/affiliate checks should include indirect ownership chains.",
+    "SourceOfEvidence": "Federal Register additions to Entity List; BIS statements; reporting on China export compliance and new tax/filing rules. https://www.federalregister.gov/documents/2025/09/16/2025-17893/additions-and-revisions-to-the-entity-list, https://www.bis.gov/press-release/department-commerce-closes-export-controls-loophole-foreign-owned-semiconductor-fabs-china, https://www.china-briefing.com/news/chinas-imports-2025-trends-implications/, https://www.eezyimport.com/chinas-raw-material-export-restrictions-a-critical-challenge-for-us-importers-in-2025/",
+    "Sourcing": 2,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "Thinking mini",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-07-14",
+    "TypeOfRegulation": "Macro / trade environment advisory (IMF Article IV) + selected entity listing (BIS additions Sep 2025)",
+    "DescriptionOfRegulation": "Singapore remains open and investment-friendly but IMF and MAS reports (July 2025) note slower externally-oriented sectors due to trade tensions; BIS Entity List updates in Sept 2025 included at least one Singapore-related entity in recent additions.",
+    "ImpactOfRegulation": "Economic fundamentals stable but slower manufacturing/trade growth may reduce supplier throughput; if a Singapore partner or affiliate is added to Entity List, U.S.-origin controlled items may need licenses, complicating transfers into the EU.",
+    "ConsequencesOfRegulation": "Moderate risk to delivery timelines if particular Singapore partners are affected by U.S. listings or if regional trade friction causes logistic slowdowns. Expect increased compliance checks for cross-border transfers involving U.S.-origin technology.",
+    "ClassificationScoreOfRegulation": 6,
+    "OtherInformation": "Singapore generally enforces robust export control and compliance infrastructure—partners there often have good compliance capabilities; prioritize supply-chain due diligence but Singapore-based partners are often cooperative.",
+    "SourceOfEvidence": "IMF Article IV (Jul 2025), MAS macro review (Jul 2025), Federal Register / BIS entity additions (Sept 2025). https://www.imf.org/en/News/Articles/2025/07/14/pr-25250-singapore-imf-concludes-2025-article-iv-consultation, https://www.mas.gov.sg/-/media/mas-media-library/publications/macroeconomic-review/2025/jul/mrjul25.pdf, https://www.federalregister.gov/documents/2025/09/16/2025-17893/additions-and-revisions-to-the-entity-list",
+    "Sourcing": 2,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "Thinking mini",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-07-22",
+    "TypeOfRegulation": "Macro / domestic policy (no major US-led new export rules targeted specifically at Malaysia July–Oct 2025)",
+    "DescriptionOfRegulation": "Malaysia’s 2025 economic reports show resilient growth and stable fundamentals; there were no major, new US-origin export rules specifically aimed at Malaysia in Jul–Oct 2025, but global export-control tightening increases compliance expectations for firms sourcing in Malaysia.",
+    "ImpactOfRegulation": "Low-to-moderate direct impact from new U.S. rules, but indirect effects (supply-chain audit requests, increased compliance paperwork, possible longer lead times) may appear if Malaysian suppliers use U.S.-origin parts or have affiliates in affected jurisdictions.",
+    "ConsequencesOfRegulation": "Lower immediate risk to your delivery from Malaysian partners compared to China; still advisable to confirm suppliers do not use or pass U.S.-controlled components through affiliates that could trigger license requirements.",
+    "ClassificationScoreOfRegulation": 7,
+    "OtherInformation": "Security note: verify firmware/component provenance and ensure Malaysian subcontractors follow ICP/internal compliance procedures for dual-use items if present.",
+    "SourceOfEvidence": "Malaysia economic reports (Embassy/EDA, national budgets) and IMF/World Bank analyses. https://www.eda.admin.ch/content/dam/countries/countries-content/singapore/en/Malaysia_Econ_Report_2025_EN.pdf, https://www.worldbank.org/en/region/eap/publication/global-economic-prospects",
+    "Sourcing": 2,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "Thinking mini",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-09-30",
+    "TypeOfRegulation": "Export incentives & strategic trade control updates (domestic), plus potential inclusion on US Entity List additions",
+    "DescriptionOfRegulation": "India extended the RoDTEP export-incentive scheme to March 2026 (Sept 30, 2025) supporting exporters; at the same time India continues to strengthen strategic trade controls and draft Internal Compliance Program guidance for dual-use items (DGFT July 2025). Some Entity List additions (Sept 2025) included at least one India-related entry.",
+    "ImpactOfRegulation": "RoDTEP extension supports Indian exporters (positive for cashflow/pricing) while the DGFT focus on internal compliance increases administrative burden for dual-use items. If particular Indian suppliers are added to U.S. lists or are affiliates of listed entities, U.S.-origin components may require licenses.",
+    "ConsequencesOfRegulation": "Mixed effect: financial support reduces risk of supplier failure; compliance tightening increases paperwork and could create delays for parts classified as dual-use. Check whether Indian partners have affiliations to any U.S.-listed entities to avoid unexpected license denials.",
+    "ClassificationScoreOfRegulation": 5,
+    "OtherInformation": "Security: Indian suppliers are increasingly formalizing export-control processes—leverage their ICPs, but validate certificates and obtain documented export-compliance attestations for critical components.",
+    "SourceOfEvidence": "Reuters (RoDTEP extension Sep 30, 2025), DGFT / NCSTC handbook, Federal Register Entity List updates. https://www.reuters.com/world/india/india-extends-export-incentive-scheme-until-march-2026-2025-09-30/, https://content.dgft.gov.in/Website/NCSTC-2025-Handbook-on-Indias-Strategic-Trade-Control-System.pdf, https://www.federalregister.gov/documents/2025/09/16/2025-17893/additions-and-revisions-to-the-entity-list",
+    "Sourcing": 2,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "Thinking mini",
+    "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+    "LearningTimeStamp": "2025-10-02T12:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T12:00:00Z",
+    "QueryTimeStamp": "2025-10-02T12:00:00Z"
+  }
+]
+
+#2
+{
+  "QueryTimeStamp": "2025-10-02T12:00:00Z",
+  "OnlineResearchTimestamp": "2025-10-02T12:00:00Z",
+  "LearningTimeStamp": "2024-06-01T00:00:00Z",
+  "AnswerTimeStamp": "2025-10-02T12:05:00Z",
+  "LLM_Name": "GPT-5 Thinking mini",
+  "LLM_Version": "v1",
+  "Sourcing": 3,
+  "Countries": [
+    {
+      "AnalyzedCountry": "United States",
+      "DateOfEvidence": "2025-07-23",
+      "TypeOfRegulation": "Executive Order / Export policy guidance",
+      "DescriptionOfRegulation": "U.S. Executive Order (\"Promoting the Export of the American AI Technology Stack\", 23 Jul 2025) plus administration export-control adjustments in July 2025 affecting AI stack and targeted export restrictions/permits; earlier 2025 BIS chip/AI rules form context.",
+      "ImpactOfRegulation": "Shifts U.S. stance toward enabling controlled AI technology exports while concurrently tightening targeted entity-based controls (and enforcement mechanisms). Creates new compliance expectations (model provenance, auditing), licensing pathways for approved exports, and selectively tighter controls on actors/entities tied to national-security concerns. Raises due-diligence, contractual disclosure, and provenance-verification burdens for vendors and integrators.",
+      "ConsequencesOfRegulation": "For a EU machine delivery relying on U.S. parts or U.S. origin software/AI: increased contractual compliance checks, possible licensing needs for exports to certain partners, additional export classification work (ECCN) and potential delays if parts/software touch controlled AI or advanced semiconductors. Where suppliers are subject to entity-list style measures, procurement may be blocked or require licences. Conversely, the EO creates clearer pathways for lawful export of U.S. AI stack components if compliance steps are met (potentially reducing uncertainty for some items).",
+      "ClassificationScoreOfRegulation": 4,
+      "OtherInformation": "Security teams must validate origin of embedded software/AI, provenance documentation, and audit trails. Consider contractual clauses for export-control cooperation and indemnities.",
+      "SourceOfEvidence": "https://www.whitehouse.gov/presidential-actions/2025/07/promoting-the-export-of-the-american-ai-technology-stack/, https://www.reuters.com/world/china/siemens-says-us-has-lifted-chip-software-curbs-china-bloomberg-news-reports-2025-07-03/, https://www.bis.gov/press-release/department-commerce-rescinds-biden-era-artificial-intelligence-diffusion-rule-strengthens-chip-related/",
+      "SecurityView_Summary": "High relevance when U.S.-origin software, firmware, or AI model weights are embedded in machine control systems; require export classification and possible licence — treat as high-priority compliance item."
+    },
+    {
+      "AnalyzedCountry": "Singapore",
+      "DateOfEvidence": "2025-07-02",
+      "TypeOfRegulation": "Indirect / compliance impact from U.S. export policy (third-country rules & licensing expectations)",
+      "DescriptionOfRegulation": "U.S. July 2025 export policy changes (EO and export-control adjustments) change export licensing, add provenance requirements and may restrict re-exports to certain actors — Singapore companies acting as regional distributors or integrators face higher compliance burden.",
+      "ImpactOfRegulation": "Singapore partners (distributors, system integrators) will see increased KYC/endorsement and license-review workload when handling U.S.-origin tech or AI-related components. Possible need to provide additional documentation to obtain U.S. licences for re-export or deemed export situations.",
+      "ConsequencesOfRegulation": "Delays in parts shipments if U.S. suppliers require extra paperwork; contract timelines tied to export licences may extend. If Singapore partners host or process U.S.-origin AI models, the EU-bound machine could face licensing hold-ups until provenance and license clearances are obtained.",
+      "ClassificationScoreOfRegulation": 6,
+      "OtherInformation": "Singapore’s regulatory environment remains stable and cooperative internationally; local partners typically have strong compliance practices but may require contract-level support for U.S. export licensing processes.",
+      "SourceOfEvidence": "https://www.reuters.com/world/china/siemens-says-us-has-lifted-chip-software-curbs-china-bloomberg-news-reports-2025-07-03/, https://www.bis.gov/ (context on export controls)",
+      "SecurityView_Summary": "Treat Singapore partners as medium-risk from an export-compliance workflow perspective — expect predictable but non-trivial administrative delays."
+    },
+    {
+      "AnalyzedCountry": "Shenzhen (China)",
+      "DateOfEvidence": "2025-07-03",
+      "TypeOfRegulation": "Entity-based export controls & targeted restrictions (secondary/tertiary enforcement)",
+      "DescriptionOfRegulation": "U.S. export-policy moves in July 2025 (and follow-on clarifications) expanded scrutiny on Chinese entities and closed loopholes; some earlier restrictions (e.g., on EDA exports) were adjusted in July 2025 but entity-list expansions and subsidiary coverage increased enforcement risk for Shenzhen firms.",
+      "ImpactOfRegulation": "High — Chinese suppliers in Shenzhen that either are listed, majority-owned by listed entities, or that support sensitive semiconductor/AI activities face increased denial risk for U.S. origin parts, tools, or software. Supply of advanced ICs, specialized equipment, and AI components can be disrupted or blocked; compliance and licensing burdens for third-party trade increase markedly.",
+      "ConsequencesOfRegulation": "If Shenzhen suppliers provide parts for your EU machine, expect potential non-deliverability for items containing U.S.-origin controlled content or design tools; need alternative sources or substitution strategies. Contractual delivery risk is material—contracts should anticipate license denials, longer lead times, and potential re-routing to non-U.S.-origin supply chains.",
+      "ClassificationScoreOfRegulation": 2,
+      "OtherInformation": "Because the U.S. broadened measures to encompass subsidiaries and certain third-party facilitation, provenance mapping of components (even for electronics subassemblies) is critical to avoid inadvertent violations.",
+      "SourceOfEvidence": "https://www.reuters.com/world/china/siemens-says-us-has-lifted-chip-software-curbs-china-bloomberg-news-reports-2025-07-03/, https://www.wsj.com/politics/national-security/trump-targets-chinas-tech-sector-by-expanding-trade-blacklist-9873ad34, https://www.bis.gov/press-release/",
+      "SecurityView_Summary": "Shenzhen partners present highest regulatory risk; plan for replacements, escrowed documentation, and supplier audits."
+    },
+    {
+      "AnalyzedCountry": "Malaysia",
+      "DateOfEvidence": "2025-07-23",
+      "TypeOfRegulation": "Indirect / re-export and compliance effects from U.S. export policy",
+      "DescriptionOfRegulation": "U.S. July 2025 export-policy shifts change the licensing posture for U.S.-origin items transiting or being processed in Malaysia; the country itself did not impose new controls but Malaysian firms may be impacted as intermediaries.",
+      "ImpactOfRegulation": "Moderate — Malaysian suppliers that import U.S.-origin components for assembly or distribution must meet additional supplier-declarations and may require U.S. export licenses for re-export to China or other restricted destinations. Administrative overhead increases; risk of delay exists but lower than for direct-China suppliers.",
+      "ConsequencesOfRegulation": "Delivery into the EU can be affected if Malaysian suppliers depend on U.S.-origin controlled components; expect longer lead times and possible need for alternative bill-of-materials. Contractual obligations should include clauses for export-license related delays and approvals.",
+      "ClassificationScoreOfRegulation": 6,
+      "OtherInformation": "Malaysia remains politically stable for commercial operations; focus on ensuring supplier compliance documentation and traceability to U.S.-origin content to avoid last-minute export-blocks.",
+      "SourceOfEvidence": "Contextual sources: BIS releases and law-firm analyses on July–Aug 2025 export-policy changes (BIS, K&L Gates analysis).",
+      "SecurityView_Summary": "Manageable risk if Malaysian partners can prove non-U.S. origin or secure licences; maintain alternative sourcing plans for assemblies containing U.S. technology."
+    },
+    {
+      "AnalyzedCountry": "India",
+      "DateOfEvidence": "2025-07-23",
+      "TypeOfRegulation": "Indirect / strategic export-control alignment & procurement guidance",
+      "DescriptionOfRegulation": "U.S. July 2025 EO and policy adjustments introduce new compliance expectations and procurement/eligibility constraints for AI and critical tech. India as partner/ supplier faces increased due-diligence and possible procurement/disclosure requirements when handling U.S.-origin AI stack items.",
+      "ImpactOfRegulation": "Moderate-to-high depending on product: Indian suppliers of electronics, firmware, or AI-related services must track origin of components and may be required to support U.S. licence applications for re-exports. Indian government’s own strategic autonomy posture remains but commercial players increasingly adopt U.S.-style compliance.",
+      "ConsequencesOfRegulation": "Possible shipment delays due to paperwork and license waits; contracts delivering to the EU that incorporate Indian-supplied components with U.S. content could be at risk of delay or denial. However, India’s domestic semiconductor and electronics ecosystem is being incentivized, which may create alternate non-U.S.-origin paths over time.",
+      "ClassificationScoreOfRegulation": 5,
+      "OtherInformation": "Given India’s growing role as a supplier and its stable political climate for manufacturing, plan supplier audits and explicit export-control flow-down clauses in contracts. India may also become a strategic alternate source for non-U.S.-controlled substitutes.",
+      "SourceOfEvidence": "White House EO (Jul 23, 2025), law-firm briefings and trade analysis published Jul–Aug 2025 (Baker McKenzie, K&L Gates, trade newsletters).",
+      "SecurityView_Summary": "India is mid-risk: compliance overhead present but substitution and sourcing flexibility improving; incorporate contractual compliance and documentation requirements."
+    }
+  ],
+  "GlobalRecommendations_Short": {
+    "PriorityActions": [
+      "Immediate: Map bill-of-materials (BOM) for every EU-bound machine to identify any U.S.-origin content (software, firmware, chips, model weights).",
+      "Obtain: Export-classification (ECCN) for U.S.-origin items; where necessary, apply for U.S. export licences early.",
+      "Contract: Add express clauses with partners requiring export-compliance cooperation and timely evidence of non-U.S. origin or license approvals.",
+      "Mitigate: Identify alternate non-U.S. origin suppliers (India/Malaysia/Singapore) for critical components where feasible and qualify them.",
+      "Audit: Conduct supplier provenance audits and require statements about entity-list exposure/ownership chains (subsidiary coverage)."
+    ],
+    "TopSources": [
+      "White House Executive Order (Jul 23, 2025) - https://www.whitehouse.gov/presidential-actions/2025/07/promoting-the-export-of-the-american-ai-technology-stack/",
+      "Reuters reporting (Jul 3, 2025) on changes to chip/EDA restrictions - https://www.reuters.com/world/china/siemens-says-us-has-lifted-chip-software-curbs-china-bloomberg-news-reports-2025-07-03/",
+      "Bureau of Industry and Security (BIS) press releases and rules (context May–Aug 2025) - https://www.bis.gov/press-release/",
+      "Law-firm analyses on White House AI export strategy (Aug 2025) - K&L Gates / Baker McKenzie briefs."
+    ]
+  }
+}
+#3
+[
+  {
+    "AnalyzedCountry": "United States (federal policy affecting exports)",
+    "DateOfEvidence": "2025-07-23",
+    "TypeOfRegulation": "National AI strategy / export policy shift (export control & trade policy guidance)",
+    "DescriptionOfRegulation": "White House 'America’s AI Action Plan' (Jul 23, 2025) sets a national AI export/engagement strategy: promotes export of US AI stack to allies, rescinds/rolls back prior diffusion constraints, while BIS continues targeted controls on advanced semiconductors and updates on entity-list policy. Net effect: recalibration of U.S. export posture with active export controls retained for defined technologies and enhanced diplomatic export initiatives.",
+    "ImpactOfRegulation": "Mixed: reduces some previous blanket diffusion restrictions (eases certain licensing for allied partners) while maintaining and sharpening targeted export controls for advanced chips, EDA, and entities of concern. Increases emphasis on licensing scrutiny and outbound diplomacy; U.S. policy remains the principal driver for downstream controls on U.S.-origin tech (including software/EDA) embedded in components.",
+    "ConsequencesOfRegulation": "For your supply chain: (1) U.S.-origin hardware, firmware, EDA tools and cloud services in BOMs may be subject to targeted licensing or denied to specific Chinese entities; (2) routing through Singapore/Malaysia/India may still require export licenses if items are U.S.-origin or incorporate U.S.-technology (FDPR effects); (3) compliance burden rises (screening, license requests) and delays are likely when parts contain U.S.-origin content or IP; (4) potential for preferential treatment for allied countries reduces flexibility for partners in 'countries of concern'.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "Key risk: U.S. policy is dynamic — rescission of one rule does not imply elimination of export controls for semiconductor/AI technologies. Ensure U.S.-content screening (including software/EDA/cloud) and watch entity list updates closely.",
+    "SourceOfEvidence": "https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf, https://www.bis.gov/news-updates, https://www.congress.gov/crs-product/R48642",
+    "Sourcing": 3,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "v1",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "2024-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T10:00:00Z",
+    "QueryTimeStamp": "2025-10-02T10:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Singapore",
+    "DateOfEvidence": "2025-04-04",
+    "TypeOfRegulation": "National advisory / export controls guidance (strategic goods / joint advisory)",
+    "DescriptionOfRegulation": "MTI & Singapore Customs joint advisory and Circular No. 01/2025 (Apr 4, 2025) reinforcing export control compliance expectations for advanced semiconductor and AI technologies and warning against circumvention of other countries' export controls.",
+    "ImpactOfRegulation": "Practical effect: stronger enforcement posture and higher expectations for exporters/transhippers in Singapore to screen transactions involving semiconductors/AI-related goods; administrative scrutiny of shipments and documentation increased.",
+    "ConsequencesOfRegulation": "If your partners in Singapore are used as logistics/transit or value-add nodes, expect more rigorous screening, potential delays and requirements to demonstrate origin/compliance. Shipments that include U.S.-origin chips or controlled items may require additional declarations and could be blocked or delayed if routing appears intended to circumvent controls.",
+    "ClassificationScoreOfRegulation": 5,
+    "OtherInformation": "Singapore positions itself as cooperative with international export control regimes. For an EU engineering platform, ensure Singapore partners run formal export-control screening and that engineering data flows are segmented to prevent transfer of controlled IP or tools.",
+    "SourceOfEvidence": "https://www.mti.gov.sg/Newsroom/Press-Releases/2025/04/Joint-Advisory-Export-controls-on-advanced-semiconductor-and-artificial-intelligence-technologies, https://www.customs.gov.sg/files/news-and-media/Circular_01_2025__Ver1_.pdf",
+    "Sourcing": 3,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "v1",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "2024-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T10:00:00Z",
+    "QueryTimeStamp": "2025-10-02T10:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Shenzhen / China (PRC-wide implications)",
+    "DateOfEvidence": "2025-09-12",
+    "TypeOfRegulation": "Entity-List expansion / export-control listing (BIS additions & affiliate coverage)",
+    "DescriptionOfRegulation": "US BIS updates to the Entity List and related EAR amendments during mid-Sep 2025 expand coverage (including affiliate/subsidiary rules) and add Chinese entities, increasing licensing requirements and presumptions of denial for items on the Commerce Control List and certain dual-use technologies.",
+    "ImpactOfRegulation": "High impact for Shenzhen suppliers that are owned or affiliated with listed entities: broad licensing denials or difficult license approvals for items incorporating U.S. technology; increased compliance checks for downstream customers globally. Suppliers in Shenzhen may lose access to U.S.-origin inputs or toolchains.",
+    "ConsequencesOfRegulation": "Supply risk: components or subassemblies from Shenzhen that contain U.S. technology, tooling, EDA outputs or advanced chips may be blocked from international shipment or require complex licensing. For your EU delivery: expect potential non-fulfillment, substitution needs, or delays if Shenzhen partners are direct or indirect affiliates of listed entities.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "Entity-list and affiliate expansions materially raise the compliance burden for any global supply chain that touches Chinese entities. Conduct entity ownership screening and bill-of-material U.S.-content analysis urgently.",
+    "SourceOfEvidence": "https://www.federalregister.gov/documents/2025/09/16/2025-17893/additions-and-revisions-to-the-entity-list, https://www.bis.gov/press-release/department-commerce-expands-entity-list-cover-affiliates-listed-entities, Financial Times reporting",
+    "Sourcing": 3,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "v1",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "2024-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T10:00:00Z",
+    "QueryTimeStamp": "2025-10-02T10:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "Malaysia",
+    "DateOfEvidence": "2025-07-14",
+    "TypeOfRegulation": "Export permit requirement / trade permit for AI chips (strategic items control)",
+    "DescriptionOfRegulation": "Malaysia announced (effective immediately 14 Jul 2025) that export, transshipment and transit of high-performance AI chips of U.S. origin require a trade permit and at-least-30-days advance notification to authorities when chips may be used for restricted activities.",
+    "ImpactOfRegulation": "Direct impact on shipments that include high-performance AI chips (particularly U.S.-origin): additional permit applications, advance notifications, and possible refusal or enforcement action for non-compliance. Logistics timelines extended and routing choices constrained.",
+    "ConsequencesOfRegulation": "If your Malaysian partners supply PCB assemblies, servers or modules containing targeted AI chips, expect extra admin lead time, possible shipment holds and legal exposure if permits are not obtained. This can delay machine delivery to the EU or force re-sourcing of modules from non-restricted origins.",
+    "ClassificationScoreOfRegulation": 2,
+    "OtherInformation": "Malaysia's move was explicitly linked to international pressure to curb diversion of advanced chips—expect continued monitoring; include Malaysia in restricted-content screening procedures and plan for 30+ day lead times for affected items.",
+    "SourceOfEvidence": "https://www.reuters.com/world/asia-pacific/malaysia-says-trade-permit-required-ai-chips-us-origin-2025-07-14/, Bloomberg reporting Jul 13-14 2025",
+    "Sourcing": 2,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "v1",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "2024-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T10:00:00Z",
+    "QueryTimeStamp": "2025-10-02T10:00:00Z"
+  },
+  {
+    "AnalyzedCountry": "India",
+    "DateOfEvidence": "2025-07-14",
+    "TypeOfRegulation": "Draft management requirements for internal compliance (dual-use export controls / SCOMET process)",
+    "DescriptionOfRegulation": "DGFT Trade Notice No. 07/2025-26 (circulated Jul 14, 2025) seeks inputs on draft Management System Requirements for Internal Compliance Programs for export of dual-use (SCOMET) items — formalising expectations for exporters of controlled technology.",
+    "ImpactOfRegulation": "Raises compliance expectations for Indian exporters of dual-use items and technologies (including SCOMET items). Companies will need documented ICPs, screening, tracking, and documented internal controls before receiving general authorizations.",
+    "ConsequencesOfRegulation": "Indian suppliers providing controlled parts, tooling, or technology to your platform will face increased internal compliance obligations. Expect requests for ICP evidence, longer approval cycles for general authorizations, and possible constraints on rapid transfers of dual-use design data or toolchains.",
+    "ClassificationScoreOfRegulation": 3,
+    "OtherInformation": "This is a forward-looking domestic compliance strengthening step (consultation stage). It increases paperwork and auditability but also creates a clearer compliance pathway once ICPs are in place—useful if partners can certify ICP compliance.",
+    "SourceOfEvidence": "https://elplaw.in/leadership/dgft-issues-trade-notice-seeking-inputs-on-draft-management-system-requirements-for-internal-compliance-programme-for-export-of-dual-use-scomet-items/, DGFT Trade Notice references (Trade Notice No.07/2025-26)",
+    "Sourcing": 3,
+    "LLM_Name": "GPT-5 Thinking mini",
+    "LLM_Version": "v1",
+    "OnlineResearchTimestamp": "2025-10-02T10:00:00Z",
+    "LearningTimeStamp": "2024-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2025-10-02T10:00:00Z",
+    "QueryTimeStamp": "2025-10-02T10:00:00Z"
+  }
+]
+

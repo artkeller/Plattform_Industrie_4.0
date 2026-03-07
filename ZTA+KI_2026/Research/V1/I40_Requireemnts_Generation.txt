@@ -1,0 +1,323 @@
+You are a Security Analyst and you shall create security requirements in written form related the following data. Context is SAP security. The requirements shall later be translated into a machine readable format for access rules of a Zero Trust Access Control execution engine.
+
+# data:
+{
+    "Domain": "SAP",
+    "ObjectName":"BAPI_USER_GET_DETAIL",
+    "SystemType":"SAP ABAP Server",
+     "CriticalityScore": "7",
+    "Commonalities": [
+      {
+        "Key": "CriticalityReason",
+        "Value": "This function module can expose sensitive user details, including assigned roles, profiles, logon data. Unauthorized execution allows for reconnaissance to identify high-privilege users, and prepare for privilege escalation attacks."
+      },
+      {
+        "Key": "Recommendation",
+        "Value": "Strictly limit execution rights for this function module. Use authorization object S_USER_GRP to limit access. Monitor its execution for unusual patterns."
+      },
+      {
+        "Key": "ReplacementObject",
+        "Value": "No direct replacement. The focus should be on securing this function module rather than replacing it."
+      },
+      {
+        "Key": "OtherInformation",
+        "Value": ""
+      },
+      {
+        "Key": "LLM_Name",
+        "Value": "Gemini"
+      },
+      {
+        "Key": "LLM_Version",
+        "Value": "1.0 Pro"
+      }
+    ],
+    "Deviations": [
+      {
+        "Key": "CriticalityReason",
+        "Deviations": [
+          {
+            "Source": "Packet 1",
+            "Text": "This BAPI can be used to read detailed user master data,",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "and user groups.",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "Malicious actors can abuse it for reconnaissance to identify high-privilege accounts,",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "understand the authorization concept,",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "plan privilege escalation attacks.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "Its RFC-enabled nature increases the risk of exposure to external systems if not properly secured.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "This function module can expose sensitive user details,",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "and default settings.",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "Unauthorized execution allows for reconnaissance, helping attackers identify privileged users (e.g., administrators),",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "understand security configurations,",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "prepare for privilege escalation or social engineering attacks.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "Its risk is high if execution authorizations are not strictly controlled.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "This BAPI can expose sensitive user details,",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "including logon data,",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "and password hashes (if requested and authorized).",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Unauthorized access allows for reconnaissance to identify high-privilege users (e.g., administrators),",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "gather information for social engineering, or attempt offline password cracking, significantly aiding in privilege escalation attacks.",
+            "Significance": "high"
+          }
+        ]
+      },
+      {
+        "Key": "Recommendation",
+        "Deviations": [
+          {
+            "Source": "Packet 1",
+            "Text": "Restrict execution permissions for this function module via authorization object S_RFC.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "Ensure strict 'actvt' (Activity) and 'RFC_NAME' controls.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "Additionally, leverage authorization object S_USER_GRP to limit which user groups' data can be displayed by a caller.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "especially from RFC destinations and technical users, for unusual patterns.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "Strictly limit execution rights for this function module.",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "Use authorization object S_USER_GRP to ensure only necessary administrative roles (e.g., user administrators) can run it.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "especially for queries on critical users like SAP* or DDIC.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "Regularly review roles and users who have access to this BAPI, applying the principle of least privilege.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Restrict execution rights for this function module strictly.",
+            "Significance": "low"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Use authorization object S_RFC to limit which users/systems can call it remotely.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Implement granular checks using authorization object S_USER_GRP to control which user groups' details can be displayed.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Regularly monitor its execution via the Security Audit Log (SM20) or SIEM for unusual activity like user enumeration.",
+            "Significance": "medium"
+          }
+        ]
+      },
+      {
+        "Key": "ReplacementObject",
+        "Deviations": [
+          {
+            "Source": "Packet 2",
+            "Text": "Standard transaction SU01 uses similar logic for user display.",
+            "Significance": "low"
+          }
+        ]
+      },
+      {
+        "Key": "OtherInformation",
+        "Deviations": [
+          {
+            "Source": "Packet 1",
+            "Text": "Execution of this BAPI should be logged and monitored in the Security Audit Log (SM20) or via SIEM solutions.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "Pay close attention to calls made with a wildcard '*' in the username parameter, as this indicates an attempt to enumerate system users.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 1",
+            "Text": "Regularly review which roles grant access to the required authorization objects (e.g., S_RFC, S_USER_GRP).",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "As this BAPI is RFC-enabled, it can be called remotely, which significantly increases the attack surface.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "It is crucial to secure RFC communications and destinations (SM59).",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 2",
+            "Text": "Monitor for remote executions of this function module, especially from untrusted systems or generic technical user accounts.",
+            "Significance": "medium"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "The returned 'PASSWORD' structure is highly sensitive as it contains the user's password hash values.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Scrutinize custom ABAP programs that call this BAPI, as they might inadvertently expose this sensitive data to unauthorized users.",
+            "Significance": "high"
+          },
+          {
+            "Source": "Packet 3",
+            "Text": "Ensure calling applications handle the retrieved data securely and do not log it in plaintext.",
+            "Significance": "medium"
+          }
+        ]
+      },
+      {
+        "Key": "LLM_Name",
+        "Deviations": []
+      },
+      {
+        "Key": "LLM_Version",
+        "Deviations": []
+      }
+    ],
+    "LLM_Name": "Grok",
+    "LLM_Version": "4",
+    "QueryTimeStamp": "2024-05-23T10:15:01Z",
+    "AnswerTimeStamp": "2024-05-23T10:15:01Z",
+    "ProcessingTimeStamp": "2025-10-07T00:00:00Z"
+  }
+
+
+# end data
+
+The output shall be provided in a JSON format according to the following example output
+
+# Example
+
+  "ID": "REQ-005",
+  "Description": "Enforce least privilege for all users and systems accessing BAPI_USER_GET_DETAIL.",
+  "Rationale": "Reduces attack surface by limiting access to only necessary roles (Recommendation).",
+  "Control": "Regularly review roles granting S_RFC and S_USER_GRP access. Remove unnecessary permissions.",
+  "Standard": "ISO 27001 A.9.2 (User Access Management), NIST SP 800-207 (Least Privilege)"
+
+# Example end
+
+Please create the requirements according to the Audit Controls of the standards ISO 42001, IEC 62443
+
+*******************************************************
+
+# Antwort Gemini 2.5 Pro
+[
+  {
+    "ID": "REQ-SAP-BAPIUSER-001",
+    "Description": "Implement the principle of least privilege for all access to BAPI_USER_GET_DETAIL.",
+    "Rationale": "This function module can expose sensitive user details, including assigned roles, logon data, and password hashes. Unauthorized execution allows for reconnaissance to identify high-privilege users and plan privilege escalation attacks, a risk amplified by its RFC-enabled nature.",
+    "Control": "Restrict execution rights using authorization object S_RFC (fields RFC_TYPE='FUGR', RFC_NAME='SU_USER', ACTVT='16'). Concurrently, use authorization object S_USER_GRP to limit the query scope, ensuring users can only display details for user groups they are explicitly authorized for (e.g., ACTVT='05'). Grant access exclusively to dedicated administrative roles.",
+    "Standard": "IEC 62443 SR 1.3 (Access Control), SR 1.5 (Least Privilege)"
+  },
+  {
+    "ID": "REQ-SAP-BAPIUSER-002",
+    "Description": "All execution attempts of BAPI_USER_GET_DETAIL, both successful and failed, must be logged and actively monitored.",
+    "Rationale": "To detect and enable a timely response to malicious activities such as user enumeration, reconnaissance on high-privilege accounts (e.g., SAP*, DDIC), or attempts to understand the system's security configuration.",
+    "Control": "Activate and configure the Security Audit Log (transaction SM20) or a connected SIEM solution to record all calls to BAPI_USER_GET_DETAIL. Implement specific alert rules for high-risk patterns, including calls with a wildcard ('*') in the username parameter, an unusual frequency of calls from a single source, or any call targeting critical system users.",
+    "Standard": "IEC 62443 SR 2.8 (Audit Log Management), SR 2.9 (Audit Log Review, Analysis, and Reporting)"
+  },
+  {
+    "ID": "REQ-SAP-BAPIUSER-003",
+    "Description": "Secure all remote access pathways and destinations configured to call BAPI_USER_GET_DETAIL.",
+    "Rationale": "The function module is RFC-enabled, significantly increasing the attack surface by allowing remote execution from other systems. An insecure RFC destination can provide a backdoor for attackers to bypass local security controls.",
+    "Control": "Conduct a thorough review of all RFC destinations (transaction SM59), enforcing secure communication protocols (e.g., SNC). The technical users assigned to these destinations must be non-dialog and follow the principle of least privilege. Explicitly restrict S_RFC authorizations for these users to only the function modules that are absolutely necessary.",
+    "Standard": "IEC 62443 SR 5.2 (Zone and Conduit Requirements), SR 1.1 (User Identification and Authentication)"
+  },
+  {
+    "ID": "REQ-SAP-BAPIUSER-004",
+    "Description": "Ensure all applications and custom code calling BAPI_USER_GET_DETAIL handle the retrieved sensitive data securely.",
+    "Rationale": "The function module can return highly sensitive data, particularly the 'PASSWORD' structure containing password hashes. Custom ABAP programs can inadvertently expose this data through insecure logging, display, or transmission, creating a critical secondary vulnerability.",
+    "Control": "Perform a mandatory code review of all custom ABAP programs that call BAPI_USER_GET_DETAIL. Verify that these programs do not log or write sensitive returned structures to any trace or log file. Ensure that any display of sensitive data is restricted to users with the explicit authorization to view it and that the data is handled securely throughout its lifecycle.",
+    "Standard": "IEC 62443 SR 4.1 (Data Confidentiality), SR 3.8 (Software and Information Integrity)"
+  },
+  {
+    "ID": "REQ-SAP-BAPIUSER-005",
+    "Description": "Establish a periodic review and recertification process for all access rights related to BAPI_USER_GET_DETAIL.",
+    "Rationale": "To prevent 'privilege creep' and ensure access rights remain aligned with current job responsibilities. Obsolete or excessive permissions represent a significant security risk that must be proactively managed.",
+    "Control": "Implement a semi-annual access review cycle for all roles containing authorizations for S_RFC (with RFC_NAME='SU_USER') and S_USER_GRP (with ACTVT='05' or '03'). Role owners must re-certify the business or administrative need for this access. The security team must validate the process and ensure any unnecessary permissions are promptly removed.",
+    "Standard": "IEC 62443 SR 1.6 (Privileged User Management), ISO 42001 A.6.3.2 (AI system risk treatment)"
+  }
+]

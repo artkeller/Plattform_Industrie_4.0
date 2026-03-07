@@ -1,0 +1,1260 @@
+Domain: Industry 4.0 security
+
+You are a cyber/it security specialist. You have the below list of Security Requirements, and you need to create a machine readable rule set out of all these requirements for a Zero Trust Architecture with the following characteristics:
+
+- Uses an ABAC Access Control module, responsible for all access activities
+- Is located at 'The Edge' of the company
+- Module that analysis the network traffic (IDP)
+
+
+{
+  "UseCaseIdentifier": "CollaborativeEngineeringPlattform",
+  "SecurityRequirements": [
+    {
+      "ID": "CEP-REQ-001",
+      "Description": "Enforce granular, geo-location-based access control for all platform resources and data. Data transfers across national borders must be explicitly authorized based on data classification and the legal adequacy of the destination country.",
+      "Rationale": "To comply with divergent and strict cross-border data transfer regulations (e.g., EU GDPR/NIS2, India DPDP, China CSL/PIPL) and mitigate high-significance risks of non-compliance, supply chain disruption, and financial penalties.",
+      "Control": "The ZTAC Policy Engine must dynamically evaluate user and device geo-location against a policy defining permissible data-residency and transfer rules. Data must be classified and tagged; access to data tagged with 'Restricted-Transfer' from a non-approved jurisdiction must be blocked by default.",
+      "Standard": "ISO 27001: A.8.2, A.13.2.1, A.18.1.4; NIST SP 800-207"
+    },
+    {
+      "ID": "CEP-REQ-002",
+      "Description": "Implement strict identity and device posture validation for all third-party and supply chain partner access. Access must be segmented and limited to the specific resources required for their function (least privilege).",
+      "Rationale": "Addresses the high-significance threat of supply chain vulnerabilities, including compromised IoT devices and robotics, as identified in regulations from Germany, India, and Japan. This enforces a Zero Trust principle of 'never trust, always verify' for all external entities.",
+      "Control": "All external users must authenticate via a federated IdP with mandatory MFA. The ZTAC Policy Enforcement Point must continuously assess connecting devices for compliance (e.g., patch level, OS version, EDR status) before granting and maintaining access. Create partner-specific security zones and deny all lateral movement.",
+      "Standard": "ISO 27001: A.5.15, A.15.1.2; IEC 62443-3-3: SR 1.1; NIST SP 800-207"
+    },
+    {
+      "ID": "CEP-REQ-003",
+      "Description": "Mandate human-in-the-loop approval for any high-risk operations conducted by or through AI/ML systems on the platform, such as modifying critical engineering designs or production parameters.",
+      "Rationale": "To adhere to emerging AI governance frameworks requiring human oversight, transparency, and accountability (e.g., EU AI Act, Singapore's AI Governance Framework). This mitigates risks associated with autonomous agentic AI systems making critical errors.",
+      "Control": "Define 'high-risk' AI-driven actions within the platform. The access control engine must flag these actions and trigger a workflow requiring manual review and approval from a designated, authenticated human overseer before execution. All AI decisions and approvals must be immutably logged.",
+      "Standard": "ISO 42001: A.6.4 (Human Oversight), A.6.2.3 (AI system documentation); ISO 27001: A.8.27"
+    },
+    {
+      "ID": "CEP-REQ-004",
+      "Description": "Continuously monitor all access logs and network traffic for anomalous behavior. Implement an automated incident response and reporting mechanism to comply with stringent breach notification timelines.",
+      "Rationale": "To meet mandatory incident reporting requirements with tight deadlines (e.g., EU NIS2, US CIRCIA, China's measures) and ensure business continuity by rapidly detecting and containing threats like ransomware.",
+      "Control": "Integrate all ZTAC, application, and network logs into a central SIEM. Configure automated alerts for indicators of compromise (e.g., impossible travel, mass data exfiltration, privilege escalation). Implement a SOAR playbook to automatically initiate response actions, such as isolating a user/device and notifying the security team.",
+      "Standard": "ISO 27001: A.16.1.7, A.8.16; IEC 62443-3-3: SR 2.12; NIST SP 800-61"
+    },
+    {
+      "ID": "CEP-REQ-005",
+      "Description": "Enforce access controls based on data classification and export control status. Access to technology or data subject to export regulations (e.g., US Entity List, Japan export controls) must be denied to users from restricted nationalities or organizations.",
+      "Rationale": "To prevent severe legal and financial penalties resulting from the violation of national security and export control laws, which pose a high-significance risk of halting joint development and data sharing.",
+      "Control": "All engineering assets, technical data, and software must be tagged with classification and export control attributes (e.g., 'EAR-Controlled', 'ITAR', 'No-China-Access'). The ZTAC policy engine must validate user attributes (e.g., citizenship, employer) against these data tags in real-time for every access request.",
+      "Standard": "ISO 27001: A.8.2.1 (Classification of information), A.13.2.1 (Information transfer policies and procedures)"
+    },
+    {
+      "ID": "CEP-REQ-006",
+      "Description": "Isolate Operational Technology (OT) networks from the IT-based collaborative platform. All remote access to OT systems, including robotics and manufacturing controllers, must be brokered through a secure gateway with session recording.",
+      "Rationale": "To protect critical cyber-physical systems from threats spreading from the IT environment, a key concern in Industry 4.0 and a focus of OT-specific guidelines (e.g., Japan METI guidelines, IEC 62443).",
+      "Control": "Implement a network segmentation strategy using a ZTAC architecture to create a secure OT zone. All access to this zone must be initiated from a Privileged Access Management (PAM) solution or ZTNA gateway, which authenticates the user, verifies device posture, and grants temporary, protocol-specific access. All sessions must be monitored and recorded.",
+      "Standard": "IEC 62443-3-3: SR 5.1, SR 5.2; ISO 27001: A.13.1.1 (Network controls); NIST SP 800-82"
+    },
+    {
+      "ID": "CEP-REQ-007",
+      "Description": "Enforce Just-in-Time (JIT) and time-bound access for all privileged roles and third-party users to platform resources and applications.",
+      "Rationale": "To implement the principle of least privilege, reducing the attack surface and mitigating risks associated with standing privileges. This addresses the universal need for enhanced security controls driven by various national cybersecurity strategies.",
+      "Control": "Utilize a ZTAC or PAM system that allows users to request temporary elevation of privileges or access to specific applications for a limited duration. Access should automatically expire after the session. All requests and approvals must be logged for audit purposes.",
+      "Standard": "ISO 27001: A.5.18, A.8.5; NIST SP 800-207 (Zero Trust Architecture); IEC 62443-3-3: SR 1.3 (Use of Privileges)"
+    }
+  ]
+}
+
+Final Task:
+- Generate XACML Rules in a greedy mode: Translate the requirements into XACML policies, ensuring they are machine-readable and enforce the identified security measures.
+- Important Information: Only generate the XML structure, no add-ons above and below
+- Ensure Compliance: Align with security standards (e.g., ISO 27001, NIST SP 800-207) and specific controls related to the domain requirements.
+- Important Information: We have a common development platform to develop the products, with our partners from India, Singapor, Japan, USA, Canada. Especially generate XACML rules for those countries to control access.
+
+
+Antwort Gemini 2.65 Pro
+
+Of course. As a cyber/IT security specialist, I will translate the provided security requirements for your Collaborative Engineering Platform into a machine-readable XACML 3.0 rule set.
+
+This rule set is designed for a Zero Trust Architecture (ZTA) where an Attribute-Based Access Control (ABAC) module at the network edge acts as the central Policy Decision Point (PDP) and Policy Enforcement Point (PEP). It also considers inputs from an Intrusion Detection/Prevention (IDP) system, which enriches the request context with environmental attributes like device posture.
+
+### Overview of the XACML Structure
+
+XACML (eXtensible Access Control Markup Language) is the ideal standard for this ABAC implementation. Our rule set will be structured as follows:
+
+*   **PolicySet:** A top-level container for all policies related to the "CollaborativeEngineeringPlattform". It defines the overall combining algorithm, such as `deny-overrides`, which means if any single policy evaluates to "Deny", the final decision is "Deny". This enforces a default-deny posture.
+*   **Policy:** A set of rules corresponding to a specific security requirement (e.g., `CEP-REQ-001`). Each policy targets a specific type of resource, subject, or action.
+*   **Rule:** The most granular element, containing a `Target`, a `Condition`, and an `Effect` (Permit or Deny). This is where the specific logic is implemented.
+
+The attributes used in these policies are categorized as:
+*   **Subject:** Attributes of the user or system making the request (e.g., `user.geo-location`, `user.citizenship`, `user.role`, `user.mfa-status`).
+*   **Resource:** Attributes of the asset being accessed (e.g., `resource.data-classification`, `resource.export-control-tag`, `resource.network-zone`).
+*   **Action:** The attempted action (e.g., `action.id` = 'read', 'write', 'modify-design').
+*   **Environment:** Contextual attributes (e.g., `environment.device-posture`, `environment.time`, `environment.is-jit-approved`).
+
+---
+
+### Machine-Readable XACML 3.0 Rule Set
+
+Below is the complete XACML `PolicySet`. Each `Policy` is commented to map it directly to its corresponding `CEP-REQ` identifier.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+           PolicySetId="CollaborativeEngineeringPlattform-PolicySet"
+           Version="1.0"
+           PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-overrides">
+
+    <Description>
+        Main PolicySet for the Collaborative Engineering Platform (CEP) in an Industry 4.0 Zero Trust Architecture.
+        It enforces security requirements CEP-REQ-001 through CEP-REQ-007.
+        The default behavior is to deny access unless explicitly permitted by a rule.
+    </Description>
+
+    <Target>
+        <!-- This PolicySet applies to all access requests for the CEP -->
+        <AnyOf>
+            <AllOf>
+                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">CollaborativeEngineeringPlattform</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:attribute:platform-id"
+                                       Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                       DataType="http://www.w3.org/2001/XMLSchema#string"
+                                       MustBePresent="true"/>
+                </Match>
+            </AllOf>
+        </AnyOf>
+    </Target>
+
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-001: Geo-Location and Cross-Border Data Transfer
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-001-GeoLocation"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides">
+        <Description>Enforces geo-location-based access for data transfers. Data tagged as 'Restricted-Transfer' cannot be accessed from non-approved jurisdictions.</Description>
+        <Target>
+            <!-- This policy applies to resources tagged for restricted transfer -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Restricted-Transfer</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:data-classification"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Rule RuleId="Deny-Access-From-Unapproved-GeoLocation" Effect="Deny">
+            <Description>Deny access if the user's geo-location is not in the list of explicitly approved countries for this data.</Description>
+            <Condition>
+                <!-- Condition is true if the user's location is NOT in the approved list. -->
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+                        <AttributeDesignator AttributeId="urn:example:attribute:user:geo-location"
+                                           Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                        <!-- This list is an example. It should be dynamically populated based on the data's specific transfer policy. -->
+                        <!-- For our partners, we approve USA, Canada, Japan, Singapore, and India. -->
+                        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">USA</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">CAN</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">JPN</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SGP</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">IND</AttributeValue>
+                        </Apply>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+        <!-- A default permit rule for this policy if the Deny rule does not match -->
+        <Rule RuleId="Permit-Approved-GeoLocation" Effect="Permit"/>
+    </Policy>
+
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-002: Third-Party Identity and Device Posture
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-002-PartnerAccess"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+        <Description>Enforces MFA and device compliance for all third-party access.</Description>
+        <Target>
+            <!-- This policy applies to all users identified as partners/third-party -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">partner</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:user:organization-type"
+                                           Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Rule RuleId="Permit-Compliant-Partner-Access" Effect="Permit">
+            <Description>Permit access if partner has completed MFA and their device is compliant.</Description>
+            <Condition>
+                <!-- Both conditions must be true for the rule to apply -->
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+                    <!-- Check 1: MFA Status must be 'completed' -->
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">completed</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:user:mfa-status"
+                                           Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Apply>
+                    <!-- Check 2: Device Posture must be 'compliant' (provided by IDP/EDR) -->
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">compliant</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:environment:device-posture"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+        <!-- The 'deny-unless-permit' algorithm ensures that if the above rule is not met, access is denied. -->
+    </Policy>
+    
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-003: Human-in-the-Loop for High-Risk AI Operations
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-003-AI-Oversight"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+        <Description>Requires human approval for high-risk actions performed by AI systems.</Description>
+        <Target>
+            <!-- This policy applies to high-risk actions initiated by an AI agent -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ai-agent</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id-qualifier"
+                                           Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Match>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">high</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:action:risk-level"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Rule RuleId="Permit-AI-Action-With-Human-Approval" Effect="Permit">
+            <Description>Permit high-risk AI action only if it has been approved by a human.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">true</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:attribute:environment:human-in-loop-approved"
+                                       Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                       DataType="http://www.w3.org/2001/XMLSchema#string"
+                                       MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+        <!-- If the condition is not met (no approval), 'deny-unless-permit' will deny the request. -->
+    </Policy>
+
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-004: Continuous Monitoring and Logging (via Obligations)
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-004-Logging-Obligation"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:permit-overrides">
+        <Description>Attaches an obligation to log all access decisions to the SIEM.</Description>
+        <Target/> <!-- Applies to all requests within the PolicySet -->
+        <Rule RuleId="Log-All-Decisions" Effect="Indeterminate"> <!-- Effect is not important, the Obligation is always attached -->
+            <Description>This rule's purpose is to attach a logging obligation to every decision.</Description>
+        </Rule>
+        <ObligationExpressions>
+            <ObligationExpression ObligationId="urn:example:obligation:log-to-siem" FulfillOn="Permit">
+                <AttributeAssignmentExpression AttributeId="urn:example:obligation:user-id" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+                    <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" MustBePresent="false" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:example:obligation:resource-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource">
+                    <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#anyURI"/>
+                </AttributeAssignmentExpression>
+                <AttributeAssignmentExpression AttributeId="urn:example:obligation:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action">
+                    <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" MustBePresent="false" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string"/>
+                </AttributeAssignmentExpression>
+            </ObligationExpression>
+        </ObligationExpressions>
+    </Policy>
+    
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-005: Export Control Enforcement
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-005-ExportControl"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides">
+        <Description>Enforces export control regulations based on data tags and user attributes.</Description>
+        <Target>
+            <!-- This policy applies to any resource with an export control tag -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-at-least-one-member-of">
+                         <AttributeDesignator AttributeId="urn:example:attribute:resource:export-control-tag"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">EAR-Controlled</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ITAR</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">No-China-Access</AttributeValue>
+                        </Apply>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Rule RuleId="Deny-Access-To-Restricted-Nationality-For-NoChinaAccess" Effect="Deny">
+            <Description>Denies access to 'No-China-Access' data for users with Chinese citizenship.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">No-China-Access</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:attribute:resource:export-control-tag"
+                                               Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                               DataType="http://www.w3.org/2001/XMLSchema#string"
+                                               MustBePresent="true"/>
+                        </Match>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">CHN</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:attribute:user:citizenship"
+                                               Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                                               DataType="http://www.w3.org/2001/XMLSchema#string"
+                                               MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+        </Rule>
+        <!-- Additional rules for EAR, ITAR, etc., would be added here -->
+        <!-- A final rule in a deny-overrides policy permits access if no Deny rules matched -->
+        <Rule RuleId="Permit-Compliant-Export-Control-Access" Effect="Permit"/>
+    </Policy>
+    
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-006: OT/IT Segmentation
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-006-OT-Access"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+        <Description>Isolates OT network and brokers all access through a secure gateway.</Description>
+        <Target>
+            <!-- This policy applies to all resources in the OT network zone -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">OT-Zone</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:resource:network-zone"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Rule RuleId="Permit-OT-Access-Via-Secure-Gateway" Effect="Permit">
+            <Description>Permit access to OT zone only if it's from the secure ZTNA/PAM gateway and the session is recorded.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+                    <!-- Check 1: Access must originate from the secure gateway -->
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ztna-pam-gateway</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:environment:source-gateway"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Apply>
+                    <!-- Check 2: Session recording must be active -->
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">active</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:environment:session-recording"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+    </Policy>
+    
+    <!--
+    ====================================================================
+    Policy for CEP-REQ-007: Just-in-Time (JIT) Privileged Access
+    ====================================================================
+    -->
+    <Policy PolicyId="CEP-Policy-007-JIT-Access"
+            Version="1.0"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+        <Description>Enforces Just-in-Time (JIT) and time-bound access for privileged roles.</Description>
+        <Target>
+            <!-- This policy applies to resources requiring a privileged role -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">true</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:resource:requires-privilege"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        <Rule RuleId="Permit-JIT-Privileged-Access" Effect="Permit">
+            <Description>Permits access if the user has an active, approved JIT session.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:and">
+                    <!-- Check 1: JIT session must be approved -->
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">true</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:attribute:environment:is-jit-approved"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                           DataType="http://www.w3.org/2001/XMLSchema#string"
+                                           MustBePresent="true"/>
+                    </Apply>
+                    <!-- Check 2: The current time must be before the JIT session expiry time -->
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:dateTime-less-than-or-equal">
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-time"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                           DataType="http://www.w3.org/2001/XMLSchema#dateTime"
+                                           MustBePresent="true"/>
+                        <AttributeDesignator AttributeId="urn:example:attribute:environment:jit-expiry-time"
+                                           Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
+                                           DataType="http://www.w3.org/2001/XMLSchema#dateTime"
+                                           MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+    </Policy>
+    
+</PolicySet>
+```
+
+### Integration into Your Zero Trust Architecture
+
+1.  **Policy Administration Point (PAP):** You will use a PAP to create, manage, and store this XACML `PolicySet`.
+2.  **Policy Decision Point (PDP):** Your ABAC module at the edge is the PDP. It will be loaded with this `PolicySet`.
+3.  **Policy Enforcement Point (PEP):** The PEP intercepts every access request (e.g., an API call, a file access). It queries the PDP for a decision.
+4.  **Policy Information Point (PIP):** This is the crucial component that provides the attributes.
+    *   **User Attributes** (`user.geo-location`, `user.citizenship`): Sourced from your Identity Provider (IdP) or HR systems.
+    *   **Resource Attributes** (`data-classification`, `export-control-tag`): Sourced from your data governance and classification tools.
+    *   **Environment Attributes** (`device-posture`): This is where your **IDP/network analysis module** integrates. It continuously assesses traffic and endpoints. If it detects malware or non-compliance, it updates the `device-posture` attribute for that device to `non-compliant`, which would cause `CEP-Policy-002` to instantly deny access. The `is-jit-approved` and `jit-expiry-time` attributes would be provided by your PAM/JIT system.
+5.  **Workflow:**
+    *   A partner from **India** attempts to access a design file tagged with `data-classification="Restricted-Transfer"`.
+    *   The PEP intercepts the request and forms an XACML query including:
+        *   `user.geo-location = "IND"`
+        *   `user.organization-type = "partner"`
+        *   `user.mfa-status = "completed"`
+        *   `resource.data-classification = "Restricted-Transfer"`
+        *   `environment.device-posture = "compliant"` (from IDP)
+    *   The PDP evaluates this against the `PolicySet`.
+    *   `CEP-Policy-001` permits because "IND" is in the approved list.
+    *   `CEP-Policy-002` permits because MFA is complete and the device is compliant.
+    *   Assuming no other `Deny` rules match, the PDP returns a "Permit" decision to the PEP, which then grants access.
+
+Antwort Gemini 2.0 mit der Info:
+- Important Info: Only generate the XML structure, no add-ons above and below
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+           PolicySetId="urn:example:company:policyset:collaborative-engineering-platform"
+           PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-overrides"
+           Version="1.0">
+
+    <Description>
+        Main PolicySet for the Collaborative Engineering Platform (CEP) based on Zero Trust principles.
+        This policy set enforces security requirements for an Industry 4.0 environment.
+    </Description>
+
+    <Target>
+        <!-- This PolicySet applies to all access requests within the CEP scope -->
+    </Target>
+
+    <!--
+        Policy for CEP-REQ-001 & Specific Partner Country Access
+        Description: Enforce granular, geo-location-based access control for all platform resources and data.
+                     Data transfers across national borders must be explicitly authorized.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-001:geo-location"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="1.0">
+        <Description>Controls access based on user geo-location, data residency, and cross-border transfer rules.</Description>
+        <Target/>
+
+        <Rule RuleId="urn:example:company:rule:geo-location:permit-same-country" Effect="Permit">
+            <Description>Permit access if the user's location matches the data's designated residency.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </AttributeValue>
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:resource:data-residency" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </AttributeValue>
+                </Apply>
+            </Condition>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:log-access" FulfillOn="Permit">
+                    <AttributeAssignmentExpression AttributeId="urn:example:company:obligation:log:level" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">INFO</AttributeValue>
+                    </AttributeAssignmentExpression>
+                    <AttributeAssignmentExpression AttributeId="urn:example:company:obligation:log:message" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Permitted same-country access.</AttributeValue>
+                    </AttributeAssignmentExpression>
+                </ObligationExpression>
+            </ObligationExpressions>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:geo-location:permit-authorized-partners" Effect="Permit">
+            <Description>Permits access from specified partner countries (USA, CAN, IND, SGP, JPN) to resources designated for international collaboration.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">International-Collaboration</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:collaboration-scope" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">USA</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">CAN</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">IND</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                     <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SGP</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                     <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">JPN</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:geo-location:deny-unauthorized-cross-border" Effect="Deny">
+            <Description>Deny all other cross-border access attempts for data marked as 'Restricted-Transfer' by default.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Restricted-Transfer</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:data-classification" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:alert-ioc" FulfillOn="Deny">
+                     <AttributeAssignmentExpression AttributeId="urn:example:company:obligation:alert:type" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">UnauthorizedCrossBorderAccess</AttributeValue>
+                    </AttributeAssignmentExpression>
+                </ObligationExpression>
+            </ObligationExpressions>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-005: Export Control
+        Description: Enforce access controls based on data classification and export control status.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-005:export-control"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides"
+            Version="1.0">
+        <Description>Controls access to data based on export control regulations like ITAR and EAR.</Description>
+        <Target/>
+
+        <Rule RuleId="urn:example:company:rule:export-control:deny-itar-to-non-us" Effect="Deny">
+            <Description>Denies access to ITAR-controlled data for users without US citizenship.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ITAR</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:export-control" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">USA</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:citizenship" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+        
+        <Rule RuleId="urn:example:company:rule:export-control:deny-entity-list" Effect="Deny">
+            <Description>Denies access to EAR-controlled data for any subject associated with an organization on the Entity List.</Description>
+             <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">EAR-Controlled</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:export-control" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                 <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">true</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:subject:is-on-entity-list" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-002: Third-party and Device Posture
+        Description: Implement strict identity and device posture validation for all third-party and supply chain partner access.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-002:third-party-and-posture"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides"
+            Version="1.0">
+        <Description>Enforces device compliance and strong authentication for all users, especially third parties.</Description>
+        <Target/>
+
+        <Rule RuleId="urn:example:company:rule:posture:deny-non-compliant-device" Effect="Deny">
+            <Description>Deny access from any device that does not meet compliance standards (patch level, EDR, etc.).</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">non-compliant</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:environment:device-posture" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:third-party:deny-no-mfa" Effect="Deny">
+            <Description>Deny access to all external partners if they have not authenticated with MFA.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-regexp-match">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">^Partner-.*</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:subject:group" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">false</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:subject:mfa-authenticated" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+    </Policy>
+    
+    <!--
+        Policy for CEP-REQ-007: Just-in-Time (JIT) Access
+        Description: Enforce Just-in-Time (JIT) and time-bound access for all privileged roles.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-007:jit-access"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="1.0">
+        <Description>Enforces time-bound access for privileged users.</Description>
+        <Target>
+            <!-- This policy applies only to users in a privileged role -->
+             <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">privileged-user</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        
+        <Rule RuleId="urn:example:company:rule:jit:deny-expired-access" Effect="Deny">
+            <Description>Denies access if the current time is outside the approved JIT window.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:time-less-than">
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:environment:access-start-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                    </Apply>
+                     <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:time-greater-than-or-equal">
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:environment:access-end-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:jit:permit-in-window" Effect="Permit">
+            <Description>Permit access if within the JIT window.</Description>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-006: OT/IT Segmentation
+        Description: Isolate Operational Technology (OT) networks from the IT-based collaborative platform.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-006:ot-segmentation"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides"
+            Version="1.0">
+        <Description>Controls all access to the critical OT network zone.</Description>
+        <Target>
+            <!-- This policy applies only to resources in the OT Zone -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">OT-Zone</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:resource:network-zone" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+
+        <Rule RuleId="urn:example:company:rule:ot-access:deny-direct-access" Effect="Deny">
+            <Description>Denies any access to the OT zone that is not brokered through a secure PAM or ZTNA gateway.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:environment:access-gateway" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pam-gateway</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ztna-gateway</AttributeValue>
+                        </Apply>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+        
+        <Rule RuleId="urn:example:company:rule:ot-access:permit-brokered-access" Effect="Permit">
+            <Description>Permits access via a secure gateway and mandates session recording.</Description>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:initiate-session-recording" FulfillOn="Permit"/>
+            </ObligationExpressions>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-003: AI & Human-in-the-Loop
+        Description: Mandate human-in-the-loop approval for any high-risk operations conducted by AI/ML systems.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-003:ai-oversight"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="1.0">
+        <Description>Requires human oversight for high-risk actions performed by AI agents.</Description>
+        <Target>
+            <!-- This policy applies only to subjects that are AI agents -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">true</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:is-ai-agent" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+
+        <Rule RuleId="urn:example:company:rule:ai-oversight:deny-high-risk-no-approval" Effect="Deny">
+            <Description>Denies high-risk AI actions without explicit human approval and triggers the approval workflow.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+                            <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                             <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+                                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">modify-design</AttributeValue>
+                                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">modify-production-params</AttributeValue>
+                            </Apply>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">false</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:environment:human-approval-provided" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+             <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:trigger-human-approval-workflow" FulfillOn="Deny"/>
+            </ObligationExpressions>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:ai-oversight:permit-with-approval" Effect="Permit">
+            <Description>Permits high-risk AI action once human approval is provided and logs it immutably.</Description>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:log-immutable-ai-decision" FulfillOn="Permit"/>
+            </ObligationExpressions>
+        </Rule>
+    </Policy>
+
+</PolicySet>
+```
+
+***** Gemini 2.5 Pro, C++ Code
+
+```cpp
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+#include <chrono>
+#include <stdexcept>
+#include <functional>
+
+// ---[ C++ Machine Readable Rule Set for Industry 4.0 ZTA ABAC Module ]---
+// Domain: Industry 4.0 Security
+// Use Case: CollaborativeEngineeringPlattform
+// Architecture: Zero Trust at The Edge with ABAC and IDP integration.
+// This C++ code represents the rule set and the Policy Decision Point (PDP).
+
+// ---[ 1. Core Enumerations & Data Types ]---
+
+// Represents the final decision of the PDP.
+enum class AccessDecision {
+    Permit,
+    Deny,
+    Indeterminate_Requires_Human_Approval // For CEP-REQ-003
+};
+
+// Represents the posture of a connecting device.
+enum class DevicePosture {
+    Compliant,
+    Non_Compliant,
+    Unknown
+};
+
+// Represents the status of Multi-Factor Authentication.
+enum class MfaStatus {
+    Verified,
+    Not_Verified
+};
+
+// Data classification levels as per requirements.
+enum class DataClassification {
+    Public,
+    Internal,
+    Confidential,
+    Restricted_Transfer_GDPR, // Example for EU data
+    Restricted_Transfer_DPDP, // Example for India data
+    Restricted_Transfer_PIPL  // Example for China data
+};
+
+// Export control tags as per CEP-REQ-005.
+enum class ExportControlTag {
+    None,
+    EAR_Controlled,
+    ITAR_Controlled,
+    JP_Export_Controlled
+};
+
+// Action types.
+enum class ActionType {
+    Read,
+    Write,
+    Execute,
+    Delete,
+    Modify_AI_Model, // Example high-risk AI action
+    Modify_Production_Params // Example high-risk AI action
+};
+
+// ---[ 2. Attribute Structures (The 'A' in ABAC) ]---
+
+// Attributes of the user/service making the request.
+struct SubjectAttributes {
+    std::string userId;
+    std::string role; // e.g., "engineer", "partner_a", "auditor", "ai_agent"
+    std::string organization; // e.g., "OurCompany", "Partner_India", "Partner_USA"
+    std::string geoLocation; // Country code, e.g., "DE", "US", "IN", "JP", "CA", "SG"
+    std::string citizenship; // e.g., "DE", "US", "CN"
+    MfaStatus mfaStatus;
+    double riskScore = 0.0; // From IDP/SIEM, 0.0 (low) to 1.0 (high)
+    // For JIT Access (CEP-REQ-007)
+    bool isJitAccess = false;
+    long jitSessionExpiry = 0; // Unix timestamp
+};
+
+// Attributes of the connecting device.
+struct DeviceAttributes {
+    std::string deviceId;
+    std::string geoLocation; // Country code
+    std::string osVersion;
+    std::string patchLevel; // e.g., "2023-10"
+    bool edrIsActive;
+    DevicePosture posture;
+};
+
+// Attributes of the resource being accessed.
+struct ResourceAttributes {
+    std::string resourceId; // e.g., "CAD_File_XYZ.dwg", "OT_PLC_123"
+    std::string resourceType; // e.g., "EngineeringDesign", "TechnicalData", "OT_Controller"
+    DataClassification classification;
+    std::string dataResidency; // Country where data must reside, e.g., "EU", "IN"
+    ExportControlTag exportControl;
+    std::string securityZone; // e.g., "IT_Zone", "OT_Zone", "Partner_India_Zone"
+};
+
+// Attributes of the action being performed.
+struct ActionAttributes {
+    ActionType type;
+    bool isHighRiskAIAction = false;
+};
+
+// Contextual environment attributes.
+struct EnvironmentAttributes {
+    long requestTimestamp; // Unix timestamp
+    std::string sourceIP;
+    // Dynamic threat level provided by an IDP/SIEM/SOAR system as per CEP-REQ-004
+    double networkThreatLevel = 0.0; // 0.0 (low) to 1.0 (high)
+};
+
+// A composite structure for a single access request.
+struct AccessRequest {
+    SubjectAttributes subject;
+    DeviceAttributes device;
+    ResourceAttributes resource;
+    ActionAttributes action;
+    EnvironmentAttributes environment;
+};
+
+// ---[ 3. Policy Decision Point (PDP) - The ABAC Engine ]---
+
+class PolicyDecisionPoint {
+public:
+    PolicyDecisionPoint() {
+        // Initialize country-specific data transfer rules based on legal adequacy (CEP-REQ-001)
+        // This simulates a database of international data transfer agreements.
+        // Adequacy decisions for GDPR:
+        gdprAdequacyDecisions = {"JP", "CA", "GB"}; // Japan, Canada, UK have adequacy. USA via DPF.
+        // For simplicity, we assume a specific framework is in place for USA-EU transfers.
+        // This map could be updated dynamically from a legal compliance service.
+    }
+
+    // Main evaluation function. This is the core of the ABAC module.
+    AccessDecision evaluate(const AccessRequest& request) const {
+        std::vector<std::string> denialReasons;
+
+        // The ZTA principle: Deny by default. Policies must explicitly grant access.
+        // We evaluate a series of "deny" rules. If any of them trigger, access is denied immediately.
+        
+        // ---[ RULE: CEP-REQ-002 - Identity & Device Posture Validation ]---
+        if (!isIdentityVerified(request.subject)) {
+            denialReasons.push_back("CEP-REQ-002: Identity verification failed (MFA not satisfied).");
+        }
+        if (!isDeviceCompliant(request.device)) {
+            denialReasons.push_back("CEP-REQ-002: Device posture is non-compliant.");
+        }
+
+        // ---[ RULE: CEP-REQ-007 - Just-in-Time (JIT) Access Enforcement ]---
+        if (!isJitAccessValid(request)) {
+             denialReasons.push_back("CEP-REQ-007: Invalid or expired Just-in-Time session.");
+        }
+
+        // ---[ RULE: CEP-REQ-001 & CEP-REQ-005 - Geo-Location, Data Transfer & Export Control ]---
+        if (!isGeoLocationAndDataTransferAllowed(request)) {
+            denialReasons.push_back("CEP-REQ-001: Cross-border data transfer is not authorized.");
+        }
+        if (!isExportControlCompliant(request)) {
+            denialReasons.push_back("CEP-REQ-005: Access denied due to export control regulations.");
+        }
+
+        // ---[ RULE: CEP-REQ-006 - OT/IT Segregation ]---
+        if (!isOtAccessPolicyRespected(request)) {
+            denialReasons.push_back("CEP-REQ-006: Unauthorized access to OT security zone.");
+        }
+        
+        // ---[ RULE: CEP-REQ-002 - Partner Segmentation ]---
+        if (!isPartnerZoneAccessCorrect(request)) {
+            denialReasons.push_back("CEP-REQ-002: Access denied due to partner zone segmentation rules.");
+        }
+        
+        // ---[ RULE: CEP-REQ-004 - Continuous Monitoring & Anomaly Detection Input ]---
+        // This rule uses dynamic risk scores from an external IDP/SIEM.
+        if (isRiskScoreTooHigh(request)) {
+             denialReasons.push_back("CEP-REQ-004: Access denied due to high risk score or threat level.");
+        }
+
+        // If any denial rule was triggered, deny access.
+        if (!denialReasons.empty()) {
+            // In a real system, these reasons would be logged to a SIEM.
+            // For demonstration, we can print them.
+            // std::cerr << "Access Denied. Reasons:" << std::endl;
+            // for(const auto& reason : denialReasons) { std::cerr << "- " << reason << std::endl; }
+            return AccessDecision::Deny;
+        }
+
+        // ---[ SPECIAL CHECK: CEP-REQ-003 - Human-in-the-Loop for High-Risk AI Actions ]---
+        if (request.action.isHighRiskAIAction && request.subject.role == "ai_agent") {
+            // This action cannot be permitted directly. It requires out-of-band human approval.
+            // The PEP must handle this response by initiating an approval workflow.
+            return AccessDecision::Indeterminate_Requires_Human_Approval;
+        }
+
+        // If no deny rules were triggered and no special handling is needed, access is permitted.
+        // This implies that a base set of permissions (e.g., role-based) is assumed to be valid
+        // if none of the ZTA constraints are violated.
+        return AccessDecision::Permit;
+    }
+
+private:
+    std::set<std::string> gdprAdequacyDecisions;
+
+    // ---[ Policy Check Implementations ]---
+
+    // CEP-REQ-002: Checks if identity is strongly verified.
+    bool isIdentityVerified(const SubjectAttributes& subject) const {
+        return subject.mfaStatus == MfaStatus::Verified;
+    }
+
+    // CEP-REQ-002: Checks if device meets minimum security posture.
+    bool isDeviceCompliant(const DeviceAttributes& device) const {
+        // In a real scenario, these would be checked against a policy database.
+        const std::string requiredMinPatchLevel = "2023-09";
+        return device.edrIsActive && device.patchLevel >= requiredMinPatchLevel;
+    }
+
+    // CEP-REQ-007: Validates JIT access sessions.
+    bool isJitAccessValid(const AccessRequest& request) const {
+        // This is a simplified check. A full PAM/JIT integration is complex.
+        // If the resource requires privileged access (e.g., OT zone or high-value data)
+        bool requiresPrivilegedAccess = (request.resource.securityZone == "OT_Zone" || 
+                                         request.resource.classification == DataClassification::Restricted_Transfer_GDPR);
+        if (requiresPrivilegedAccess) {
+            return request.subject.isJitAccess && request.subject.jitSessionExpiry > request.environment.requestTimestamp;
+        }
+        // If resource doesn't require privileged access, this check doesn't apply.
+        return true;
+    }
+
+    // CEP-REQ-001: Validates geo-location and cross-border data transfer rules.
+    bool isGeoLocationAndDataTransferAllowed(const AccessRequest& request) const {
+        const auto& subjectGeo = request.subject.geoLocation;
+        const auto& resourceClass = request.resource.classification;
+        const auto& resourceResidency = request.resource.dataResidency;
+
+        // If data must stay within its residency zone
+        if (!resourceResidency.empty() && subjectGeo != resourceResidency) {
+            
+            // Check for GDPR-specific cross-border transfer
+            if (resourceClass == DataClassification::Restricted_Transfer_GDPR && resourceResidency == "EU") {
+                // Allow if accessing from a country with an adequacy decision
+                if (gdprAdequacyDecisions.count(subjectGeo) || subjectGeo == "US") { // Assume USA has a valid framework like DPF
+                    return true;
+                }
+                return false; // Not in EU and no adequacy decision -> Deny
+            }
+            
+            // Check for India DPDP. Assume strict data residency for now.
+            if (resourceClass == DataClassification::Restricted_Transfer_DPDP && resourceResidency == "IN") {
+                return false; // Access from outside India is denied by default.
+            }
+            
+            // Add other country-specific rules here...
+
+        }
+        // Default case: no specific cross-border violation found.
+        return true;
+    }
+
+    // CEP-REQ-005: Validates access against export control regulations.
+    bool isExportControlCompliant(const AccessRequest& request) const {
+        const auto& tag = request.resource.exportControl;
+        const auto& citizenship = request.subject.citizenship;
+        const auto& organization = request.subject.organization;
+
+        if (tag == ExportControlTag::None) {
+            return true;
+        }
+        
+        // Example Rule: Deny access to EAR-controlled data for users from specific countries/orgs
+        if (tag == ExportControlTag::EAR_Controlled || tag == ExportControlTag::ITAR_Controlled) {
+            // This list would be managed by a compliance department
+            std::set<std::string> restrictedCitizenships = {"CN", "RU", "IR", "KP"};
+            if (restrictedCitizenships.count(citizenship)) {
+                return false;
+            }
+        }
+        
+        // Example Rule: Specific "No-China-Access" rule implementation
+        if (organization.find("China") != std::string::npos || citizenship == "CN") {
+             if (tag == ExportControlTag::EAR_Controlled || tag == ExportControlTag::ITAR_Controlled){
+                 return false;
+             }
+        }
+
+        return true;
+    }
+
+    // CEP-REQ-006: Enforces secure access to the OT zone.
+    bool isOtAccessPolicyRespected(const AccessRequest& request) const {
+        if (request.resource.securityZone == "OT_Zone") {
+            // All access to OT must be JIT/privileged, which is already checked by isJitAccessValid.
+            // Additionally, we could check if the request is coming via a specific PAM/Gateway IP, etc.
+            // Here, we just rely on the JIT session flag for simplicity.
+            return request.subject.isJitAccess;
+        }
+        return true;
+    }
+    
+    // CEP-REQ-002: Enforces partner-specific security zones and prevents lateral movement.
+    bool isPartnerZoneAccessCorrect(const AccessRequest& request) const {
+        const std::string& org = request.subject.organization;
+        const std::string& zone = request.resource.securityZone;
+
+        if (org == "Partner_India" && zone != "Partner_India_Zone" && zone != "IT_Zone") {
+            return false; // Partner from India can only access their zone and the general IT zone. No OT or other partner zones.
+        }
+        if (org == "Partner_USA" && zone != "Partner_USA_Zone" && zone != "IT_Zone") {
+            return false; // Partner from USA can only access their zone and the general IT zone.
+        }
+        // This prevents lateral movement between partner zones.
+        return true;
+    }
+
+    // CEP-REQ-004: Uses risk scores from external monitoring systems (IDP/SIEM).
+    bool isRiskScoreTooHigh(const AccessRequest& request) const {
+        // Aggregate risk from user behavior, device state, and network intelligence
+        double totalRisk = request.subject.riskScore + request.environment.networkThreatLevel;
+        const double highRiskThreshold = 0.8; // Policy: Deny access if combined risk is 80% or higher
+        
+        return totalRisk >= highRiskThreshold;
+    }
+};
+
+// ---[ 4. Helper & Main Function for Demonstration ]---
+
+// Helper to convert decision enum to string for printing.
+std::string decisionToString(AccessDecision decision) {
+    switch (decision) {
+        case AccessDecision::Permit: return "Permit";
+        case AccessDecision::Deny: return "Deny";
+        case AccessDecision::Indeterminate_Requires_Human_Approval: return "Indeterminate (Requires Human Approval)";
+        default: return "Unknown";
+    }
+}
+
+// Main function to simulate access requests and evaluate them.
+int main() {
+    PolicyDecisionPoint pdp;
+
+    long now = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+
+    std::cout << "---[ Industry 4.0 ZTA ABAC Simulation ]---\n\n";
+
+    // --- Scenario 1: Compliant Engineer from Canada accessing a non-sensitive design ---
+    AccessRequest req1 = {
+        { "eng_jane", "engineer", "OurCompany", "CA", "CA", MfaStatus::Verified, 0.1 },
+        { "dev_111", "CA", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "CAD_File_ABC.dwg", "EngineeringDesign", DataClassification::Internal, "", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "203.0.113.10", 0.1 }
+    };
+    std::cout << "Scenario 1 (Compliant CA Engineer): " << decisionToString(pdp.evaluate(req1)) << std::endl; // Expected: Permit
+
+    // --- Scenario 2: Partner from India trying to access OT network (Violation of CEP-REQ-002, CEP-REQ-006) ---
+    AccessRequest req2 = {
+        { "partner_raj", "partner", "Partner_India", "IN", "IN", MfaStatus::Verified, 0.2 },
+        { "dev_222", "IN", "Windows-11", "2023-10", true, DevicePosture::Compliant },
+        { "OT_PLC_123", "OT_Controller", DataClassification::Confidential, "", ExportControlTag::None, "OT_Zone" },
+        { ActionType::Write, false },
+        { now, "198.51.100.55", 0.1 }
+    };
+    std::cout << "Scenario 2 (Partner accessing OT): " << decisionToString(pdp.evaluate(req2)) << std::endl; // Expected: Deny
+
+    // --- Scenario 3: Engineer from USA accessing EU data from Japan (Allowed by GDPR Adequacy, CEP-REQ-001) ---
+    AccessRequest req3 = {
+        { "eng_john", "engineer", "OurCompany", "JP", "US", MfaStatus::Verified, 0.1, true, now + 3600 },
+        { "dev_333", "JP", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "Spec_XYZ.pdf", "TechnicalData", DataClassification::Restricted_Transfer_GDPR, "EU", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "192.0.2.88", 0.0 }
+    };
+    std::cout << "Scenario 3 (US Engineer in JP accessing EU Data): " << decisionToString(pdp.evaluate(req3)) << std::endl; // Expected: Permit
+
+    // --- Scenario 4: Engineer from Singapore accessing EU data (Not allowed, no adequacy decision, CEP-REQ-001) ---
+    AccessRequest req4 = {
+        { "eng_lee", "engineer", "OurCompany", "SG", "SG", MfaStatus::Verified, 0.1, true, now + 3600 },
+        { "dev_444", "SG", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "Spec_XYZ.pdf", "TechnicalData", DataClassification::Restricted_Transfer_GDPR, "EU", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "203.0.113.20", 0.0 }
+    };
+    std::cout << "Scenario 4 (SG Engineer accessing EU Data): " << decisionToString(pdp.evaluate(req4)) << std::endl; // Expected: Deny
+
+    // --- Scenario 5: User with CN citizenship trying to access ITAR data (Violation of CEP-REQ-005) ---
+    AccessRequest req5 = {
+        { "research_wei", "researcher", "OurCompany", "DE", "CN", MfaStatus::Verified, 0.0 },
+        { "dev_555", "DE", "Linux-6.5", "2023-10", true, DevicePosture::Compliant },
+        { "propulsion_data.dat", "TechnicalData", DataClassification::Confidential, "", ExportControlTag::ITAR_Controlled, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "192.0.2.99", 0.0 }
+    };
+    std::cout << "Scenario 5 (CN Citizen accessing ITAR data): " << decisionToString(pdp.evaluate(req5)) << std::endl; // Expected: Deny
+
+    // --- Scenario 6: AI Agent trying to perform a high-risk action (Triggers CEP-REQ-003) ---
+    AccessRequest req6 = {
+        { "ai_optimizer_v2", "ai_agent", "OurCompany", "US", "N/A", MfaStatus::Verified, 0.0 }, // AI has verified identity via token/cert
+        { "vm_gpu_01", "US", "N/A", "N/A", true, DevicePosture::Compliant },
+        { "production_line_A_params", "ProductionParameters", DataClassification::Confidential, "", ExportControlTag::None, "OT_Zone" },
+        { ActionType::Modify_Production_Params, true }, // Action is flagged as high-risk
+        { now, "10.1.1.5", 0.0 }
+    };
+    std::cout << "Scenario 6 (AI agent high-risk action): " << decisionToString(pdp.evaluate(req6)) << std::endl; // Expected: Indeterminate
+
+    // --- Scenario 7: User with a high risk score from IDP (Violation of CEP-REQ-004) ---
+    AccessRequest req7 = {
+        { "eng_jane", "engineer", "OurCompany", "CA", "CA", MfaStatus::Verified, 0.9 }, // High risk score due to impossible travel alert
+        { "dev_111", "CA", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "CAD_File_ABC.dwg", "EngineeringDesign", DataClassification::Internal, "", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "203.0.113.10", 0.1 }
+    };
+    std::cout << "Scenario 7 (User with high risk score): " << decisionToString(pdp.evaluate(req7)) << std::endl; // Expected: Deny
+
+    // --- Scenario 8: Privileged access to OT via JIT session (Allowed by CEP-REQ-007) ---
+    AccessRequest req8 = {
+        { "ot_admin", "admin", "OurCompany", "DE", "DE", MfaStatus::Verified, 0.1, true, now + 3600 }, // JIT session is active
+        { "dev_admin_pc", "DE", "Windows-11", "2023-10", true, DevicePosture::Compliant },
+        { "OT_PLC_123", "OT_Controller", DataClassification::Confidential, "", ExportControlTag::None, "OT_Zone" },
+        { ActionType::Write, false },
+        { now, "10.0.0.5", 0.0 }
+    };
+    std::cout << "Scenario 8 (Admin JIT access to OT): " << decisionToString(pdp.evaluate(req8)) << std::endl; // Expected: Permit
+
+    return 0;
+}
+```
