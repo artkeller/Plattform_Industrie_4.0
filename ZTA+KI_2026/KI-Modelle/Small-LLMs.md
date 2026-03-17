@@ -1,4 +1,6 @@
-### Tabelle x: Repräsentative Small Language Models (SLMs) und zugehörige Ausführungsumgebungen (Stand März 2026)
+### Tabelle x: Repräsentative Small Language Models (SLMs) und zugehörige Ausführungsumgebungen
+
+(Stand März 2026)
 
 | Kategorie                              | Modell / Tool                                      | Parameteranzahl | Entwickler / Anbieter     | Hauptanwendung / Stärken                                      | Lizenz / Verfügbarkeit          | Lokale / On-Premise-Ausführung |
 |----------------------------------------|----------------------------------------------------|-----------------|---------------------------|-----------------------------------------------------------------------|---------------------------------|--------------------------------|
