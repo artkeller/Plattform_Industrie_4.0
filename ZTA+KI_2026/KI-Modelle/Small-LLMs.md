@@ -1,4 +1,4 @@
-### Tabelle x: Repräsentative Small Language Models (SLMs) und zugehörige Ausführungsumgebungen
+### Repräsentative Small Language Models (SLMs) und zugehörige Ausführungsumgebungen
 
 (Stand März 2026)
 
