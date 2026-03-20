@@ -1,6 +1,6 @@
 # Sparse Mixture of Experts (MoE) Architecture: A Comprehensive Analysis
 
-## Executive Summary (Zusammenfassung)
+## Executive Summary
 Diese Dokumentation analysiert die **Mixture of Experts (MoE)** Architektur als Lösung für die Skalierung von Large Language Models (LLMs). Während dichte Modelle (*dense models*) eine lineare Kopplung zwischen Parameteranzahl und Rechenaufwand aufweisen, entkoppelt MoE diese durch **Conditional Computation**. 
 
 **Kernpunkte:**
