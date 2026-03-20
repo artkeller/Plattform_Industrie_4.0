@@ -10,10 +10,6 @@ Dadurch kann das MoE-Modell zwar **Billionen von Parametern** umfassen, doch die
 
 ---
 
-Hier ist der Entwurf für deine `README.md`. Ich habe den wissenschaftlichen Anspruch gewahrt und die Struktur so optimiert, dass sie sowohl für Entwickler als auch für Reviewer auf GitHub sofort die nötige Tiefe vermittelt.
-
----
-
 # Sparse Mixture of Experts (MoE) Architecture: A Comprehensive Analysis
 
 ## Executive Summary (Zusammenfassung)
