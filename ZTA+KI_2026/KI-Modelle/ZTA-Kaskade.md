@@ -1,6 +1,6 @@
 ```mermaid
 
-flowchart TD
+lowchart TD
     subgraph "Zero-Trust-Kaskade: Dynamische KI-Entscheidung (3 Stufen)"
 
         A[OT-Datenverkehr\nAnlagen / Edge]
@@ -34,8 +34,8 @@ flowchart TD
 
     end
 
-    style Stufe_1 fill:#e6f3ff,stroke:#0066cc
-    style Stufe_2 fill:#fff0e6,stroke:#cc6600
-    style Stufe_3 fill:#f0e6ff,stroke:#6600cc
+    style Stufe_1 fill:#e6f3ff,stroke:#0066cc,color:#000
+    style Stufe_2 fill:#fff0e6,stroke:#cc6600,color:#000
+    style Stufe_3 fill:#f0e6ff,stroke:#6600cc,color:#000
 
 ```
