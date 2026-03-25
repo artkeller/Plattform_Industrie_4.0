@@ -1,18 +1,18 @@
 ```mermaid
 
-lowchart TD
+flowchart TD
     subgraph "Zero-Trust-Kaskade: Dynamische KI-Entscheidung (3 Stufen)"
 
         A[OT-Datenverkehr\nAnlagen / Edge]
 
-        subgraph Stufe_1["Stufe 1 – Edge / Echtzeit\n< 10 ms"]
+        subgraph Stufe_1["Stufe 1 – Edge / Echtzeit\n< 10–20 ms"]
             PEP[Policy Enforcement Point PEP]
             GNN[GNN – Graph Neural Network\nKlassifizierung OT-Datenverkehr\nstark quantisiert / on-device]
             PEP -->|"sofort Zulassung / Ablehnung"| GNN
             GNN -->|"Mikrosegmentierung direkt an Anlage"| B[Paket freigegeben / blockiert]
         end
 
-        subgraph Stufe_2["Stufe 2 – Mid-Layer / Kontext\n< 100 ms"]
+        subgraph Stufe_2["Stufe 2 – Mid-Layer / Kontext\n< 50–150 ms"]
             PDP[Policy Decision Point PDP / Risk Engine]
             SLM[Small LLM / MoE-optimiert\nFusion: Identität + Gerätezustand + Historie]
             PDP -->|"dynamischer Richtlinieneinsatz\nz. B. MFA on-demand, Rechte-Anpassung"| SLM
