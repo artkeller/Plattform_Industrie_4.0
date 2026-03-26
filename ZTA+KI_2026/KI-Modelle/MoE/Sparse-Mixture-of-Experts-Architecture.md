@@ -5,7 +5,7 @@ Diese Dokumentation analysiert die **[Mixture of Experts (MoE)](Mixture-of-Exper
 
 **Kernpunkte:**
 *   **Effizienz:** MoE aktiviert pro Token nur einen Bruchteil der Parameter (Sparse Activation), was die Inferenzgeschwindigkeit massiv steigert.
-*   **Stabilität:** Durch den Einsatz von **Load Balancing Loss** und **Top-$k$ Routing** wird die Spezialisierung der Experten erzwungen und ein *Expert Collapse* verhindert.
+*   **Stabilität:** Durch den Einsatz von **Load Balancing Loss** und **[Top-k-Routing](Top-k-Routing.md)** wird die Spezialisierung der Experten erzwungen und ein *Expert Collapse* verhindert.
 *   **Systemische Hürden:** Der Gewinn an Recheneffizienz wird durch erhöhten VRAM-Bedarf und signifikanten Kommunikations-Overhead (**All-to-All**) bei verteilten Systemen erkauft.
 *   **Wissenschaftliche Validität:** Die Analyse betont die Bedeutung der **Seed-Varianz** und des **Capacity Factors** für die Reproduzierbarkeit der Ergebnisse.
 
