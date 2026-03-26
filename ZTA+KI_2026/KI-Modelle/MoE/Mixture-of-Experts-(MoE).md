@@ -2,7 +2,7 @@
 
 Die **Mixture of Experts (MoE)**-Architektur ist eine hochentwickelte Weiterentwicklung der **Transformer-Architektur**. Sie löst das klassische Dilemma „mehr Parameter = mehr Leistung, aber auch mehr Rechenaufwand“ auf: MoE-Modelle können **Milliarden oder sogar Billionen Parameter** haben und trotzdem bei der **Inferenzgeschwindigkeit** (Antwortzeit) fast so schnell bleiben wie kleine Modelle.
 
-Statt in jeder Transformer-Schicht eine einzelne, „dichte“ **[Feed-Forward-Schicht (FFN)](Feed-Forward-Netzwerke-(FFN).mdd)** zu nutzen, ersetzt MoE genau diese FFN-Schicht durch ein spezielles MoE-Modul. Dieses Modul besteht aus zwei Teilen:
+Statt in jeder Transformer-Schicht eine einzelne, „dichte“ **[Feed-Forward-Schicht (FFN)](Feed-Forward-Netzwerke-(FFN).md)** zu nutzen, ersetzt MoE genau diese FFN-Schicht durch ein spezielles MoE-Modul. Dieses Modul besteht aus zwei Teilen:
 
 - **Den Experten**: Mehrere unabhängige, vollwertige Feed-Forward-Netzwerke (meist 8 oder mehr). Jeder Experte ist während des Trainings auf bestimmte Datenmuster spezialisiert – einer wird z. B. richtig gut bei Mathematik, ein anderer bei Code oder Mehrsprachigkeit.
 - **Dem Gating-Netzwerk** (auch **Router** genannt): Ein kleines, trainierbares neuronales Netz, das wie ein intelligenter „Verteiler“ arbeitet.
