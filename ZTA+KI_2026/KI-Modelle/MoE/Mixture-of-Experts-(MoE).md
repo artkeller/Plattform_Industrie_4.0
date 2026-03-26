@@ -11,7 +11,7 @@ Statt in jeder Transformer-Schicht eine einzelne, „dichte“ **[Feed-Forward-S
 
 1. Das Token kommt in die Schicht.
 2. Der Router berechnet blitzschnell für jeden Experten eine „Passgenauigkeit“ (Score).
-3. Er wählt nur eine **kleine, feste Anzahl** der besten Experten aus – meist die **Top-2** (manchmal Top-3 oder Top-4). Das nennt man **[Top-k-Routing](Sparse-Mixture-of-Experts-Architecture.md#Top-k-Routing.md)**.
+3. Er wählt nur eine **kleine, feste Anzahl** der besten Experten aus – meist die **Top-2** (manchmal Top-3 oder Top-4). Das nennt man **[Top-k-Routing](Sparse-Mixture-of-Experts-Architecture.md#Top-k-Routing)**.
 4. Nur diese ausgewählten Experten führen die eigentliche Berechnung durch.
 5. Ihre Ergebnisse werden gewichtet (basierend auf den Router-Scores) addiert und als Ausgabe weitergegeben.
 
