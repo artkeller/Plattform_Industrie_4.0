@@ -26,7 +26,7 @@ $$y = \sum_{i=1}^{n} G(x)_i \cdot E_i(x)$$
 Wobei $G(x)$ ein sparse Vektor ist, bei dem nur die Top-$k$ Indizes ungleich Null sind.
 
 ### Load Balancing Loss
-Um eine uniforme Auslastung der Experten zu garantieren, wird eine Hilfsverlustfunktion $\mathcal{L}_{aux}$ integriert:
+Um eine uniforme Auslastung der Experten zu garantieren, wird eine Hilfsverlustfunktion $\mathcal{L}_{aux}$ integriert: 
 $$\mathcal{L}_{aux} = w \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i$$
 *   $f_i$: Anteil der Tokens pro Experte.
 *   $P_i$: Gemittelte Routing-Wahrscheinlichkeit.
