@@ -15,7 +15,7 @@ Statt in jeder Transformer-Schicht eine einzelne, „dichte“ **[Feed-Forward-S
 4. Nur diese ausgewählten Experten führen die eigentliche Berechnung durch.
 5. Ihre Ergebnisse werden gewichtet (basierend auf den Router-Scores) addiert und als Ausgabe weitergegeben.
 
-Der entscheidende Trick ist die **sparsame Aktivierung** [(sparse activation)](/Sparse-Mixture-of-Experts-Architecture.md): Von hunderten Milliarden Parametern sind pro Token nur ein Bruchteil aktiv. Der Rest „schläft“. Dadurch bleibt die reale Rechenlast pro Token gering – und genau das macht MoE so mächtig.
+Der entscheidende Trick ist die **sparsame Aktivierung** [(sparse activation)](Sparse-Mixture-of-Experts-Architecture.md): Von hunderten Milliarden Parametern sind pro Token nur ein Bruchteil aktiv. Der Rest „schläft“. Dadurch bleibt die reale Rechenlast pro Token gering – und genau das macht MoE so mächtig.
 
 **Konkrete Beispiele**  
 - **Mixtral 8x7B (Mistral AI)**: 8 Experten pro Schicht. Pro Token werden nur **2 Experten** aktiviert. Gesamtparameter: ca. 47 Milliarden – aber nur ca. **13 Milliarden aktiv** pro Token. Das Modell läuft deshalb so schnell wie ein 13B-Modell, schlägt aber in vielen Benchmarks (Mathe, Code, Mehrsprachigkeit) sogar dichte 70B-Modelle wie Llama 2 70B.  
