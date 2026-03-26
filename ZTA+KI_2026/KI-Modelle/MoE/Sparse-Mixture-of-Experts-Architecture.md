@@ -30,7 +30,12 @@ Wobei $G(x)$ ein sparse Vektor ist, bei dem nur die Top-$k$ Indizes ungleich Nul
 
 ### Load Balancing Loss
 
-Um eine uniforme Auslastung der Experten zu garantieren, wird eine Hilfsverlustfunktion $\mathcal{L}_{aux}$ integriert:
+Um eine uniforme Auslastung der Experten zu garantieren, wird eine Hilfsverlustfunktion 
+
+$\mathcal{L}_{aux}$ 
+
+integriert:
+
 
 $$\mathcal{L}_{aux} = w \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i$$
 
