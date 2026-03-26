@@ -21,8 +21,11 @@ Die **Mixture of Experts (MoE)** Architektur ersetzt die statischen Feed-Forward
 ## 2. Theoretische Grundlagen & Methodik
 
 ### Mathematische Definition
+
 Die Ausgabe $y$ einer MoE-Schicht für ein Input-Token $x$ ist definiert als:
+
 $$y = \sum_{i=1}^{n} G(x)_i \cdot E_i(x)$$
+
 Wobei $G(x)$ ein sparse Vektor ist, bei dem nur die Top-$k$ Indizes ungleich Null sind.
 
 ### Load Balancing Loss
