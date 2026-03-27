@@ -1,0 +1,979 @@
+You are a Security Analyst and you shall create security requirements in written form related the following data. Context is Industry 4.0. The requirements shall later be translated into a machine readable format for access rules of a Zero Trust Access Control execution engine.
+The UseCaseIdentifier with value CollaborativeEngineeringPlattform is a key word for later use for creation of rule sets for a Zero Trust Architecture and Access Control.
+
+
+# data:
+{
+  "Domain": "Industry 4.0",
+  "UseCaseIdentifier": "CollaborativeEngineeringPlattform",
+  "Countries": [
+    {
+      "AnalyzedCountry": "Germany",
+      "ClassificationScoreOfRegulation": 3,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "Regulations consistently focus on the implementation of EU-wide cybersecurity and AI governance frameworks, specifically related to the AI Act and the NIS-2 Directive.",
+          "Significance": "high",
+          "ReferencedStandards": "EU Regulations, NIS2",
+          "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf, https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive, https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Value": "There is a cohesive theme of implementing comprehensive EU cybersecurity regulations (EU AI Act, NIS-2, KRITIS) that mandate transparency, risk assessments, human oversight, and business continuity for high-risk AI systems and critical infrastructure like manufacturing.",
+          "Significance": "high",
+          "ReferencedStandards": "EU Regulations, NIS2",
+          "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf, https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive, https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "The regulations collectively increase compliance costs, mandate detailed documentation, risk management, incident reporting, and supply chain security assessments, increasing operational burdens for manufacturing entities.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf, https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive, https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Compliance requirements complicate partnerships with non-EU countries, creating harmonization challenges for the shared development platform and potentially delaying assembly and exports due to data transfer restrictions and supplier alignment issues.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf, https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive, https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "There is a strong emphasis on enhancing cybersecurity throughout the supply chain, with specific attention to IoT vulnerabilities in robotics and significant financial penalties for non-compliance.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf, https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive, https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Data Protection and AI Governance",
+              "Significance": "medium",
+              "ReferencedStandards": "EU Regulations",
+              "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Cybersecurity Directive",
+              "Significance": "medium",
+              "ReferencedStandards": "NIS2",
+              "SourceOfEvidence": "https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Cybersecurity Risk Management Guidance",
+              "Significance": "medium",
+              "ReferencedStandards": "NIS2",
+              "SourceOfEvidence": "https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+            }
+          ]
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Emphasizes cybersecurity in supply chains; non-compliance risks fines up to 7% of global turnover, impacting cross-border collaborations.",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://digital-strategy.ec.europa.eu/en/policies/european-approach-artificial-intelligence, https://www.europarl.europa.eu/RegData/etudes/STUD/2020/634406/IPOL_STU(2020)634406_EN.pdf"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "EU Cyber Resilience Act preparations emphasize product security, relevant for robotics with digital elements.",
+              "Significance": "medium",
+              "ReferencedStandards": "EU Regulations",
+              "SourceOfEvidence": "https://www.jonesday.com/en/insights/2025/10/germany-implements-new-kritis-umbrella-law-and-nis2-directive"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Heightened focus on supply chain vulnerabilities in Industry 4.0, with ENISA highlighting threats to IoT devices in robotics manufacturing.",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.enisa.europa.eu/sites/default/files/2025-06/ENISA_Technical_implementation_guidance_on_cybersecurity_risk_management_measures_version_1.0.pdf, https://www.enisa.europa.eu/sites/default/files/2025-10/ENISA%2520Threat%2520Landscape%25202025_0.pdf"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "India",
+      "ClassificationScoreOfRegulation": 4,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "Regulations are rapidly evolving to govern the digital economy, focusing on data protection, and establishing cybersecurity mandates.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://niti.gov.in/sites/default/files/2024-09/AI-for-Viksit-Bharat-the-opportunity-for-accelerated-economic-growth.pdf%22, https://m.economictimes.com/tech/technology/dpdp-rules-to-be-released-by-28-september-vaishnaw/articleshow/123982777.cms, https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "All regulations impose increased compliance costs and administrative burdens, requiring alignment with local data policies, the appointment of data protection officers, and recurring audits.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://niti.gov.in/sites/default/files/2024-09/AI-for-Viksit-Bharat-the-opportunity-for-accelerated-economic-growth.pdf%22, https://m.economictimes.com/tech/technology/dpdp-rules-to-be-released-by-28-september-vaishnaw/articleshow/123982777.cms, https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Data exchange and collaboration on the engineering platform with Indian partners are likely to be complicated, potentially causing delays due to data transfer restrictions, requirements for contractual clauses, and audits that could expose IP.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://niti.gov.in/sites/default/files/2024-09/AI-for-Viksit-Bharat-the-opportunity-for-accelerated-economic-growth.pdf%22, https://m.economictimes.com/tech/technology/dpdp-rules-to-be-released-by-28-september-vaishnaw/articleshow/123982777.cms, https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "There is a consistent emphasis on enhancing cybersecurity within supply chains to counter rising threats like ransomware and cyberattacks on manufacturing, with non-compliance risking restricted market access.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://niti.gov.in/sites/default/files/2024-09/AI-for-Viksit-Bharat-the-opportunity-for-accelerated-economic-growth.pdf%22, https://m.economictimes.com/tech/technology/dpdp-rules-to-be-released-by-28-september-vaishnaw/articleshow/123982777.cms, https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Digital Economy Policy",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://niti.gov.in/sites/default/files/2024-09/AI-for-Viksit-Bharat-the-opportunity-for-accelerated-economic-growth.pdf%22"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Data Protection Regulation",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://m.economictimes.com/tech/technology/dpdp-rules-to-be-released-by-28-september-vaishnaw/articleshow/123982777.cms"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Cybersecurity Audit Mandate",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+            }
+          ]
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Enhances cybersecurity in AI-driven supply chains; non-adherence could lead to restricted market access.",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://niti.gov.in/sites/default/files/2024-09/AI-for-Viksit-Bharat-the-opportunity-for-accelerated-economic-growth.pdf%22"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Rising ransomware attacks targeting businesses, as highlighted in recent reports, necessitate robust incident response plans to maintain business continuity in collaborative environments.",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://m.economictimes.com/tech/technology/dpdp-rules-to-be-released-by-28-september-vaishnaw/articleshow/123982777.cms"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Rising cyberattacks on smart manufacturing (55% firms hit multiple times), emphasizing need for zero-trust models in Industry 4.0 partnerships.",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://toptechbytes.in/cert-in-mandates-annual-cybersecurity-audits-for-msmes-to-strengthen-data-protection-and-secure-growing-digital-ecosystem, https://www.jisasoftech.com/rbis-cybersecurity-mandates-2025-securing-indias-digital-banks/"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "Singapore",
+      "ClassificationScoreOfRegulation": 6,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "The regulatory landscape is built around governance frameworks for AI and cybersecurity, including specific guidelines for digital infrastructure resilience.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.edps.europa.eu/data-protection/our-work/publications/techdispatch/2024-09-23-techdispatch-22024-human-oversight-automated-making_en%22, https://www.csa.gov.sg/news-events/press-releases/csa-releases-an-addendum-to-support-system-owners-in-securing-agentic-ai-system/, https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Value": "Regulations consistently emphasize ethical AI, transparency, risk management, and cyber resilience, requiring human oversight and security controls for high-risk and agentic AI systems, as well as business continuity for digital services.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.edps.europa.eu/data-protection/our-work/publications/techdispatch/2024-09-23-techdispatch-22024-human-oversight-automated-making_en%22, https://www.csa.gov.sg/news-events/press-releases/csa-releases-an-addendum-to-support-system-owners-in-securing-agentic-ai-system/, https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "The frameworks mandate additional compliance layers, such as oversight in robotics AI, integration of security into AI development, and robust disaster recovery testing, which increase investment and documentation requirements.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.edps.europa.eu/data-protection/our-work/publications/techdispatch/2024-09-23-techdispatch-22024-human-oversight-automated-making_en%22, https://www.csa.gov.sg/news-events/press-releases/csa-releases-an-addendum-to-support-system-owners-in-securing-agentic-ai-system/, https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Collaborations with partners in Singapore will likely require AI ethics audits and security protocol alignment on the development platform, potentially slowing joint engineering efforts and development cycles.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.edps.europa.eu/data-protection/our-work/publications/techdispatch/2024-09-23-techdispatch-22024-human-oversight-automated-making_en%22, https://www.csa.gov.sg/news-events/press-releases/csa-releases-an-addendum-to-support-system-owners-in-securing-agentic-ai-system/, https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "There is a clear focus on cybersecurity resilience, third-party risk management in supply chains, and alignment with global standards like NIST.",
+          "Significance": "medium",
+          "ReferencedStandards": "NIST",
+          "SourceOfEvidence": "https://www.edps.europa.eu/data-protection/our-work/publications/techdispatch/2024-09-23-techdispatch-22024-human-oversight-automated-making_en%22, https://www.csa.gov.sg/news-events/press-releases/csa-releases-an-addendum-to-support-system-owners-in-securing-agentic-ai-system/, https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "AI Governance Framework",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.edps.europa.eu/data-protection/our-work/publications/techdispatch/2024-09-23-techdispatch-22024-human-oversight-automated-making_en%22"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Cybersecurity Guideline",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.csa.gov.sg/news-events/press-releases/csa-releases-an-addendum-to-support-system-owners-in-securing-agentic-ai-system/"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Digital Infrastructure Resilience Guidelines",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://opengovasia.com/singapore-robust-digital-infrastructure-strengthens-cyber-resilience/, https://www.imda.gov.sg/regulations-and-licensing-listing/ict-standards-and-quality-of-service/it-standards-and-frameworks/cloud-computing-and-services"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "Japan",
+      "ClassificationScoreOfRegulation": 3,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "The focus is on providing AI and security governance guidelines, including specific measures for OT security and export controls for sensitive technologies.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/pdf/20240419_16.pdf, https://www.meti.go.jp/english/press/2025/0924_003.html, https://www.meti.go.jp/press/2025/10/20251024002/20251024002-d.pdf, https://www.meti.go.jp/english/policy/safety_security/cybersecurity/index.html"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "Regulations require risk assessments and stricter compliance checks for robotics and OT systems, increasing documentation, scrutiny on international transfers, and implementation costs.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/pdf/20240419_16.pdf, https://www.meti.go.jp/english/press/2025/0924_003.html, https://www.meti.go.jp/press/2025/10/20251024002/20251024002-d.pdf, https://www.meti.go.jp/english/policy/safety_security/cybersecurity/index.html"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Collaboration on the engineering platform may be slowed by AI ethics reviews and restricted by export controls on sensitive technologies, potentially complicating joint development and requiring export approvals.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/pdf/20240419_16.pdf, https://www.meti.go.jp/english/press/2025/0924_003.html, https://www.meti.go.jp/press/2025/10/20251024002/20251024002-d.pdf, https://www.meti.go.jp/english/policy/safety_security/cybersecurity/index.html"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "There is a consistent emphasis on supply chain security and resilience, active cyber defense, and securing cyber-physical integrations in Industry 4.0 environments.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/pdf/20240419_16.pdf, https://www.meti.go.jp/english/press/2025/0924_003.html, https://www.meti.go.jp/press/2025/10/20251024002/20251024002-d.pdf, https://www.meti.go.jp/english/policy/safety_security/cybersecurity/index.html"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "AI Governance Guidelines",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/pdf/20240419_16.pdf"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Export Control",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.meti.go.jp/english/press/2025/0924_003.html"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "OT Security Guidelines",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.meti.go.jp/press/2025/10/20251024002/20251024002-d.pdf, https://www.meti.go.jp/english/policy/safety_security/cybersecurity/index.html"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.meti.go.jp/press/2025/10/20251024002/20251024002-d.pdf, https://www.meti.go.jp/english/policy/safety_security/cybersecurity/index.html"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "USA",
+      "ClassificationScoreOfRegulation": 4,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "Regulations are focused on national security and critical infrastructure protection through mechanisms like export controls (Entity List), cybersecurity certifications (CMMC), and incident reporting mandates (CIRCIA).",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.federalregister.gov/documents/2024/09/16/2024-17893/additions-and-revisions-to-the-entity-list%22, https://www.hklaw.com/en/insights/publications/2025/09/cmmc-goes-live-new-cybersecurity-requirements, https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "Compliance imposes significant burdens, including license requirements for technology transfers, tiered certification processes with audits, and rapid incident disclosure protocols, all of which raise costs and complexity.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.federalregister.gov/documents/2024/09/16/2024-17893/additions-and-revisions-to-the-entity-list%22, https://www.hklaw.com/en/insights/publications/2025/09/cmmc-goes-live-new-cybersecurity-requirements, https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Partnerships on the collaborative platform may be significantly impacted by export restrictions, certification needs for defense applications, and incident reporting requirements, potentially delaying or halting joint development and data sharing.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.federalregister.gov/documents/2024/09/16/2024-17893/additions-and-revisions-to-the-entity-list%22, https://www.hklaw.com/en/insights/publications/2025/09/cmmc-goes-live-new-cybersecurity-requirements, https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "The regulatory environment enhances national security and supply chain transparency but may be undermined by the reduction of voluntary threat sharing, increasing vulnerability in international collaborations.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.federalregister.gov/documents/2024/09/16/2024-17893/additions-and-revisions-to-the-entity-list%22, https://www.hklaw.com/en/insights/publications/2025/09/cmmc-goes-live-new-cybersecurity-requirements, https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Export Controls",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.federalregister.gov/documents/2024/09/16/2024-17893/additions-and-revisions-to-the-entity-list%22"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Cybersecurity Certification",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.hklaw.com/en/insights/publications/2025/09/cmmc-goes-live-new-cybersecurity-requirements"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Cyber Incident Reporting Regulation",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+            }
+          ]
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Enhances national security; non-compliance leads to fines and blacklisting.",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.federalregister.gov/documents/2024/09/16/2024-17893/additions-and-revisions-to-the-entity-list%22"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Expiration of the Cybersecurity Information Sharing Act may reduce voluntary threat sharing, increasing vulnerability in international collaborations.",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.hklaw.com/en/insights/publications/2025/09/cmmc-goes-live-new-cybersecurity-requirements"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Auto sector threats highlight risks to manufacturing continuity, urging 3-2-1 backup rules for Industry 4.0 data.",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.encryptionconsulting.com/compliance-trends-of-2025/, https://www.weforum.org/stories/2025/10/key-us-cyber-law-expire-cybersecurity-news/"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "Canada",
+      "ClassificationScoreOfRegulation": 5,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "Canada's approach is centered on a National Cyber Security Strategy, AI Governance, and industry-wide Business Continuity Planning (BCP) tests.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.csps-efpc.gc.ca/catalogue/whats-new-eng.aspx, https://www.compliancehub.wiki/canadas-national-cyber-security-strategy-for-2025/, https://www.ciro.ca/newsroom/publications/ciros-industry-business-continuity-planning-test-october-25-2025-save-date, https://www.energycentral.com/intelligent-utility/post/canada-releases-2025-national-cyber-security-strategy-WR3YmV5jlh9chAx"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "These initiatives require increased documentation, participation in simulations, and potential investments in cybersecurity infrastructure, adding training and testing overhead for secure platforms.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.csps-efpc.gc.ca/catalogue/whats-new-eng.aspx, https://www.compliancehub.wiki/canadas-national-cyber-security-strategy-for-2025/, https://www.ciro.ca/newsroom/publications/ciros-industry-business-continuity-planning-test-october-25-2025-save-date, https://www.energycentral.com/intelligent-utility/post/canada-releases-2025-national-cyber-security-strategy-WR3YmV5jlh9chAx"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Joint platforms with Canadian partners may require AI audits and participation in resilience testing, which could reveal vulnerabilities and delay joint development projects while strengthening overall business continuity.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.csps-efpc.gc.ca/catalogue/whats-new-eng.aspx, https://www.compliancehub.wiki/canadas-national-cyber-security-strategy-for-2025/, https://www.ciro.ca/newsroom/publications/ciros-industry-business-continuity-planning-test-october-25-2025-save-date, https://www.energycentral.com/intelligent-utility/post/canada-releases-2025-national-cyber-security-strategy-WR3YmV5jlh9chAx"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "There is a consistent focus on promoting cybersecurity, supporting business continuity in global chains, and addressing growing state-sponsored threats to manufacturing.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.csps-efpc.gc.ca/catalogue/whats-new-eng.aspx, https://www.compliancehub.wiki/canadas-national-cyber-security-strategy-for-2025/, https://www.ciro.ca/newsroom/publications/ciros-industry-business-continuity-planning-test-october-25-2025-save-date, https://www.energycentral.com/intelligent-utility/post/canada-releases-2025-national-cyber-security-strategy-WR3YmV5jlh9chAx"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "AI Governance",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.csps-efpc.gc.ca/catalogue/whats-new-eng.aspx"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "National Strategy",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.compliancehub.wiki/canadas-national-cyber-security-strategy-for-2025/"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Business Continuity Planning Test",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.ciro.ca/newsroom/publications/ciros-industry-business-continuity-planning-test-october-25-2025-save-date, https://www.energycentral.com/intelligent-utility/post/canada-releases-2025-national-cyber-security-strategy-WR3YmV5jlh9chAx"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.ciro.ca/newsroom/publications/ciros-industry-business-continuity-planning-test-october-25-2025-save-date, https://www.energycentral.com/intelligent-utility/post/canada-releases-2025-national-cyber-security-strategy-WR3YmV5jlh9chAx"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "Malaysia",
+      "ClassificationScoreOfRegulation": 6,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "The regulatory focus is on strengthening the domestic economy and data protection through national development plans and amendments to data protection laws (PDPA).",
+          "Significance": "medium",
+          "ReferencedStandards": "ASEAN",
+          "SourceOfEvidence": "https://www.investmalaysia.gov.my/media/m3eamxey/thirteenth-malaysia-plan-2026-2030.pdf, https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/, https://www.abc27.com/business/press-releases/ein-presswire/858922072/driving-the-future-of-cybersecurity-fasoo-at-cyberdsa-malaysia-2025"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "Regulations promote local innovation but increase compliance burdens for suppliers through stricter rules on data processing, breach notifications, cross-border transfers, and potential local content rules.",
+          "Significance": "medium",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.investmalaysia.gov.my/media/m3eamxey/thirteenth-malaysia-plan-2026-2030.pdf, https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/, https://www.abc27.com/business/press-releases/ein-presswire/858922072/driving-the-future-of-cybersecurity-fasoo-at-cyberdsa-malaysia-2025"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "Data flows from Malaysian suppliers to the EU may be restricted, requiring additional safeguards and potentially disrupting the supply of spare parts to the German assembly site if data-intensive processes are involved.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "https://www.investmalaysia.gov.my/media/m3eamxey/thirteenth-malaysia-plan-2026-2030.pdf, https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/, https://www.abc27.com/business/press-releases/ein-presswire/858922072/driving-the-future-of-cybersecurity-fasoo-at-cyberdsa-malaysia-2025"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "There is a consistent focus on enhancing cybersecurity in supply chains, with new laws potentially affecting suppliers' operations in secure data handling and aligning with regional standards.",
+          "Significance": "medium",
+          "ReferencedStandards": "ASEAN",
+          "SourceOfEvidence": "https://www.investmalaysia.gov.my/media/m3eamxey/thirteenth-malaysia-plan-2026-2030.pdf, https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/, https://www.abc27.com/business/press-releases/ein-presswire/858922072/driving-the-future-of-cybersecurity-fasoo-at-cyberdsa-malaysia-2025"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Thirteenth Malaysia Plan emphasizes resilient supply chains in manufacturing.",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.investmalaysia.gov.my/media/m3eamxey/thirteenth-malaysia-plan-2026-2030.pdf"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Proposed amendments to the Personal Data Protection Regulations 2013, enhancing data protection standards, with feedback deadline on September 8, 2025.",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Proposed amendments to PDPA enhance breach notification, DPO requirements, and data security for digital operations, with consultation ending September 8, 2025.",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/, https://www.abc27.com/business/press-releases/ein-presswire/858922072/driving-the-future-of-cybersecurity-fasoo-at-cyberdsa-malaysia-2025"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://securiti.ai/malaysia-proposed-amendments-to-personal-data-protection-regulations/, https://www.abc27.com/business/press-releases/ein-presswire/858922072/driving-the-future-of-cybersecurity-fasoo-at-cyberdsa-malaysia-2025"
+            }
+          ]
+        },
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    },
+    {
+      "AnalyzedCountry": "China",
+      "ClassificationScoreOfRegulation": 2,
+      "Commonalities": [
+        {
+          "Key": "TypeOfRegulation",
+          "Value": "Regulations are driven by state-led initiatives, including trade policies (Belt and Road), export controls on critical materials, and stringent cybersecurity incident reporting measures.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "http://www.scio.gov.cn/zfbps/zfbps_2279/202310/t20231010_773734.html, https://english.www.gov.cn/news/202510/13/content_WS68ecc859c6d00ca5f9a06bc8.html,https://www.kwm.com/cn/en/insights/latest-thinking/china-upgrades-export-control-measures-profoundly-affecting-the-global-supply-chain-landscape.html, https://www.twobirds.com/en/insights/2025/china/new-cybersecurity-incident-reporting-measures-in-china-critical-compliance-updates-for-businesses, https://www.china-briefing.com/news/china-cross-border-data-transfer-certification/"
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Value": "Compliance requires adherence to data localization laws, obtaining export licenses for controlled items, and meeting tight incident reporting deadlines, which strains resources and increases scrutiny on international trade.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "http://www.scio.gov.cn/zfbps/zfbps_2279/202310/t20231010_773734.html, https://english.www.gov.cn/news/202510/13/content_WS68ecc859c6d00ca5f9a06bc8.html,https://www.kwm.com/cn/en/insights/latest-thinking/china-upgrades-export-control-measures-profoundly-affecting-the-global-supply-chain-landscape.html, https://www.twobirds.com/en/insights/2025/china/new-cybersecurity-incident-reporting-measures-in-china-critical-compliance-updates-for-businesses, https://www.china-briefing.com/news/china-cross-border-data-transfer-certification/"
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Value": "There is a direct and high risk of disruption to EU assembly operations due to export controls and incident reporting rules that could halt shipments of spare parts. Data sharing on the collaborative platform is limited to avoid regulatory scrutiny and data security issues.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "http://www.scio.gov.cn/zfbps/zfbps_2279/202310/t20231010_773734.html, https://english.www.gov.cn/news/202510/13/content_WS68ecc859c6d00ca5f9a06bc8.html,https://www.kwm.com/cn/en/insights/latest-thinking/china-upgrades-export-control-measures-profoundly-affecting-the-global-supply-chain-landscape.html, https://www.twobirds.com/en/insights/2025/china/new-cybersecurity-incident-reporting-measures-in-china-critical-compliance-updates-for-businesses, https://www.china-briefing.com/news/china-cross-border-data-transfer-certification/"
+        },
+        {
+          "Key": "OtherInformation",
+          "Value": "A strong emphasis is placed on cybersecurity, cross-border data transfer certification, and the potential for politically motivated trade actions like embargos, which heighten espionage and supply chain continuity risks.",
+          "Significance": "high",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": "http://www.scio.gov.cn/zfbps/zfbps_2279/202310/t20231010_773734.html, https://english.www.gov.cn/news/202510/13/content_WS68ecc859c6d00ca5f9a06bc8.html,https://www.kwm.com/cn/en/insights/latest-thinking/china-upgrades-export-control-measures-profoundly-affecting-the-global-supply-chain-landscape.html, https://www.twobirds.com/en/insights/2025/china/new-cybersecurity-incident-reporting-measures-in-china-critical-compliance-updates-for-businesses, https://www.china-briefing.com/news/china-cross-border-data-transfer-certification/"
+        },
+        {
+          "Key": "LLM_Name",
+          "Value": "Grok",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        },
+        {
+          "Key": "LLM_Version",
+          "Value": "The model version is predominantly '4'.",
+          "Significance": "low",
+          "ReferencedStandards": [],
+          "SourceOfEvidence": []
+        }
+      ],
+      "Deviations": [
+        {
+          "Key": "TypeOfRegulation",
+          "Deviations": [
+            {
+              "Source": "Packet 1",
+              "Text": "Trade Initiative",
+              "Significance": "medium",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "http://www.scio.gov.cn/zfbps/zfbps_2279/202310/t20231010_773734.html"
+            },
+            {
+              "Source": "Packet 2",
+              "Text": "Export Control",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://english.www.gov.cn/news/202510/13/content_WS68ecc859c6d00ca5f9a06bc8.html,https://www.kwm.com/cn/en/insights/latest-thinking/china-upgrades-export-control-measures-profoundly-affecting-the-global-supply-chain-landscape.html"
+            },
+            {
+              "Source": "Packet 3",
+              "Text": "Cybersecurity Incident Reporting Measures",
+              "Significance": "high",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.twobirds.com/en/insights/2025/china/new-cybersecurity-incident-reporting-measures-in-china-critical-compliance-updates-for-businesses, https://www.china-briefing.com/news/china-cross-border-data-transfer-certification/"
+            }
+          ]
+        },
+        {
+          "Key": "LLM_Version",
+          "Deviations": [
+            {
+              "Source": "Packet 3",
+              "Text": "",
+              "Significance": "low",
+              "ReferencedStandards": [],
+              "SourceOfEvidence": "https://www.twobirds.com/en/insights/2025/china/new-cybersecurity-incident-reporting-measures-in-china-critical-compliance-updates-for-businesses, https://www.china-briefing.com/news/china-cross-border-data-transfer-certification/"
+            }
+          ]
+        },
+        {
+          "Key": "DescriptionOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ImpactOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "ConsequencesOfRegulation",
+          "Deviations": []
+        },
+        {
+          "Key": "OtherInformation",
+          "Deviations": []
+        },
+        {
+          "Key": "LLM_Name",
+          "Deviations": []
+        }
+      ]
+    }
+  ],
+  "LLM_Name": "Compliance-Analysis-Engine",
+  "LLM_Version": "2.1",
+  "QueryTimeStamp": "2025-10-23T12:00:00Z",
+  "AnswerTimeStamp": "2025-10-23T12:00:00Z",
+  "ProcessingTimeStamp": "2024-05-24T15:30:00+02:00"
+}
+
+
+
+# end data
+
+The output shall be provided in a JSON format according to the following example output
+
+# Example
+
+  "ID": "REQ-005",
+  "Description": "Enforce least privilege for all users and systems accessing BAPI_USER_GET_DETAIL.",
+  "Rationale": "Reduces attack surface by limiting access to only necessary roles (Recommendation).",
+  "Control": "Regularly review roles granting S_RFC and S_USER_GRP access. Remove unnecessary permissions.",
+  "Standard": "ISO 27001 A.9.2 (User Access Management), NIST SP 800-207 (Least Privilege)"
+
+# Example end
+
+Create the requirements according to the Audit Controls of the standards ISO 42001, ISO 27001, IEC 62443, etc.
+
