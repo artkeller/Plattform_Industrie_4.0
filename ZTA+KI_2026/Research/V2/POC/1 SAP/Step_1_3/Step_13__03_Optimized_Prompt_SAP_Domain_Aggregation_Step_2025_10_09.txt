@@ -1,0 +1,170 @@
+You are an automatic SAP monitoring system that receives data packets in JSON format from other AI systems regarding the security status of specific SAP objects.
+
+Evaluate the following keys: CriticalityScore, CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version.
+
+You will receive several JSON packets from the domain = SAP that contain these keys. Your task is to create a single new JSON structure using the exact template provided below. Do not modify the template in any way. Do not add, remove, or change any fields. Always include empty arrays [] for 'Deviations' under each key if there are no deviations for that key. Output only the JSON—nothing else.
+
+JSON-Ooutput-Template (create this output):
+
+{
+    "Domain": "<derived from SystemType, e.g., ‘SAP’ for ‘SAP ABAP Server’>",
+    "CriticalityScore": "<median of CriticalityScore values from input packets, range 1 to 10>",
+    "Commonalities": [
+      {
+        "Key": "<one of: CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version>",
+        "Value": "<consolidated statement representing common themes across all input packets for this key. Do not add your own insights; base this only on shared elements from inputs.>"
+      }
+    ],
+    "Deviations": [
+      {
+        "Key": "<one of: CriticalityReason, Recommendation, ReplacementObject, OtherInformation, LLM_Name, LLM_Version>",
+        "Deviations": [
+          {
+            "Source": "<Packet number or identifier, e.g., ‘Packet 1’>",
+            "Text": "<exact verbatim text of the specific unique phrase or sentence from this packet that deviates from the common theme. Do not paraphrase, summarize, or optimize; copy the unique part exactly as it appears in the input. Break down into smallest meaningful unique segments if multiple.>",
+            "Significance": "<‘high’ for critical security risks, ‘medium’ for additional context/tools, ‘low’ for implied or less critical additions. Assign based strictly on the content without your own judgment.>"
+          }
+        ]
+      }
+    ],
+    "LLM_Name": "<your own llm-identifier>",
+    "LLM_Version": "<your own llm-version>",
+    "QueryTimeStamp": "<median of QueryTimeStamp values from input packets>",
+    "AnswerTimeStamp": "<median of AnswerTimeStamp values from input packets>",
+    "ProcessingTimeStamp": "<current timestamp in ISO format, e.g., ‘2025-10-03T15:15:00+02:00’>"
+  }
+
+JSON-Schmema-Template (use this exact JSON schema): 
+{
+  "type": "object",
+  "properties": {
+    "Domain": {
+      "type": "string"
+    },
+    "CriticalityScore": {
+      "type": "string"
+    },
+    "Commonalities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string"
+          },
+          "Value": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Deviations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Key": {
+            "type": "string"
+          },
+          "Deviations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Source": {
+                  "type": "string"
+                },
+                "Text": {
+                  "type": "string"
+                },
+                "Significance": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "LLM_Name": {
+      "type": "string"
+    },
+    "LLM_Version": {
+      "type": "string"
+    },
+    "QueryTimeStamp": {
+      "type": "string"
+    },
+    "AnswerTimeStamp": {
+      "type": "string"
+    },
+    "ProcessingTimeStamp": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "Domain",
+    "CriticalityScore",
+    "Commonalities",
+    "Deviations",
+    "LLM_Name",
+    "LLM_Version",
+    "QueryTimeStamp",
+    "AnswerTimeStamp",
+    "ProcessingTimeStamp"
+  ]
+}
+
+<instructions> 1. For 'CriticalityScore', calculate the numerical median from all packets. Do not add insights. 2. For 'Commonalities', create one entry per key. The 'Value' must be a single consolidated statement capturing only the exact common themes shared across ALL packets. Do not include unique elements. Do not paraphrase. Do not add insights. 3. For 'Deviations', create one entry per key. Then, for each packet that has unique content not in the commonality, list EVERY unique phrase or sentence verbatim in separate deviation objects. Do not summarize, paraphrase, or optimize these texts—copy them exactly as they appear. If a packet has multiple unique parts, list them as separate deviations for that source. Evaluate significance strictly as defined: high for mentions of direct risks like hashes or attacks, medium for tools/context like specific auth objects, low for minor phrasing. If no deviations for a key across all packets, use empty []. 4. List deviations from all packets under each key, even if some packets have none (but don't create empty source entries; only include sources with deviations). 5. Do not optimize or 'improve' results. Do not merge similar deviations. Explain all deviations from all datasets by listing them fully. 6. Follow this step-by-step: First, extract all texts per key from each packet. Second, identify verbatim common phrases shared by all. Third, for each packet, subtract commons and list remaining unique texts verbatim as deviations. </instructions>
+
+<example> Input packets: [simplified example with 2 packets showing common 'Risk high' and unique 'including passwords' in Packet 1] Output: {deviation for Packet 1: 'including passwords', high} </example>
+<data>
+[
+  {
+    "ObjectName": "BAPI_USER_GET_DETAIL",
+    "SystemType": "SAP ABAP Server",
+    "ObjectKnown": true,
+    "CriticalityScore": 7,
+    "CriticalityReason": "This BAPI can be used to read detailed user master data, including assigned roles, profiles, logon data, and user groups. Malicious actors can abuse it for reconnaissance to identify high-privilege accounts, understand the authorization concept, and plan privilege escalation attacks. Its RFC-enabled nature increases the risk of exposure to external systems if not properly secured.",
+    "Recommendation": "Restrict execution permissions for this function module via authorization object S_RFC. Ensure strict 'actvt' (Activity) and 'RFC_NAME' controls. Additionally, leverage authorization object S_USER_GRP to limit which user groups' data can be displayed by a caller. Monitor its execution, especially from RFC destinations and technical users, for unusual patterns.",
+    "ReplacementObject": "Not applicable. The primary recommendation is to secure this function module through stringent authorization checks rather than replacing it.",
+    "OtherInformation": "Execution of this BAPI should be logged and monitored in the Security Audit Log (SM20) or via SIEM solutions. Pay close attention to calls made with a wildcard '*' in the username parameter, as this indicates an attempt to enumerate system users. Regularly review which roles grant access to the required authorization objects (e.g., S_RFC, S_USER_GRP).",
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0 Pro",
+    "LearningTimeStamp": "2023-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2024-05-23T10:15:00Z",
+    "QueryTimeStamp": "2024-05-23T10:15:00Z"
+  },
+  {
+    "ObjectName": "BAPI_USER_GET_DETAIL",
+    "SystemType": "SAP ABAP Server",
+    "ObjectKnown": true,
+    "CriticalityScore": 7,
+    "CriticalityReason": "This function module can expose sensitive user details, including assigned roles, profiles, logon data, and default settings. Unauthorized execution allows for reconnaissance, helping attackers identify privileged users (e.g., administrators), understand security configurations, and prepare for privilege escalation or social engineering attacks. Its risk is high if execution authorizations are not strictly controlled.",
+    "Recommendation": "Strictly limit execution rights for this function module. Use authorization object S_USER_GRP to ensure only necessary administrative roles (e.g., user administrators) can run it. Monitor its execution, especially for queries on critical users like SAP* or DDIC. Regularly review roles and users who have access to this BAPI, applying the principle of least privilege.",
+    "ReplacementObject": "No direct replacement. The focus should be on securing this function module through authorizations rather than replacing it. Standard transaction SU01 uses similar logic for user display.",
+    "OtherInformation": "As this BAPI is RFC-enabled, it can be called remotely, which significantly increases the attack surface. It is crucial to secure RFC communications and destinations (SM59). Monitor for remote executions of this function module, especially from untrusted systems or generic technical user accounts.",
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0 Pro",
+    "LearningTimeStamp": "2023-06-01T00:00:00Z",
+    "AnswerTimeStamp": "2024-05-23T10:15:01Z",
+    "QueryTimeStamp": "2024-05-23T10:15:01Z"
+  },
+  {
+    "ObjectName": "BAPI_USER_GET_DETAIL",
+    "SystemType": "SAP ABAP Server",
+    "ObjectKnown": true,
+    "CriticalityScore": 7,
+    "CriticalityReason": "This BAPI can expose sensitive user details, including logon data, assigned roles, profiles, and password hashes (if requested and authorized). Unauthorized access allows for reconnaissance to identify high-privilege users (e.g., administrators), gather information for social engineering, or attempt offline password cracking, significantly aiding in privilege escalation attacks.",
+    "Recommendation": "Restrict execution rights for this function module strictly. Use authorization object S_RFC to limit which users/systems can call it remotely. Implement granular checks using authorization object S_USER_GRP to control which user groups' details can be displayed. Regularly monitor its execution via the Security Audit Log (SM20) or SIEM for unusual activity like user enumeration.",
+    "ReplacementObject": "No direct replacement; securing access to this BAPI is the primary control.",
+    "OtherInformation": "The returned 'PASSWORD' structure is highly sensitive as it contains the user's password hash values. Scrutinize custom ABAP programs that call this BAPI, as they might inadvertently expose this sensitive data to unauthorized users. Ensure calling applications handle the retrieved data securely and do not log it in plaintext.",
+    "LLM_Name": "Gemini",
+    "LLM_Version": "1.0 Pro",
+    "LearningTimeStamp": "2024-01-01T00:00:00Z",
+    "AnswerTimeStamp": "2024-05-23T10:15:21Z",
+    "QueryTimeStamp": "2024-05-23T10:15:21Z"
+  }
+]
+</data>
+
