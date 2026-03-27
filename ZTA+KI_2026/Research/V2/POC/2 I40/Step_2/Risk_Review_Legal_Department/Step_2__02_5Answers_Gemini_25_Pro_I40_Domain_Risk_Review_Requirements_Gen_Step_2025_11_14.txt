@@ -1,0 +1,212 @@
+*** Gemini 2.5 Pro, neues Prompt
+
+#1
+[
+  {
+    "ID": "REQ-001",
+    "Description": "A formal, documented cybersecurity risk management process, aligned with the NIS-2 Directive, must be established and maintained for all Industry 4.0 systems and operations.",
+    "Rationale": "To comply with legal mandates from the EU NIS-2 Directive and the German KRITIS Umbrella Law, which require structured risk management for entities in critical sectors to mitigate operational and financial risks.",
+    "Control": "Implement a risk management framework to conduct and document risk assessments at planned intervals. The process must cover the entire supply chain and be reviewed by management.",
+    "Standard": "NIS-2 Directive (Article 21), ISO/IEC 27005"
+  },
+  {
+    "ID": "REQ-002",
+    "Description": "All contracts with third-party suppliers and partners must include clauses that legally bind them to adhere to cybersecurity standards equivalent to the EU's NIS-2 Directive and Cyber Resilience Act.",
+    "Rationale": "To mitigate the high risk of supply chain compromise and ensure partners operating outside the EU meet strict EU standards, preventing compliance breaches and operational disruptions as highlighted in the source data. This is essential for the 'ContractRiskReview' use case.",
+    "Control": "Establish a Third-Party Risk Management (TPRM) program that includes mandatory security clauses in contracts, rights to audit, and validation of supplier compliance.",
+    "Standard": "NIS-2 Directive (Article 21.2.d), EU Cyber Resilience Act"
+  },
+  {
+    "ID": "REQ-003",
+    "Description": "All AI systems classified as 'high-risk' under the EU AI Act must implement technical and procedural measures for human oversight, transparency, and robust data governance.",
+    "Rationale": "To comply with the EU AI Act, which mandates these measures for high-risk systems to ensure safety, fundamental rights, and to avoid severe financial penalties (up to 7% of global turnover).",
+    "Control": "Maintain a register of all AI systems, classify them according to AI Act risk levels, and implement auditable mechanisms for human intervention, system monitoring, and logging.",
+    "Standard": "EU AI Act (Title III, Chapter 2)"
+  },
+  {
+    "ID": "REQ-004",
+    "Description": "An incident response plan must be implemented to ensure significant cyber incidents are reported to the competent national authorities within the strict timeframes mandated by the NIS-2 Directive (e.g., 24-hour early warning, 72-hour formal notification).",
+    "Rationale": "To meet the mandatory legal reporting obligations under the NIS-2 Directive, which are critical for national cybersecurity coordination and avoiding regulatory penalties for non-disclosure.",
+    "Control": "Develop and regularly test an Incident Response Plan that explicitly defines procedures, roles, and timelines for reporting to authorities. Utilize SIEM or SOAR technology for timely detection.",
+    "Standard": "NIS-2 Directive (Article 23), ISO/IEC 27035"
+  },
+  {
+    "ID": "REQ-005",
+    "Description": "Products with digital elements (e.g., IoT sensors, robotics controllers) must be developed following security-by-design principles and must undergo conformity assessments as required by the EU Cyber Resilience Act.",
+    "Rationale": "To ensure products placed on the EU market are secure throughout their lifecycle and to comply with the EU Cyber Resilience Act, which addresses vulnerabilities in connected devices common in Industry 4.0.",
+    "Control": "Integrate a Secure Software Development Lifecycle (SSDLC). Conduct vulnerability assessments throughout the product lifecycle and establish a process for providing timely security patches.",
+    "Standard": "EU Cyber Resilience Act (CRA), IEC 62443-4-1"
+  },
+  {
+    "ID": "REQ-006",
+    "Description": "Business continuity and crisis management plans must be established and tested to handle the aftermath of a severe cybersecurity incident, ensuring the resilience of critical manufacturing and OT systems.",
+    "Rationale": "To fulfill the requirements of the NIS-2 Directive, which mandates that essential and important entities must have measures in place to ensure the continuity of their services during and after a disruption.",
+    "Control": "Conduct a Business Impact Analysis (BIA) to identify critical processes. Develop and test Business Continuity Plans (BCP) and Disaster Recovery (DR) plans through tabletop exercises or full-scale simulations.",
+    "Standard": "NIS-2 Directive (Article 21.2.e), ISO 22301"
+  }
+]
+
+#2
+[
+  {
+    "ID": "REQ-EU-001",
+    "Description": "All third-party suppliers and partners, particularly those operating outside the EU, must undergo a mandatory cybersecurity and regulatory compliance assessment before integration into the Industry 4.0 value chain.",
+    "Rationale": "To mitigate risks of supply chain disruption and ensure partners adhere to stringent EU standards (e.g., NIS-2, Cyber Resilience Act), as non-compliance can lead to operational delays, increased costs, and legal liability. UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Establish a Third-Party Risk Management (TPRM) program that includes pre-contractual due diligence, regular audits, and contractual clauses mandating compliance with relevant EU regulations. The process must verify the partner's security measures for IoT and connected devices.",
+    "Standard": "EU Cyber Resilience Act, NIS-2 Directive (Article 21), ISO 27001 (A.15 Supplier Relationships)"
+  },
+  {
+    "ID": "REQ-EU-002",
+    "Description": "All systems classified as high-risk AI under the EU AI Act must be governed by a structured risk management system, maintain detailed technical documentation, and incorporate mechanisms for human oversight.",
+    "Rationale": "Mandated by the EU AI Act to ensure safety, transparency, and the protection of fundamental rights in critical manufacturing and robotics infrastructure, and to avoid significant financial penalties (up to 7% of global turnover). UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Implement an AI Governance Framework that includes maintaining a risk management system, ensuring data quality and governance, logging system events, and creating and maintaining technical documentation and transparency records as specified by the AI Act.",
+    "Standard": "EU AI Act (Title III, Chapter 2)"
+  },
+  {
+    "ID": "REQ-EU-003",
+    "Description": "A comprehensive incident response and business continuity plan must be implemented to meet the reporting timelines and resilience requirements of EU regulations for critical infrastructure.",
+    "Rationale": "Required by the NIS-2 Directive and German KRITIS Umbrella Law to ensure operational resilience and timely notification to authorities (e.g., 24-hour early warning under NIS-2) in case of a significant cyber incident, minimizing operational and financial impact. UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Develop, maintain, and regularly test an Incident Response Plan (IRP) with clear procedures for reporting to the relevant CSIRT/competent authority. A corresponding Business Continuity Plan (BCP) must be in place to ensure service continuity.",
+    "Standard": "NIS-2 Directive (Article 21, Article 23), German KRITIS Umbrella Law, ISO 22301"
+  },
+  {
+    "ID": "REQ-EU-004",
+    "Description": "A formal, legally validated mechanism must be established for all cross-border data transfers originating from the EU to third countries, ensuring compliance with EU data protection standards.",
+    "Rationale": "To address significant legal and operational friction when collaborating with partners in countries like India, China, and the USA, and to comply with GDPR. Failure can halt joint projects and lead to regulatory fines. UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Implement and document Standard Contractual Clauses (SCCs) for data transfers. Conduct and document Transfer Impact Assessments (TIAs) for each transfer to a non-adequate country and apply supplementary measures (e.g., encryption, access controls) where necessary.",
+    "Standard": "GDPR (Chapter V), NIS-2 Directive"
+  },
+  {
+    "ID": "REQ-EU-005",
+    "Description": "A formal, documented cybersecurity risk assessment and management process must be established and maintained for all critical Industry 4.0 systems and infrastructure.",
+    "Rationale": "This is a foundational requirement of EU regulations (NIS-2, AI Act) to systematically identify, assess, and treat cybersecurity risks. It addresses increased operational costs and administrative burdens by structuring the compliance effort. UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Implement a risk management framework based on recognized standards. Conduct and document regular risk assessments, maintain a risk register, and implement a risk treatment plan that is reviewed and approved by management.",
+    "Standard": "NIS-2 Directive (Article 21), EU AI Act (Article 9), ISO 27005"
+  }
+]
+
+#3
+[
+  {
+    "ID": "REQ-EU-001",
+    "Description": "A formal cybersecurity governance and risk management framework must be established and maintained for all Industry 4.0 systems, including high-risk AI, robotics, and manufacturing infrastructure.",
+    "Rationale": "To comply with EU regulations (AI Act, NIS-2 Directive) that mandate a structured approach to risk management, ensuring the safety and security of critical systems and addressing the high financial risks of non-compliance.",
+    "Control": "Implement and document a risk management process that includes regular risk assessments, a risk register, and a risk treatment plan. The framework shall be reviewed at least annually or upon significant system changes.",
+    "Standard": "EU AI Act, EU NIS-2 Directive, KRITIS Umbrella Law, ISO/IEC 27005"
+  },
+  {
+    "ID": "REQ-EU-002",
+    "Description": "All contracts with third-party suppliers and international partners must include clauses requiring them to comply with applicable EU cybersecurity standards (e.g., NIS-2, Cyber Resilience Act).",
+    "Rationale": "To mitigate supply chain risks and address the 'high' significance consequence that non-EU partners must align with strict EU standards. This is critical for the UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Establish a third-party risk management program including mandatory security assessments for suppliers, contractual security requirements, and the right to audit. Maintain a secure-by-design procurement policy.",
+    "Standard": "EU Cyber Resilience Act, EU NIS-2 Directive, ISO/IEC 27036"
+  },
+  {
+    "ID": "REQ-EU-003",
+    "Description": "High-risk AI systems must be designed and operated with mechanisms for transparency, data governance, and effective human oversight.",
+    "Rationale": "The EU AI Act mandates transparency and human oversight for high-risk AI systems to ensure safety and protection of fundamental rights. Non-compliance carries fines of up to 7% of global turnover.",
+    "Control": "Implement robust logging for AI decision-making. Define and test procedures for human intervention and control. Maintain detailed technical documentation for high-risk AI systems as required by the AI Act.",
+    "Standard": "EU AI Act, NIST AI RMF (AI Risk Management Framework)"
+  },
+  {
+    "ID": "REQ-EU-004",
+    "Description": "An incident response and business continuity plan must be implemented to ensure timely reporting and operational resilience for critical infrastructure.",
+    "Rationale": "To comply with the mandatory incident reporting and business continuity measures stipulated by the NIS-2 Directive, minimizing operational downtime and avoiding severe financial penalties.",
+    "Control": "Develop, maintain, and annually test an incident response plan (IRP) and a business continuity plan (BCP). The IRP must include procedures for reporting significant incidents to relevant authorities within the mandated timeframes.",
+    "Standard": "EU NIS-2 Directive, ISO 22301, NIST SP 800-61"
+  },
+  {
+    "ID": "REQ-EU-005",
+    "Description": "Maintain comprehensive documentation of all risk assessments, implemented security measures, supply chain evaluations, and incident reports.",
+    "Rationale": "To provide auditable evidence of compliance with EU regulations (NIS-2, AI Act, Cyber Resilience Act), which mandate detailed documentation and impose significant administrative burdens.",
+    "Control": "Establish a centralized, access-controlled repository for all compliance-related documentation. Ensure records are versioned, regularly reviewed, and updated to reflect the current security posture.",
+    "Standard": "ISO/IEC 27001 (A.18.1), EU AI Act, EU NIS-2 Directive"
+  }
+]
+```
+#4 mit Temperatur 0
+[
+  {
+    "ID": "REQ-EU-001",
+    "Description": "A formal, documented cybersecurity risk management framework must be established and maintained for all Industry 4.0 systems, in line with EU regulations.",
+    "Rationale": "To comply with the EU NIS-2 Directive and AI Act, which mandate structured risk management for critical infrastructure and high-risk AI systems. This is a foundational requirement for demonstrating due diligence in contracts (UseCaseIdentifier: ContractRiskReview).",
+    "Control": "Implement and annually review a risk management process covering asset identification, threat modeling, risk assessment, and treatment. Evidence of this process must be available for legal and partner reviews.",
+    "Standard": "NIS-2 Directive, EU AI Act, ISO 27005"
+  },
+  {
+    "ID": "REQ-EU-002",
+    "Description": "All contracts with third-party suppliers and partners must include binding clauses requiring compliance with EU cybersecurity standards for products and services.",
+    "Rationale": "To mitigate supply chain risks and ensure non-EU partners align with strict EU standards (NIS-2, Cyber Resilience Act), preventing operational delays and legal liabilities. Directly supports the ContractRiskReview use case.",
+    "Control": "Legal and security teams must jointly review and approve all supplier contracts to ensure they mandate adherence to specific EU regulations, require security assessments, and define liability for non-compliance.",
+    "Standard": "EU Cyber Resilience Act, NIS-2 Directive (Art. 21), ISO 27036"
+  },
+  {
+    "ID": "REQ-EU-003",
+    "Description": "An incident response plan must be implemented to ensure significant cybersecurity incidents are reported to national authorities within the timelines mandated by the NIS-2 Directive.",
+    "Rationale": "To comply with the mandatory 24-hour early warning and 72-hour detailed incident reporting requirements of the NIS-2 Directive, avoiding significant financial penalties for non-compliance.",
+    "Control": "Establish and test an incident response procedure that includes classification of incidents and automated alerts to the legal and compliance teams for incidents requiring regulatory notification. Maintain a log of all reportable incidents.",
+    "Standard": "NIS-2 Directive (Art. 23), ISO 22301"
+  },
+  {
+    "ID": "REQ-EU-004",
+    "Description": "High-risk AI systems must incorporate mechanisms for human oversight, transparency, and robust data governance.",
+    "Rationale": "To comply with the EU AI Act's requirements for high-risk systems, ensuring safety, fundamental rights, and mitigating the risk of severe fines (up to 7% of global turnover).",
+    "Control": "For each high-risk AI system, conduct a conformity assessment, maintain detailed technical documentation and logs, and implement a 'human-in-the-loop' or 'human-on-the-loop' interface to allow for intervention or shutdown.",
+    "Standard": "EU AI Act, ISO/IEC 42001"
+  },
+  {
+    "ID": "REQ-EU-005",
+    "Description": "Products with digital elements (e.g., IoT, OT devices) must adhere to essential cybersecurity requirements throughout their lifecycle, including secure-by-default configurations and vulnerability management.",
+    "Rationale": "To comply with the EU Cyber Resilience Act, which mandates security for connected devices to protect the integrity of the digital single market and Industry 4.0 supply chains.",
+    "Control": "Ensure all procured or developed connected devices have a Declaration of Conformity under the Cyber Resilience Act. Implement a patch management and vulnerability disclosure policy for all such devices in the operational environment.",
+    "Standard": "EU Cyber Resilience Act, ETSI EN 303 645"
+  },
+  {
+    "ID": "REQ-EU-006",
+    "Description": "A comprehensive business continuity and disaster recovery plan must be established for critical manufacturing infrastructure.",
+    "Rationale": "To ensure operational resilience and safety for critical systems as mandated by EU regulations and German law (KRITIS Umbrella Law), minimizing downtime and impact from disruptions.",
+    "Control": "Develop, document, and regularly test business continuity and disaster recovery plans for all critical Industry 4.0 systems. The tests must simulate realistic failure scenarios, and results must be documented for audits.",
+    "Standard": "NIS-2 Directive, KRITIS Umbrella Law, ISO 22301"
+  }
+]
+
+#5 mit Temp 0
+[
+  {
+    "ID": "REQ-EU-001",
+    "Description": "All contracts with third-party partners and suppliers, especially non-EU entities, must include binding clauses that enforce compliance with applicable EU cybersecurity and data protection regulations, including the NIS-2 Directive, AI Act, and Cyber Resilience Act.",
+    "Rationale": "To mitigate the high risk of supply chain disruption, operational delays, and significant financial penalties (up to 7% of global turnover under the AI Act) associated with non-compliant international partners. This is a critical requirement for the UseCaseIdentifier: ContractRiskReview.",
+    "Control": "Establish a mandatory supplier security assessment program. The legal department must review and approve all third-party contracts to verify the inclusion and adequacy of cybersecurity compliance clauses before finalization. Evidence of a partner's risk management and incident reporting capabilities must be provided.",
+    "Standard": "EU AI Act, NIS-2 Directive, EU Cyber Resilience Act, ISO 27001: A.15 (Supplier Relationships)"
+  },
+  {
+    "ID": "REQ-EU-002",
+    "Description": "A structured and documented cybersecurity risk management process must be implemented and maintained for all critical Industry 4.0 systems, including high-risk AI, robotics, and manufacturing infrastructure.",
+    "Rationale": "Mandated by the EU's NIS-2 Directive and AI Act to ensure the safety, resilience, and protection of fundamental rights. This formal process is necessary to manage increased operational costs and avoid regulatory non-compliance.",
+    "Control": "Conduct and document regular risk assessments based on a recognized framework. The risk management process must be integrated into the system lifecycle, with results reviewed at least annually or upon significant system changes. Maintain a risk register for all identified threats.",
+    "Standard": "NIS-2 Directive (Article 21), EU AI Act (Article 9), ISO 27005, ENISA Technical Implementation Guidance on Cybersecurity Risk Management"
+  },
+  {
+    "ID": "REQ-EU-003",
+    "Description": "Implement and regularly test comprehensive business continuity and incident response plans for all critical Industry 4.0 systems to ensure operational resilience and meet mandatory reporting timelines.",
+    "Rationale": "Required by the NIS-2 Directive to minimize the impact of security incidents on essential services. Failure to report significant incidents within the mandated timeframe can lead to severe regulatory penalties.",
+    "Control": "Develop, maintain, and annually test Business Continuity Plans (BCP) and Disaster Recovery (DR) plans. The incident response plan must include clear procedures for detection, analysis, containment, and reporting to national authorities (e.g., BSI in Germany) as per NIS-2 requirements.",
+    "Standard": "NIS-2 Directive (Articles 21, 23), ISO 22301 (Business Continuity Management), ISO 27035 (Incident Management)"
+  },
+  {
+    "ID": "REQ-EU-004",
+    "Description": "All products with digital elements (e.g., IoT devices, robotics components) integrated into the manufacturing process must be procured and managed in compliance with the EU Cyber Resilience Act.",
+    "Rationale": "To mitigate the high financial and operational risks associated with supply chain cyber threats targeting connected devices. The regulation emphasizes security-by-design and vulnerability management throughout the product lifecycle.",
+    "Control": "Verify that procured devices have a CE marking indicating compliance with the Cyber Resilience Act. Require suppliers to provide a Software Bill of Materials (SBOM) and a documented process for providing timely security patches. Conduct security assessments on devices before deployment.",
+    "Standard": "EU Cyber Resilience Act, ETSI EN 303 645"
+  },
+  {
+    "ID": "REQ-EU-005",
+    "Description": "High-risk AI systems deployed within the EU must be designed and operated with effective, risk-appropriate human oversight mechanisms.",
+    "Rationale": "This is a core requirement of the EU AI Act to ensure safety, prevent harm, and maintain human control over systems that can have a significant impact on operations and fundamental rights.",
+    "Control": "Implement technical and procedural measures that allow a human operator to monitor the AI system's behavior, understand its decisions, and have the ability to intervene, override, or disable the system in real-time. The level of oversight must be documented in the risk assessment.",
+    "Standard": "EU AI Act (Article 14)"
+  }
+]
+
+
