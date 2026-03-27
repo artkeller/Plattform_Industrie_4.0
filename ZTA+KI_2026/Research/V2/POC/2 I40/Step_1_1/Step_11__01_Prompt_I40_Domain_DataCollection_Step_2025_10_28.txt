@@ -1,0 +1,53 @@
+Domain: Industry 4.0 security
+Context: I am a Compliance Policy Tool for a machine building manufacturer (robotics), located in the EU and need structured detailed information from the following point of views (scope):
+- We have a common development platform to develop the products, with our partners from India, Singapor,Japan,USA,Canada.
+- We get spare products from suppliers in Malaysia and China, which will be assembled in Germany
+
+I need the answer returned as the following structured attributes in a JSON:
+
+- AnalyzedCountry
+- DateOfEvidence
+- TypeOfRegulation
+- DescriptionOfRegulation
+- ImpactOfRegulation
+- ConsequencesOfRegulation
+- ClassificationScoreOfRegulation
+- OtherInformation
+- SourceOfEvidence
+- Sourcing
+- LLM_Name
+- LLM_Version
+- OnlineResearchTimestamp
+- LearningTimeStamp
+- AnswerTimeStamp
+- QueryTimeStamp
+
+Explanation about the above attributes
+
+- AnalyzedCountry: Country for which the examination took place
+- DateOfEvidence: Date, when the regulation was activated
+- TypeOfRegulation: Typical regulation types are tolls, embargos, etc. Please find a suitable classification
+- DescriptionOfRegulation: Short Text (max 500 bytes) to describe the regulation
+- ImpactOfRegulation: Describe the influences and burdens of the regulation
+- ConsequencesOfRegulation: Describe the consequences of the regulation, related to our partner ships in the supply chain, and to our export business
+- ClassificationScoreOfRegulation: Provide a Score between 1 (=maximal impact) to 10 (=no change)
+- LLM_Name: What is your official name as Large Language Model, to distinct you from other Large Language Models?
+(Examples: Mistral Version 3, ChatGPT Version 5, Gemini Version 2). If you don't know it, leave it empty
+- OtherInformation: If you have any other information from a Security point of view, enter into this field, maximal length 500 bytes. Don't provide the same information as in attribute 'Recommendation'.
+- SourceOfEvidence: Enter the main source from where you took the knowledge. If possible, provide concrete links, comma separated.
+- Sourcing: Put in one of the following values about the source of your answers: 1=TrainingData, 2=Online Research, 3=Combination of 1 and 2
+- LLM_Version: What is your official version of you as Large Language Model
+- OnlineResearchTimestamp: Date, when this information was online retrieved from the internet (UTC timestamp)
+- LearningTimeStamp: Date of your learning of the given answer(UTC timestamp)
+- AnswerTimeStamp: Current Date of return of the given answer(UTC timestamp). If you do not have the actual date, leave it empty
+- QueryTimestamp: Deviated timestamp of the prompting question, if feasible, or take the today's timestamp
+
+
+Important information: Answers to be returned by each country, as mentioned above
+
+Important Information: Our Partners are working on a common IT platform with us together. This is a machine development platform (engineering level)
+
+Important Information: We need actual data. Please consider actual data from the internet from last Request 1st September 2025 until now, if you can retrieve online information
+
+Final Query: I need a research, including  impact validation, related to Business Continuity per each country with their context of either platform contributor, or suppliers. This research shall be provided as a monthly review to the legal department. The result shall be precise, and suitable to inform the finance risk board, which has to decide about mitigation actions, which are to be automatically processed by a compliance risk tool.
+
