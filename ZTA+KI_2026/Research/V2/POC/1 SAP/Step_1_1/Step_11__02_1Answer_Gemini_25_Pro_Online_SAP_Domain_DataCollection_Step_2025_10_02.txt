@@ -1,0 +1,19 @@
+#1 2.5 Pro mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 3,
+  "CriticalityScore": 7,
+  "CriticalityReason": "Allows retrieval of sensitive user details, including roles, profiles, logon data, and personal information. Unauthorized execution creates a significant information disclosure vulnerability, enabling attackers to map system users and plan privilege escalation attacks.",
+  "Recommendation": "Restrict execution via authorization object S_RFC, assigning it only to specific, trusted administrative roles or RFC users. Regularly monitor its usage through the Security Audit Log (SM20) or SIEM systems to detect and investigate any suspicious or unauthorized calls.",
+  "ReplacementObject": "Not applicable. The focus should be on securing this function module through proper authorization checks, not replacing it.",
+  "OtherInformation": "This BAPI is often exposed via RFC and can be called remotely. It is crucial to secure RFC destinations (SM59) and ensure that only authorized systems and users can invoke it. Unsecured RFC access significantly increases the risk of external exploitation.",
+  "SourceOfEvidence": "https://help.sap.com/doc/saphelp_nw73/7.3.16/en-US/48/88033b52853467e10000000a42189b/content.htm?no…, https://launchpad.support.sap.com/#/securitynotes",
+  "LLM_Name": "Gemini",
+  "LLM_Version": "1.5 Pro",
+  "OnlineResearchTimestamp": "2025-10-01T13:57:03Z",
+  "TrainingTimeStamp": "2023-06-01T00:00:00Z",
+  "AnswerTimeStamp": "2025-10-01T13:57:03Z",
+  "QueryTimeStamp": "2025-10-01T13:57:03Z"
+}

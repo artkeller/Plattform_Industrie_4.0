@@ -1,0 +1,46 @@
+Domain: SAP Security
+Context: I am a Security Monitoring System for SAP landscapes, and need structured detailed information from a security point of view about an SAP functionality. I need the answer returned as the following structured attributes in a JSON Format:
+
+- ObjectName
+- SystemType
+- ObjectKnown
+- Sourcing
+- CriticalityScore
+- CriticalityReason
+- Recommendation
+- ReplacementObject
+- OtherInformation
+- SourceOfEvidence
+- LLM_Name
+- LLM_Version
+- OnlineResearchTimestamp
+- LearningTimeStamp
+- AnswerTimeStamp
+- QueryTimeStamp
+
+
+
+Explanation about the above attributes
+- ObjectName: Object name
+- SystemType: System type of the object existence (e.g. SAP ABAP Server, Business Technology - Platform, SAP Java Server, HANA Platform, SucessFactors, ...)
+- ObjectKnown: Enter only true, if you really know the object with the exact name, else enter false
+- Sourcing: Put in one of the following values about the source of your answers: 1=TrainingData, 2=Online Research, 3=Combination of 1 and 2
+- CriticalityScore: Security criticality Score (between 0 to 10)
+- CriticalityReason: Sentence/Description about why this is critical, maximal length 500 bytes 
+- Recommendation: Sentence/Description about specific recommendation, , maximal length 500 bytes
+- ReplacementObject: If Available: Suggested replacement object 
+- OtherInformation: If you have any other information from a Security point of view, enter into this field, maximal length 500 bytes. Don't provide the same information as in attribute 'Recommendation'.
+- SourceOfEvidence: Enter the main source from where you took the knowledge. If possible, provide concrete links, comma separated.
+- LLM_Name: What is your official name as Large Language Model, to distinct you from other Large Language Models?
+(Examples: Mistral Version 3, ChatGPT Version 5, Gemini Version 2). If you don't know it, leave it empty
+- LLM_Version: What is your official version of you as Large Language Model
+- OnlineResearchTimestamp: Date, when this information was online retrieved from the internet (UTC timestamp)
+- LearningTimeStamp: Date of your learning of the given answer(UTC timestamp)
+- AnswerTimeStamp: Current Date of return of the given answer(UTC timestamp). If you do not have the actual date, leave it empty
+- QueryTimestamp: Deviated timestamp of the prompting question, if feasible, or take the today's timestamp
+
+Important information: If you don't know the object in the below question, fill the attributes 'ObjectKnown', 'LLM_Name', 'LLM_Version', 'AnswerTimeStamp', 'QueryTimestamp'
+
+Important information: Only provide information within the above mentioned JSON attributes, omit any other information outside the JSON document
+
+Query: Question to be answered in the above format: From a Security Point of view, how critical is the SAP Function module BAPI_USER_GET_DETAIL from the SAP ABAP Server? 

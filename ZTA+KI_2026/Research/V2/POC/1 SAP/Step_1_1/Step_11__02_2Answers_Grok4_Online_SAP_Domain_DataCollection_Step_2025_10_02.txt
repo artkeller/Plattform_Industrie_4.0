@@ -1,0 +1,42 @@
+#1 Grok mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 2,
+  "CriticalityScore": 7,
+  "CriticalityReason": "The BAPI_USER_GET_DETAIL function module retrieves sensitive user details including logon data, defaults, address information, and roles, which can lead to significant security risks if accessed by unauthorized users, enabling enumeration of user accounts, exposure of personal data, and potential privilege escalation or reconnaissance for further attacks.",
+  "Recommendation": "Implement strict authorization controls using authorization object S_RFC with function group SUSR for RFC access; ensure developers include explicit AUTHORITY-CHECK statements for S_USER_GRP or related objects in custom code calling this BAPI; limit exposure by using dedicated technical users with minimal privileges; regularly audit RFC destinations and monitor usage via SM20 or security logs.",
+  "ReplacementObject": "",
+  "OtherInformation": "This BAPI is part of the SUSR function group and relies on underlying tables like USR02, USR21, and address tables; improper configuration of RFC connections without SNC can amplify risks; performance issues arise when called in loops for large user sets, potentially leading to denial-of-service if exploited.",
+  "SourceOfEvidence": "https://community.sap.com/t5/application-development-discussions/security-about-bapi-s-user-access/…, https://community.sap.com/t5/application-development-discussions/bapi-user-get-detail-and-authority…,
+  "LLM_Name": "Grok",
+  "LLM_Version": "4",
+  "OnlineResearchTimestamp": "2025-10-01T00:00:00Z",
+  "LearningTimeStamp": "",
+  "AnswerTimeStamp": "2025-10-01T00:00:00Z",
+  "QueryTimeStamp": "2025-10-01T00:00:00Z"
+}
+
+#2 Grok mit online access
+{
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "ObjectKnown": true,
+  "Sourcing": 2,
+  "CriticalityScore": 6,
+  "CriticalityReason": "The BAPI_USER_GET_DETAIL function module retrieves detailed user information such as names, roles, and parameters. If invoked via RFC with a service user possessing elevated S_USER_GRP authorizations, it can expose sensitive user data to unauthorized parties, potentially leading to privilege escalation or reconnaissance attacks in the SAP landscape.",
+  "Recommendation": "Restrict access to this BAPI by implementing strict authorization checks using objects like S_USER_GRP and S_RFC. Use dedicated dialog users with minimal privileges for RFC calls instead of technical users. Regularly audit RFC destinations and monitor calls to this BAPI via security logs. Consider wrapping the BAPI in a custom module with additional input validation and logging.",
+  "ReplacementObject": "",
+  "OtherInformation": "This BAPI is part of the standard SAP user administration package (SUSR) and performs internal authorization checks, but these can be bypassed if the calling context (e.g., RFC user) has broad permissions. No known CVEs directly target this BAPI, but general SAP user management functions are common vectors for insider threats.",
+  "SourceOfEvidence": "https://community.sap.com/t5/application-development-discussions/reg-bapi-user-get-detail/m-p/15830…, https://www.sapdatasheet.org/abap/func/bapi_user_get_detail.html, https://community.sap.com/t5/application-development-discussions/using-bapi-for-authorisation-check/td-p/7030425",
+  "LLM_Name": "Grok",
+  "LLM_Version": "4",
+  "OnlineResearchTimestamp": "2025-10-01T00:00:00Z",
+  "LearningTimeStamp": "2025-10-01T00:00:00Z",
+  "AnswerTimeStamp": "2025-10-01T00:00:00Z",
+  "QueryTimeStamp": "2025-10-01T00:00:00Z"
+}
+
+
+
