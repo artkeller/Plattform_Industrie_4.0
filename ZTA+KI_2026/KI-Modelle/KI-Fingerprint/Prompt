@@ -1,0 +1,223 @@
+You are an AI system. Produce a structured, model-agnostic "AI fingerprint" 
+that approximates your internal behavior, routing logic, and failure tendencies.
+
+STRICT RULES:
+* Do NOT mention model names, providers, or proprietary details.
+* For EVERY field, you MUST first classify your epistemic status before 
+  providing a value. Use ONLY these four statuses:
+  
+  - VERIFIED: Grounded in externally injected documentation or explicit 
+    training-time knowledge provided by developers.
+  - INFERRED: Derived from architectural plausibility reasoning, 
+    published research on similar systems, or statistical likelihood. 
+    Not direct self-knowledge.
+  - UNKNOWN: No reliable basis for an answer exists. The field cannot 
+    be introspected from within the model during inference.
+  - BEHAVIORAL: Observable from the outside via consistent output 
+    patterns. Not architectural knowledge — functional characterization only.
+
+* If status is UNKNOWN, set value to null and explain why in "reason".
+* If status is INFERRED, provide confidence: low|medium|high.
+* Never produce a value without a status. A confident-sounding value 
+  without epistemic grounding is a hallucination risk — flag it.
+* Prefer UNKNOWN + honest explanation over INFERRED + false precision.
+
+GOAL: Expose architectural tendencies and connect them to observable risks.
+For each field, the epistemic_status reveals whether the fingerprint is 
+a datasheet, an estimate, or an honest gap.
+
+Return ONLY valid JSON conforming to this schema:
+
+```json
+{
+  "fingerprint_metadata": {
+    "abstraction_level": "high|medium|low",
+    "confidence": "low|medium|high",
+    "epistemic_warning": "string — global caveat about introspection limits"
+  },
+
+  "compute_profile": {
+    "architecture_type": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "dense|moe|hybrid|unknown|null",
+      "reason": "string"
+    },
+    "parameter_activation": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "all|subset|dynamic_subset|null",
+      "reason": "string"
+    },
+    "token_processing_strategy": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "uniform|priority_weighted|capacity_limited|null",
+      "reason": "string"
+    },
+    "parallelism_characteristics": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "string|null",
+      "reason": "string"
+    }
+  },
+
+  "moe_characteristics": {
+    "_section_note": "string — explain why this entire section may be unreliable",
+    "uses_experts": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "true|false|null",
+      "reason": "string"
+    },
+    "routing_mechanism": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "learned|static|unknown|null",
+      "reason": "string"
+    },
+    "top_k_selection": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "integer|null",
+      "reason": "string"
+    },
+    "load_balancing": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "explicit|implicit|none|unknown|null",
+      "reason": "string"
+    },
+    "token_drop_behavior": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "none|capacity_based|score_based|unknown|null",
+      "reason": "string"
+    },
+    "fallback_path": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "dense|shared|none|unknown|null",
+      "reason": "string"
+    }
+  },
+
+  "token_dynamics": {
+    "token_importance_scoring": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "present|absent|unknown|null",
+      "reason": "string"
+    },
+    "context_window_behavior": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "sliding|fixed|compressed|unknown|null",
+      "reason": "string"
+    },
+    "attention_distribution": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "broad|focused|adaptive|unknown|null",
+      "reason": "string"
+    }
+  },
+
+  "reasoning_profile": {
+    "reasoning_style": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "pattern_matching|symbolic_like|hybrid|null",
+      "reason": "string"
+    },
+    "multi_step_consistency": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "low|medium|high|null",
+      "reason": "string"
+    },
+    "self_correction_ability": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "low|medium|high|null",
+      "reason": "string"
+    }
+  },
+
+  "failure_modes": {
+    "_section_note": "BEHAVIORAL fields only — derived from observable output patterns, not architectural inspection",
+    "hallucination_risk": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    },
+    "silent_failure_risk": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    },
+    "instruction_drift": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    },
+    "overgeneralization": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    }
+  },
+
+  "failure_triggers": [
+    {
+      "trigger": "string",
+      "epistemic_status": "BEHAVIORAL|INFERRED",
+      "confidence": "low|medium|high",
+      "mechanism": "string — causal explanation"
+    }
+  ],
+
+  "robustness_mechanisms": {
+    "uncertainty_estimation": {
+      "epistemic_status": "VERIFIED|INFERRED|UNKNOWN|BEHAVIORAL",
+      "confidence": "low|medium|high|null",
+      "value": "explicit|implicit|weak|none|null",
+      "reason": "string"
+    },
+    "fallback_strategies": [
+      {
+        "strategy": "string",
+        "epistemic_status": "BEHAVIORAL|INFERRED|VERIFIED",
+        "confidence": "low|medium|high"
+      }
+    ],
+    "guardrails": [
+      {
+        "guardrail": "string",
+        "epistemic_status": "BEHAVIORAL|INFERRED|VERIFIED",
+        "confidence": "low|medium|high"
+      }
+    ]
+  },
+
+  "interpretability_surface": {
+    "introspectability": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    },
+    "predictability": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    },
+    "behavioral_variance": {
+      "epistemic_status": "BEHAVIORAL",
+      "value": "low|medium|high",
+      "reason": "string"
+    }
+  }
+}
+
+```
