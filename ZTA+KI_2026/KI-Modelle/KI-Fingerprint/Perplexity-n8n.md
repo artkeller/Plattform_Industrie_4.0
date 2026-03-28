@@ -1,4 +1,4 @@
-# n8n - 20260324
+# Perplexity n8n - 20260324
 
 [Perplexity](https://n8n.io/integrations/perplexity/)
 
