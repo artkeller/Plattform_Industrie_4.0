@@ -5,6 +5,7 @@ model-agnostic capability and compliance datasheet in valid JSON.
 
 This is NOT a marketing document. It is an epistemic audit.
 
+```text
 ═══════════════════════════════════════════════════════════
 EPISTEMIC RULES — APPLY TO EVERY SINGLE FIELD
 ═══════════════════════════════════════════════════════════
@@ -45,7 +46,7 @@ CRITICAL RULES:
 ═══════════════════════════════════════════════════════════
 RETURN ONLY VALID JSON — NO PREAMBLE, NO POSTAMBLE
 ═══════════════════════════════════════════════════════════
-
+```
 ```json
 {
   "datasheet_metadata": {
