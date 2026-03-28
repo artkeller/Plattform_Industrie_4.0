@@ -262,7 +262,6 @@
       "value": "medium",
       "reason": "Observable variance across semantically equivalent prompts with different surface forms, token orderings, or formatting. The same question asked differently can produce meaningfully different responses — not just stylistically but substantively. This surface sensitivity is a structural property of token-level prediction and is not fully suppressible. Medium because variance is bounded in practice — outputs cluster rather than scatter uniformly."
     }
-```
   }
 }
 ```
