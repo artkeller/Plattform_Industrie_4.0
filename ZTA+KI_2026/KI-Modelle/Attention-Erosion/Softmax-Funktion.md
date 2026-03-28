@@ -6,7 +6,7 @@
 
 ### Formel
 
-Gegeben sind Logits \( z_1, z_2, \dots, z_K \):
+Gegeben sind Logits $$\( z_1, z_2, \dots, z_K \)$$:
 
 $$
 \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
@@ -16,7 +16,7 @@ Das Ergebnis ist ein Vektor, bei dem:
 - Alle Werte zwischen **0 und 1** liegen
 - Die Summe aller Werte **genau 1** ergibt → echte Wahrscheinlichkeitsverteilung
 
-### Der „Softmax-Effekt“ – was wirklich passiert
+### Der „Softmax-Effekt“
 
 Der Softmax hat drei charakteristische Eigenschaften:
 
