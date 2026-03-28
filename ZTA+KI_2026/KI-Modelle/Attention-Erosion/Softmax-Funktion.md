@@ -58,9 +58,7 @@ $$
 | 2.0   | 7.39    | 0.12          | 0.02            | **0.22**        |
 | 0.0   | 1.00    | 0.016         | 0.0003          | 0.05            |
 
-→ Siehst du, wie stark der größte Logit dominiert, je kleiner die Temperatur wird?
+→ Der größte Logit dominiert bei kleiner Temperatur
 
 **Zusammengefasst:**
 Der Softmax-Effekt ist der Mechanismus, der aus „rohen Bewertungen“ eines Modells eine Wahrscheinlichkeitsverteilung macht – mit starker Betonung der besten Optionen durch die Exponentialfunktion. Er bestimmt maßgeblich, wie sicher oder wie kreativ eine KI antwortet.
-
-Möchtest du noch ein konkretes Code-Beispiel (Python + PyTorch) oder die Ableitung der Softmax-Funktion sehen?
