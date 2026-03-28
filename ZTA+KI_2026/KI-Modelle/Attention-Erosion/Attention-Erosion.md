@@ -25,12 +25,15 @@ wobei $p$ die Position der relevanten Information und $N$ die Gesamtlänge des K
 Die strukturellen Ursachen:
 
 **a) Positionskodierung und Attention-Bias**
+
 In RoPE (Rotary Position Embedding) und ähnlichen Systemen wird die Attention-Stärke zwischen zwei Tokens durch ihre relative Distanz moduliert. Tokens mit großer gegenseitiger Distanz erhalten systematisch niedrigere Attention-Scores — ein impliziter *recency bias* ist in die Geometrie eingebaut.
 
-**b) [Softmax-Sättigung](Softmax-Funktion.md)**
-Bei langen Sequenzen tendiert Softmax dazu, Gewichte auf wenige dominante Positionen zu konzentrieren (*attention sink*-Phänomen, Xiao et al. 2023). Mittlere Tokens fallen unter die Wahrnehmungsschwelle.
+**b) Softmax-Sättigung**
+
+Bei langen Sequenzen tendiert [Softmax](Softmax-Funktion.md) dazu, Gewichte auf wenige dominante Positionen zu konzentrieren (*attention sink*-Phänomen, Xiao et al. 2023). Mittlere Tokens fallen unter die Wahrnehmungsschwelle.
 
 **c) Residualstream-Propagation**
+
 Information aus mittleren Positionen muss durch mehr Attention-Hops propagiert werden, um die finale Ausgabeschicht zu erreichen. Jeder Hop ist verlustbehaftet — die effektive Informationsdichte sinkt mit der Distanz.
 
 **Ergebnis:** Ein Token bei Position $N/2$ in einem 10.000-Token-Kontext hat eine messbar niedrigere Wahrscheinlichkeit, die Ausgabe zu beeinflussen, als ein semantisch identischer Token bei Position 100 oder Position 9.900.
