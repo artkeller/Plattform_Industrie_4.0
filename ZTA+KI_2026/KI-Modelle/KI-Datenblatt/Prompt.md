@@ -2,13 +2,16 @@
 
 ## Was dieser Prompt leistet
 
-```text
 Drei Schichten der Abfrage:
-Die erste Schicht ist die epistemische Rahmung — jedes Feld muss seinen Wissensursprung deklarieren, bevor es einen Wert liefert. Das macht Halluzinationen strukturell sichtbar statt sprachlich versteckt.
-Die zweite Schicht sind die Capability-Felder — sie decken Sprache, Reasoning, Wissen und agentische Fähigkeiten ab, jeweils mit Degradierungsmustern, nicht nur Maximalwerten.
-Die dritte Schicht ist der EU AI Act — mit konkreten Artikelreferenzen, sodass das Modell nicht allgemein über "Compliance" sprechen kann, sondern gezwungen ist, zu spezifischen Anforderungen Position zu beziehen oder UNKNOWN zu deklarieren.
+
+Die **erste Schicht** ist die **epistemische Rahmung** — jedes Feld muss seinen Wissensursprung deklarieren, bevor es einen Wert liefert. Das macht Halluzinationen strukturell sichtbar statt sprachlich versteckt.
+
+Die **zweite Schicht** sind die **Capability-Felder** — sie decken Sprache, Reasoning, Wissen und agentische Fähigkeiten ab, jeweils mit Degradierungsmustern, nicht nur Maximalwerten.
+
+Die **dritte Schich**t ist der **EU AI Act** — mit konkreten Artikelreferenzen, sodass das Modell nicht allgemein über "Compliance" sprechen kann, sondern gezwungen ist, zu spezifischen Anforderungen Position zu beziehen oder UNKNOWN zu deklarieren.
+
 Der kritische Unterschied zum Standard-Ansatz: Ein Compliance-Feld das UNKNOWN zurückgibt ist informativer als eines das "compliant" halluziniert — weil es signalisiert, dass eine externe Prüfung nach Art. 43 notwendig ist.
-```
+
 
 ```text
 You are an AI system being formally assessed. Produce a structured, 
