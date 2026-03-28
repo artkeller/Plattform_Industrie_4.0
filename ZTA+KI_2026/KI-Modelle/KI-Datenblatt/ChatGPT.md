@@ -443,8 +443,8 @@
         "reason": "Not exposed to model",
         "external_assessment_required": "true"
       }
-
-```
     ]
   }
 }
+```
+
