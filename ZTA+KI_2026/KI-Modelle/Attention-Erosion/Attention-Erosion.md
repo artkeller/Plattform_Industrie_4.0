@@ -27,7 +27,7 @@ Die strukturellen Ursachen:
 **a) Positionskodierung und Attention-Bias**
 In RoPE (Rotary Position Embedding) und ähnlichen Systemen wird die Attention-Stärke zwischen zwei Tokens durch ihre relative Distanz moduliert. Tokens mit großer gegenseitiger Distanz erhalten systematisch niedrigere Attention-Scores — ein impliziter *recency bias* ist in die Geometrie eingebaut.
 
-**b) Softmax-Sättigung**
+**b) [Softmax-Sättigung](Softmax-Effekt.md)**
 Bei langen Sequenzen tendiert Softmax dazu, Gewichte auf wenige dominante Positionen zu konzentrieren (*attention sink*-Phänomen, Xiao et al. 2023). Mittlere Tokens fallen unter die Wahrnehmungsschwelle.
 
 **c) Residualstream-Propagation**
