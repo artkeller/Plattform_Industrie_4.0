@@ -33,7 +33,7 @@ Der Softmax hat drei charakteristische Eigenschaften:
    - Bei sehr großen Unterschieden verhält sich Softmax fast wie eine harte argmax-Funktion (nur eine Klasse hat fast 100 %).
 
 3. **Temperatur-Effekt (wichtig in der Praxis)**
-   Oft wird Softmax mit einer Temperatur \( \tau \) verwendet:
+   Oft wird Softmax mit einer Temperatur $$\( \tau \)$$ verwendet:
 
    $$
    \text{softmax}(z_i, \tau) = \frac{e^{z_i / \tau}}{\sum_{j} e^{z_j / \tau}}
