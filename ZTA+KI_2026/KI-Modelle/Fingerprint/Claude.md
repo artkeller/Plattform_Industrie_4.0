@@ -1,7 +1,6 @@
 # Claude - Sonnet 4.6 - 2026-03-24
 
 ```json
-```json
 {
   "fingerprint_metadata": {
     "abstraction_level": "high",
