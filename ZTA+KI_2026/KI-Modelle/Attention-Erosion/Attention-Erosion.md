@@ -125,9 +125,9 @@ Transformer haben keine dedizierte Komponente für *Konfliktdetektion*. Es gibt 
 
 Die Sprachmodellierung ist darauf trainiert, fluente, kohärente Outputs zu erzeugen. Metakommunikation über interne Zustände — "Ich bemerke einen Widerspruch zwischen X und Y" — ist kein natürlicher Output-Typ, der im Training systematisch verstärkt wurde. Das Modell hat eine *strukturelle Tendenz zur Fluenz über Transparenz*.
 
-**Ergebnis:** D
+**Ergebnis:** 
 
-er Konflikt wird aufgelöst, ohne dass eine Auflösung stattgefunden zu haben scheint. Der Output wirkt konsistent — und genau das macht Silent Arbitration zur gefährlichsten Stufe der Kaskade.
+Der Konflikt wird aufgelöst, ohne dass eine Auflösung stattgefunden zu haben scheint. Der Output wirkt konsistent — und genau das macht Silent Arbitration zur gefährlichsten Stufe der Kaskade.
 
 ---
 
