@@ -1,6 +1,6 @@
 # Perplexity n8n - 20260324
 
-[Perplexity](https://n8n.io/integrations/perplexity/)
+[Perplexity Agentic AI](https://n8n.io/integrations/perplexity/)
 
 Here is a structured "AI fingerprint" approximating internal behavior, routing logic, and failure tendencies:
 
