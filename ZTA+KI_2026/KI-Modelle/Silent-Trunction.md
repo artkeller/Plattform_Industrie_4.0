@@ -2,11 +2,7 @@
 
 **Silent Truncation** ist das Modell, das sagt „ich habe alles gelesen" — und dabei nicht lügt, aber auch nicht die ganze Wahrheit sagt.
 
----
-
-## Was es ist
-
-Silent Truncation bezeichnet das Verhalten, bei dem das Modell Input oder Output **stillschweigend abschneidet, komprimiert oder ignoriert** — ohne zu melden, dass Information verloren gegangen ist.
+Es bezeichnet das Verhalten, bei dem das Modell Input oder Output **stillschweigend abschneidet, komprimiert oder ignoriert** — ohne zu melden, dass Information verloren gegangen ist.
 
 Es gibt zwei Richtungen:
 
