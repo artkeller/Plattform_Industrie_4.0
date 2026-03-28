@@ -50,7 +50,7 @@ $$
 - Bei niedriger Temperatur (z. B. 0.7) wirkt das Modell selbstbewusst und fokussiert.
 - Bei hoher Temperatur (z. B. 1.3) wird es kreativer und vielfältiger.
 
-### Kleines Zahlenbeispiel
+### Zahlenbeispiel
 
 | Logit | e^Logit | Softmax (τ=1) | Softmax (τ=0.5) | Softmax (τ=2.0) |
 |-------|---------|---------------|-----------------|-----------------|
