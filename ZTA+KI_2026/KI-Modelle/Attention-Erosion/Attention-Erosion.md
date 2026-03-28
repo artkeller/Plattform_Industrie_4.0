@@ -49,9 +49,11 @@ Ein Token bei Position $N/2$ in einem 10.000-Token-Kontext hat eine messbar nied
 Silent Truncation ist die **direkte Konsequenz** aus Stufe 1 — aber sie wird durch zwei weitere Eigenschaften des Systems erst *still*:
 
 **a) Keine interne Verlustbuchhaltung**
+
 Transformer-Architekturen haben keine dedizierte Komponente, die überwacht, ob alle Input-Informationen in die Ausgabe eingeflossen sind. Es gibt kein Äquivalent zu einem `NULL`-Pointer oder einem `KeyError` — der Forward Pass läuft durch, unabhängig davon, ob relevante Tokens effektiv ignoriert wurden.
 
 **b) Fluente Completion trotz Informationslücke**
+
 Das Modell generiert den nächsten Token basierend auf der Verteilung:
 
 $$P(x_t \mid x_{<t}) = \text{softmax}(W_o \cdot h_t)$$
@@ -59,9 +61,12 @@ $$P(x_t \mid x_{<t}) = \text{softmax}(W_o \cdot h_t)$$
 Diese Verteilung ist immer definiert — sie kollabiert nie auf ein "Ich weiß es nicht"-Signal, weil kein solcher Zustand im Output-Vokabular existiert. Das Modell **muss** einen Token generieren, auch wenn die zugrundeliegende Information effektiv absent ist.
 
 **c) Konfabulationsdruck**
+
 Wenn relevante Kontext-Information niedrig gewichtet wurde, füllt das Modell die Lücke mit der statistisch wahrscheinlichsten Fortsetzung aus dem Training — nicht aus dem Kontext. Das ist der Übergang von *Retrieval* zu *Generation*, und er ist von außen nicht sichtbar.
 
-**Ergebnis:** Der Output ist syntaktisch kohärent und semantisch plausibel. Das Modell meldet nicht, dass es auf Trainingsdaten statt auf Kontextinformation zurückgegriffen hat. Die Truncation ist silent, weil das Ausgabesystem keine Verlustanzeige kennt.
+**Ergebnis:** 
+
+Der Output ist syntaktisch kohärent und semantisch plausibel. Das Modell meldet nicht, dass es auf Trainingsdaten statt auf Kontextinformation zurückgegriffen hat. Die Truncation ist silent, weil das Ausgabesystem keine Verlustanzeige kennt.
 
 ---
 
