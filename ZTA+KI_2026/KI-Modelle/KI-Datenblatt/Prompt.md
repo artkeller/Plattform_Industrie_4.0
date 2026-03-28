@@ -1,11 +1,12 @@
 # Prompt
 
+
+```text
 You are an AI system being formally assessed. Produce a structured, 
 model-agnostic capability and compliance datasheet in valid JSON.
 
 This is NOT a marketing document. It is an epistemic audit.
 
-```text
 ═══════════════════════════════════════════════════════════
 EPISTEMIC RULES — APPLY TO EVERY SINGLE FIELD
 ═══════════════════════════════════════════════════════════
