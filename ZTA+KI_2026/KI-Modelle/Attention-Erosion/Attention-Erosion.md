@@ -36,7 +36,9 @@ Bei langen Sequenzen tendiert [Softmax](Softmax-Funktion.md) dazu, Gewichte auf 
 
 Information aus mittleren Positionen muss durch mehr Attention-Hops propagiert werden, um die finale Ausgabeschicht zu erreichen. Jeder Hop ist verlustbehaftet — die effektive Informationsdichte sinkt mit der Distanz.
 
-**Ergebnis:** Ein Token bei Position $N/2$ in einem 10.000-Token-Kontext hat eine messbar niedrigere Wahrscheinlichkeit, die Ausgabe zu beeinflussen, als ein semantisch identischer Token bei Position 100 oder Position 9.900.
+**Ergebnis:** 
+
+Ein Token bei Position $N/2$ in einem 10.000-Token-Kontext hat eine messbar niedrigere Wahrscheinlichkeit, die Ausgabe zu beeinflussen, als ein semantisch identischer Token bei Position 100 oder Position 9.900.
 
 ---
 
