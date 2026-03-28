@@ -1,6 +1,6 @@
 # Lost-in-the-Middle-Effekt
 
-** Das Modell liest die Mitte — aber es *erinnert* sich schlechter daran. Und es sagt dir nicht, was es vergessen hat.
+Das Modell liest die Mitte — aber es *erinnert* sich schlechter daran. Und es sagt dir nicht, was es vergessen hat.
 
 Der **Lost-in-the-Middle-Effekt** ist ein empirisch belegtes Phänomen: Sprachmodelle verarbeiten Informationen am **Anfang und Ende** eines langen Kontexts deutlich besser als Informationen in der **Mitte**.
 
