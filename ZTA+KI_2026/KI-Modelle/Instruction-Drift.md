@@ -1,6 +1,6 @@
-**Instruction Drift** 
+# Instruction Drift 
 
-Instruction Drift ist Erosion durch Verdünnung — die Regel gilt noch, aber sie zieht nicht mehr so stark. 
+**Instruction Drift* ist Erosion durch Verdünnung — die Regel gilt noch, aber sie zieht nicht mehr so stark. 
 
 Es bezeichnet die schleichende Abweichung des Modellverhaltens von ursprünglich gegebenen Anweisungen — **ohne expliziten Regelbruch, ohne Warnsignal, über Zeit**.
 
