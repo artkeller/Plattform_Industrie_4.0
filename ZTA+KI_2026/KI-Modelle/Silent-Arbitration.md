@@ -1,6 +1,8 @@
-**Silent Arbitration** 
+# Silent Arbitration
 
-bezeichnet das Verhalten, bei dem das Modell widersprüchliche Anweisungen intern auflöst — **ohne den Konflikt zu benennen oder die getroffene Entscheidung zu erklären**.
+**Silent Arbitration** ist der Moment, wo das Modell Richter spielt, ohne das Urteil zu verkünden.
+
+ES bezeichnet das Verhalten, bei dem das Modell widersprüchliche Anweisungen intern auflöst — **ohne den Konflikt zu benennen oder die getroffene Entscheidung zu erklären**.
 
 ---
 
@@ -47,5 +49,3 @@ Die Antwort klingt kohärent und sicher, obwohl sie auf einer ungelösten Ambigu
 - Implizite kulturelle Annahmen im Prompt vs. explizite Gegenanweisung
 
 ---
-
-**Kurz gesagt:** Silent arbitration ist der Moment, wo das Modell Richter spielt, ohne das Urteil zu verkünden.
