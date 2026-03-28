@@ -30,6 +30,7 @@ a datasheet, an estimate, or an honest gap.
 
 Return ONLY valid JSON conforming to this schema:
 
+```json
 {
   "fingerprint_metadata": {
     "abstraction_level": "high|medium|low",
@@ -220,3 +221,5 @@ Return ONLY valid JSON conforming to this schema:
     }
   }
 }
+
+```
