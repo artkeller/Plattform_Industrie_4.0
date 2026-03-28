@@ -35,9 +35,9 @@ Der Softmax hat drei charakteristische Eigenschaften:
 3. **Temperatur-Effekt (wichtig in der Praxis)**
    Oft wird Softmax mit einer Temperatur $$\( \tau \)$$ verwendet:
 
-   $$
-   \text{softmax}(z_i, \tau) = \frac{e^{z_i / \tau}}{\sum_{j} e^{z_j / \tau}}
-   $$
+$$
+\text{softmax}(z_i, \tau) = \frac{e^{z_i / \tau}}{\sum_{j} e^{z_j / \tau}}
+$$
 
    - $$\( \tau > 1 \)$$: Verteilung wird weicher (mehr Zufall, kreativere Antworten)
    - $$\( \tau < 1 \)$$: Verteilung wird schärfer (stärkere Konzentration auf die beste Klasse)
