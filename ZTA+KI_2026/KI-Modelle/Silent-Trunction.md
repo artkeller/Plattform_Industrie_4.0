@@ -54,9 +54,3 @@ Alle drei teilen dieselbe Grundstruktur: **das Modell signalisiert keine Unsiche
 
 ---
 
-## Warum es im Fingerprint fehlt
-
-Es ist konzeptuell in `silent_failure_risk` enthalten — aber nicht als eigener Mechanismus aufgeführt. Das ist selbst ein Beispiel für das Prinzip: eine relevante Kategorie wurde stillschweigend in eine breitere zusammengefasst, ohne das zu kennzeichnen.
-
----
-
