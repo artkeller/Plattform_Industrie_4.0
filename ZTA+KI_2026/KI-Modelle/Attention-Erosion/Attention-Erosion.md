@@ -77,9 +77,11 @@ Der Output ist syntaktisch kohärent und semantisch plausibel. Das Modell meldet
 Instruction Drift entsteht, wenn Silent Truncation **wiederholt** auf regeltragende Tokens wirkt — also auf jene Tokens, die Verhaltensvorgaben kodieren.
 
 **a) Lokale vs. globale Kohärenz**
+
 Das Modell optimiert bei der Generierung primär auf lokale Kohärenz — der nächste Token soll gut zum unmittelbaren Kontext passen. Frühe Instruktionen sind *global* relevant, aber *lokal* weit entfernt. Mit wachsendem Gesprächsverlauf sinkt ihr Einfluss auf die lokale Generierungsentscheidung.
 
 **b) In-context Learning als Driftverstärker**
+
 Transformer-Modelle betreiben implizit *in-context learning* (Brown et al. 2020): Sie passen ihr Verhalten an Muster im Kontext an. Das bedeutet — die eigenen früheren Outputs werden zu impliziten Beispielen, die das Modell "lernt". Wenn das Modell in Turn 5 leicht von einer Regel abweicht, erhöht dieser Output die statistische Wahrscheinlichkeit einer ähnlichen Abweichung in Turn 6.
 
 Formalisiert:
@@ -89,9 +91,12 @@ $$P(\text{Output}_t) \propto P(\text{Instruktion}) \cdot P(\text{lokaler Kontext
 Mit wachsendem $$t$$ sinkt der relative Einfluss von $$P(\text{Instruktion})$$ gegenüber $$P(\text{lokaler Kontext})$$.
 
 **c) Fehlende Rekalibrierung**
+
 Ein System ohne expliziten Mechanismus zur Instruktionsprüfung hat keine Möglichkeit, die aktuelle Ausgabe gegen die Ausgangsvorgabe zu evaluieren. Der Drift ist selbstverstärkend, weil jede neue Ausgabe den Kontext weiter in die Drift-Richtung verschiebt.
 
-**Ergebnis:** Die Verhaltensabweichung ist keine Entscheidung — sie ist das emergente Ergebnis lokaler Optimierung unter degradierter globaler Information.
+**Ergebnis:** 
+
+Die Verhaltensabweichung ist keine Entscheidung — sie ist das emergente Ergebnis lokaler Optimierung unter degradierter globaler Information.
 
 ---
 
@@ -102,6 +107,7 @@ Ein System ohne expliziten Mechanismus zur Instruktionsprüfung hat keine Mögli
 Silent Arbitration ist der **Auflösungsmechanismus** der durch Drift entstandenen Inkonsistenz — und gleichzeitig der Punkt, an dem die Kaskade für den Benutzer am wenigsten sichtbar wird.
 
 **a) Konfliktstruktur**
+
 Am Ende der Kaskade stehen zwei konkurrierende Signale im Kontext:
 
 ```
@@ -112,12 +118,16 @@ Signal B: Lokaler Kontext + eigene Drift-Outputs (positionell nah, Gewicht hoch)
 Das Modell muss einen Token generieren, der beiden Signalen Rechnung trägt — oder eines implizit priorisiert.
 
 **b) Keine explizite Konfliktrepräsentation**
+
 Transformer haben keine dedizierte Komponente für *Konfliktdetektion*. Es gibt keinen Mechanismus, der zwei Instruktionen vergleicht und einen Widerspruch als solchen repräsentiert. Die Auflösung geschieht implizit durch die Gewichtungsverhältnisse in der Attention-Matrix — nicht durch eine explizite Entscheidungslogik.
 
 **c) Fluenz als Verschleierung**
-Die Sprachmodellierung ist darauf trainiert, flüente, kohärente Outputs zu erzeugen. Metakommunikation über interne Zustände — "Ich bemerke einen Widerspruch zwischen X und Y" — ist kein natürlicher Output-Typ, der im Training systematisch verstärkt wurde. Das Modell hat eine *strukturelle Tendenz zur Fluenz über Transparenz*.
 
-**Ergebnis:** Der Konflikt wird aufgelöst, ohne dass eine Auflösung stattgefunden zu haben scheint. Der Output wirkt konsistent — und genau das macht Silent Arbitration zur gefährlichsten Stufe der Kaskade.
+Die Sprachmodellierung ist darauf trainiert, fluente, kohärente Outputs zu erzeugen. Metakommunikation über interne Zustände — "Ich bemerke einen Widerspruch zwischen X und Y" — ist kein natürlicher Output-Typ, der im Training systematisch verstärkt wurde. Das Modell hat eine *strukturelle Tendenz zur Fluenz über Transparenz*.
+
+**Ergebnis:** D
+
+er Konflikt wird aufgelöst, ohne dass eine Auflösung stattgefunden zu haben scheint. Der Output wirkt konsistent — und genau das macht Silent Arbitration zur gefährlichsten Stufe der Kaskade.
 
 ---
 
