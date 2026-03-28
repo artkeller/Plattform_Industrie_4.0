@@ -1,6 +1,6 @@
 # Softmax-Effekt
 
-### Was ist die Softmax-Funktion?
+### Softmax-Funktion
 
 **Softmax** ist eine mathematische Funktion, die in neuronalen Netzen (vor allem in der letzten Schicht bei Klassifikationsaufgaben) verwendet wird, um **Rohwerte (Logits)** in **Wahrscheinlichkeiten** umzuwandeln.
 
