@@ -56,7 +56,9 @@ Transformer-Architekturen haben keine dedizierte Komponente, die überwacht, ob 
 
 Das Modell generiert den nächsten Token basierend auf der Verteilung:
 
-$$P(x_t \mid x_{<t}) = \text{softmax}(W_o \cdot h_t)$$
+$$
+P(x_t \mid x_{<t}) = \text{softmax}(W_o \cdot h_t)
+$$
 
 Diese Verteilung ist immer definiert — sie kollabiert nie auf ein "Ich weiß es nicht"-Signal, weil kein solcher Zustand im Output-Vokabular existiert. Das Modell **muss** einen Token generieren, auch wenn die zugrundeliegende Information effektiv absent ist.
 
@@ -86,7 +88,9 @@ Transformer-Modelle betreiben implizit *in-context learning* (Brown et al. 2020)
 
 Formalisiert:
 
-$$P(\text{Output}_t) \propto P(\text{Instruktion}) \cdot P(\text{lokaler Kontext}_{t-k:t})$$
+$$P
+(\text{Output}_t) \propto P(\text{Instruktion}) \cdot P(\text{lokaler Kontext}_{t-k:t})
+$$
 
 Mit wachsendem $$t$$ sinkt der relative Einfluss von $$P(\text{Instruktion})$$ gegenüber $$P(\text{lokaler Kontext})$$.
 
