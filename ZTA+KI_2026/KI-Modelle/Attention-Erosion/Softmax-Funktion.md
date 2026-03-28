@@ -39,9 +39,9 @@ Der Softmax hat drei charakteristische Eigenschaften:
    \text{softmax}(z_i, \tau) = \frac{e^{z_i / \tau}}{\sum_{j} e^{z_j / \tau}}
    $$
 
-   - \( \tau > 1 \): Verteilung wird weicher (mehr Zufall, kreativere Antworten)
-   - \( \tau < 1 \): Verteilung wird schärfer (stärkere Konzentration auf die beste Klasse)
-   - \( \tau = 1 \): normales Softmax
+   - $$\( \tau > 1 \)$$: Verteilung wird weicher (mehr Zufall, kreativere Antworten)
+   - $$\( \tau < 1 \)$$: Verteilung wird schärfer (stärkere Konzentration auf die beste Klasse)
+   - $$\( \tau = 1 \)$$: normales Softmax
 
 ### Warum ist das in LLMs so wichtig?
 
