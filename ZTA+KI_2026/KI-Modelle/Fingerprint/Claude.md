@@ -1,4 +1,4 @@
-# Claude 4.6 - 2026-03-24
+# Claude - Sonnet 4.6 - 2026-03-24
 
 ```json
 {
