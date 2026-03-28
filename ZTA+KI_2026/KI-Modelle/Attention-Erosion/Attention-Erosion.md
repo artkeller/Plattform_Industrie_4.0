@@ -86,7 +86,7 @@ Formalisiert:
 
 $$P(\text{Output}_t) \propto P(\text{Instruktion}) \cdot P(\text{lokaler Kontext}_{t-k:t})$$
 
-Mit wachsendem $t$ sinkt der relative Einfluss von $P(\text{Instruktion})$ gegenüber $P(\text{lokaler Kontext})$.
+Mit wachsendem $t$ sinkt der relative Einfluss von $$P(\text{Instruktion})$ gegenüber $P(\text{lokaler Kontext})$$.
 
 **c) Fehlende Rekalibrierung**
 Ein System ohne expliziten Mechanismus zur Instruktionsprüfung hat keine Möglichkeit, die aktuelle Ausgabe gegen die Ausgangsvorgabe zu evaluieren. Der Drift ist selbstverstärkend, weil jede neue Ausgabe den Kontext weiter in die Drift-Richtung verschiebt.
