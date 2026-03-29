@@ -57,7 +57,7 @@ Transformer-Architekturen haben keine dedizierte Komponente, die überwacht, ob 
 Das Modell generiert den nächsten Token basierend auf der Verteilung:
 
 $$
-P(x_t \mid x_{<t}) = \left[\text{softmax}(W_o h_t)\right]_{x_t}
+P(x_t \mid x_{< t}) = \text{softmax}(W_o \cdot h_t)
 $$
 
 Diese Verteilung ist immer definiert — sie kollabiert nie auf ein "Ich weiß es nicht"-Signal, weil kein solcher Zustand im Output-Vokabular existiert. Das Modell **muss** einen Token generieren, auch wenn die zugrundeliegende Information effektiv absent ist.
