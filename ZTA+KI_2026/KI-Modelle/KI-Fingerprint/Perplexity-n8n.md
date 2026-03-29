@@ -1,4 +1,4 @@
-# Perplexity n8n - 20260324
+# Perplexity - n8n workflow - 20260324
 
 [Perplexity Agentic AI](https://n8n.io/integrations/perplexity/)
 
