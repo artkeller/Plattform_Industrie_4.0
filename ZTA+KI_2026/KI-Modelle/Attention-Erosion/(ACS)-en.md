@@ -9,7 +9,6 @@ Here is the mathematical detection scheme for **attention drift in multi-agent s
 In a multi-agent system (or in long chains of thought), every output from Agent A serves as input for Agent B.
  
 * **The Problem:** Due to RLHF optimization, models tend toward “safe,” high-probability token sequences. This means that variance decreases, while the **Kullback-Leibler divergence (KLD)** relative to the original instruction vector increases with each step.
-* 
 * **The drift:** The instruction $I$ is superimposed by the “noise” from the previous optimization $O$.
 
 ### 2. The detection scheme: “Instruction Saliency Monitoring” (ISM)
