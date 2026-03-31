@@ -1,4 +1,4 @@
-# ChaGPT - 20260324
+# ChatGPT - 20260324
 
 ```json
 {
