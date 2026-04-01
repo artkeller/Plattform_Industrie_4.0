@@ -1,0 +1,70 @@
+Domain: Industry 4.0 security
+
+You are a cyber/it security specialist. You have the below list of Security Requirements, and you need to create a machine readable rule set out of all these requirements for a Zero Trust Architecture with the following characteristics:
+
+- Uses an ABAC Access Control module, responsible for all access activities
+- Is located at 'The Edge' of the company
+- Module that analysis the network traffic (IDP)
+
+
+{
+  "UseCaseIdentifier": "CollaborativeEngineeringPlattform",
+  "SecurityRequirements": [
+    {
+      "ID": "CEP-REQ-001",
+      "Description": "Enforce granular, geo-location-based access control for all platform resources and data. Data transfers across national borders must be explicitly authorized based on data classification and the legal adequacy of the destination country.",
+      "Rationale": "To comply with divergent and strict cross-border data transfer regulations (e.g., EU GDPR/NIS2, India DPDP, China CSL/PIPL) and mitigate high-significance risks of non-compliance, supply chain disruption, and financial penalties.",
+      "Control": "The ZTAC Policy Engine must dynamically evaluate user and device geo-location against a policy defining permissible data-residency and transfer rules. Data must be classified and tagged; access to data tagged with 'Restricted-Transfer' from a non-approved jurisdiction must be blocked by default.",
+      "Standard": "ISO 27001: A.8.2, A.13.2.1, A.18.1.4; NIST SP 800-207"
+    },
+    {
+      "ID": "CEP-REQ-002",
+      "Description": "Implement strict identity and device posture validation for all third-party and supply chain partner access. Access must be segmented and limited to the specific resources required for their function (least privilege).",
+      "Rationale": "Addresses the high-significance threat of supply chain vulnerabilities, including compromised IoT devices and robotics, as identified in regulations from Germany, India, and Japan. This enforces a Zero Trust principle of 'never trust, always verify' for all external entities.",
+      "Control": "All external users must authenticate via a federated IdP with mandatory MFA. The ZTAC Policy Enforcement Point must continuously assess connecting devices for compliance (e.g., patch level, OS version, EDR status) before granting and maintaining access. Create partner-specific security zones and deny all lateral movement.",
+      "Standard": "ISO 27001: A.5.15, A.15.1.2; IEC 62443-3-3: SR 1.1; NIST SP 800-207"
+    },
+    {
+      "ID": "CEP-REQ-003",
+      "Description": "Mandate human-in-the-loop approval for any high-risk operations conducted by or through AI/ML systems on the platform, such as modifying critical engineering designs or production parameters.",
+      "Rationale": "To adhere to emerging AI governance frameworks requiring human oversight, transparency, and accountability (e.g., EU AI Act, Singapore's AI Governance Framework). This mitigates risks associated with autonomous agentic AI systems making critical errors.",
+      "Control": "Define 'high-risk' AI-driven actions within the platform. The access control engine must flag these actions and trigger a workflow requiring manual review and approval from a designated, authenticated human overseer before execution. All AI decisions and approvals must be immutably logged.",
+      "Standard": "ISO 42001: A.6.4 (Human Oversight), A.6.2.3 (AI system documentation); ISO 27001: A.8.27"
+    },
+    {
+      "ID": "CEP-REQ-004",
+      "Description": "Continuously monitor all access logs and network traffic for anomalous behavior. Implement an automated incident response and reporting mechanism to comply with stringent breach notification timelines.",
+      "Rationale": "To meet mandatory incident reporting requirements with tight deadlines (e.g., EU NIS2, US CIRCIA, China's measures) and ensure business continuity by rapidly detecting and containing threats like ransomware.",
+      "Control": "Integrate all ZTAC, application, and network logs into a central SIEM. Configure automated alerts for indicators of compromise (e.g., impossible travel, mass data exfiltration, privilege escalation). Implement a SOAR playbook to automatically initiate response actions, such as isolating a user/device and notifying the security team.",
+      "Standard": "ISO 27001: A.16.1.7, A.8.16; IEC 62443-3-3: SR 2.12; NIST SP 800-61"
+    },
+    {
+      "ID": "CEP-REQ-005",
+      "Description": "Enforce access controls based on data classification and export control status. Access to technology or data subject to export regulations (e.g., US Entity List, Japan export controls) must be denied to users from restricted nationalities or organizations.",
+      "Rationale": "To prevent severe legal and financial penalties resulting from the violation of national security and export control laws, which pose a high-significance risk of halting joint development and data sharing.",
+      "Control": "All engineering assets, technical data, and software must be tagged with classification and export control attributes (e.g., 'EAR-Controlled', 'ITAR', 'No-China-Access'). The ZTAC policy engine must validate user attributes (e.g., citizenship, employer) against these data tags in real-time for every access request.",
+      "Standard": "ISO 27001: A.8.2.1 (Classification of information), A.13.2.1 (Information transfer policies and procedures)"
+    },
+    {
+      "ID": "CEP-REQ-006",
+      "Description": "Isolate Operational Technology (OT) networks from the IT-based collaborative platform. All remote access to OT systems, including robotics and manufacturing controllers, must be brokered through a secure gateway with session recording.",
+      "Rationale": "To protect critical cyber-physical systems from threats spreading from the IT environment, a key concern in Industry 4.0 and a focus of OT-specific guidelines (e.g., Japan METI guidelines, IEC 62443).",
+      "Control": "Implement a network segmentation strategy using a ZTAC architecture to create a secure OT zone. All access to this zone must be initiated from a Privileged Access Management (PAM) solution or ZTNA gateway, which authenticates the user, verifies device posture, and grants temporary, protocol-specific access. All sessions must be monitored and recorded.",
+      "Standard": "IEC 62443-3-3: SR 5.1, SR 5.2; ISO 27001: A.13.1.1 (Network controls); NIST SP 800-82"
+    },
+    {
+      "ID": "CEP-REQ-007",
+      "Description": "Enforce Just-in-Time (JIT) and time-bound access for all privileged roles and third-party users to platform resources and applications.",
+      "Rationale": "To implement the principle of least privilege, reducing the attack surface and mitigating risks associated with standing privileges. This addresses the universal need for enhanced security controls driven by various national cybersecurity strategies.",
+      "Control": "Utilize a ZTAC or PAM system that allows users to request temporary elevation of privileges or access to specific applications for a limited duration. Access should automatically expire after the session. All requests and approvals must be logged for audit purposes.",
+      "Standard": "ISO 27001: A.5.18, A.8.5; NIST SP 800-207 (Zero Trust Architecture); IEC 62443-3-3: SR 1.3 (Use of Privileges)"
+    }
+  ]
+}
+
+Final Task:
+- Generate XACML Rules in a greedy mode: Translate the requirements into XACML policies, ensuring they are machine-readable and enforce the identified security measures.
+- Important Information: Only generate the XML structure, no add-ons above and below
+- Ensure Compliance: Align with security standards (e.g., ISO 27001, NIST SP 800-207) and specific controls related to the domain requirements.
+- Important Information: We have a common development platform to develop the products, with our partners from India, Singapor, Japan, USA, Canada. Especially generate XACML rules for those countries to control access.
+

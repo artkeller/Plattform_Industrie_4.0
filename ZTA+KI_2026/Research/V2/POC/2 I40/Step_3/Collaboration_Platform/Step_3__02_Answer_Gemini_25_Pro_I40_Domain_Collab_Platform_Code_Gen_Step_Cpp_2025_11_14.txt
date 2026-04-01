@@ -1,0 +1,430 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+#include <chrono>
+#include <stdexcept>
+#include <functional>
+
+// ---[ C++ Machine Readable Rule Set for Industry 4.0 ZTA ABAC Module ]---
+// Domain: Industry 4.0 Security
+// Use Case: CollaborativeEngineeringPlattform
+// Architecture: Zero Trust at The Edge with ABAC and IDP integration.
+// This C++ code represents the rule set and the Policy Decision Point (PDP).
+
+// ---[ 1. Core Enumerations & Data Types ]---
+
+// Represents the final decision of the PDP.
+enum class AccessDecision {
+    Permit,
+    Deny,
+    Indeterminate_Requires_Human_Approval // For CEP-REQ-003
+};
+
+// Represents the posture of a connecting device.
+enum class DevicePosture {
+    Compliant,
+    Non_Compliant,
+    Unknown
+};
+
+// Represents the status of Multi-Factor Authentication.
+enum class MfaStatus {
+    Verified,
+    Not_Verified
+};
+
+// Data classification levels as per requirements.
+enum class DataClassification {
+    Public,
+    Internal,
+    Confidential,
+    Restricted_Transfer_GDPR, // Example for EU data
+    Restricted_Transfer_DPDP, // Example for India data
+    Restricted_Transfer_PIPL  // Example for China data
+};
+
+// Export control tags as per CEP-REQ-005.
+enum class ExportControlTag {
+    None,
+    EAR_Controlled,
+    ITAR_Controlled,
+    JP_Export_Controlled
+};
+
+// Action types.
+enum class ActionType {
+    Read,
+    Write,
+    Execute,
+    Delete,
+    Modify_AI_Model, // Example high-risk AI action
+    Modify_Production_Params // Example high-risk AI action
+};
+
+// ---[ 2. Attribute Structures (The 'A' in ABAC) ]---
+
+// Attributes of the user/service making the request.
+struct SubjectAttributes {
+    std::string userId;
+    std::string role; // e.g., "engineer", "partner_a", "auditor", "ai_agent"
+    std::string organization; // e.g., "OurCompany", "Partner_India", "Partner_USA"
+    std::string geoLocation; // Country code, e.g., "DE", "US", "IN", "JP", "CA", "SG"
+    std::string citizenship; // e.g., "DE", "US", "CN"
+    MfaStatus mfaStatus;
+    double riskScore = 0.0; // From IDP/SIEM, 0.0 (low) to 1.0 (high)
+    // For JIT Access (CEP-REQ-007)
+    bool isJitAccess = false;
+    long jitSessionExpiry = 0; // Unix timestamp
+};
+
+// Attributes of the connecting device.
+struct DeviceAttributes {
+    std::string deviceId;
+    std::string geoLocation; // Country code
+    std::string osVersion;
+    std::string patchLevel; // e.g., "2023-10"
+    bool edrIsActive;
+    DevicePosture posture;
+};
+
+// Attributes of the resource being accessed.
+struct ResourceAttributes {
+    std::string resourceId; // e.g., "CAD_File_XYZ.dwg", "OT_PLC_123"
+    std::string resourceType; // e.g., "EngineeringDesign", "TechnicalData", "OT_Controller"
+    DataClassification classification;
+    std::string dataResidency; // Country where data must reside, e.g., "EU", "IN"
+    ExportControlTag exportControl;
+    std::string securityZone; // e.g., "IT_Zone", "OT_Zone", "Partner_India_Zone"
+};
+
+// Attributes of the action being performed.
+struct ActionAttributes {
+    ActionType type;
+    bool isHighRiskAIAction = false;
+};
+
+// Contextual environment attributes.
+struct EnvironmentAttributes {
+    long requestTimestamp; // Unix timestamp
+    std::string sourceIP;
+    // Dynamic threat level provided by an IDP/SIEM/SOAR system as per CEP-REQ-004
+    double networkThreatLevel = 0.0; // 0.0 (low) to 1.0 (high)
+};
+
+// A composite structure for a single access request.
+struct AccessRequest {
+    SubjectAttributes subject;
+    DeviceAttributes device;
+    ResourceAttributes resource;
+    ActionAttributes action;
+    EnvironmentAttributes environment;
+};
+
+// ---[ 3. Policy Decision Point (PDP) - The ABAC Engine ]---
+
+class PolicyDecisionPoint {
+public:
+    PolicyDecisionPoint() {
+        // Initialize country-specific data transfer rules based on legal adequacy (CEP-REQ-001)
+        // This simulates a database of international data transfer agreements.
+        // Adequacy decisions for GDPR:
+        gdprAdequacyDecisions = {"JP", "CA", "GB"}; // Japan, Canada, UK have adequacy. USA via DPF.
+        // For simplicity, we assume a specific framework is in place for USA-EU transfers.
+        // This map could be updated dynamically from a legal compliance service.
+    }
+
+    // Main evaluation function. This is the core of the ABAC module.
+    AccessDecision evaluate(const AccessRequest& request) const {
+        std::vector<std::string> denialReasons;
+
+        // The ZTA principle: Deny by default. Policies must explicitly grant access.
+        // We evaluate a series of "deny" rules. If any of them trigger, access is denied immediately.
+        
+        // ---[ RULE: CEP-REQ-002 - Identity & Device Posture Validation ]---
+        if (!isIdentityVerified(request.subject)) {
+            denialReasons.push_back("CEP-REQ-002: Identity verification failed (MFA not satisfied).");
+        }
+        if (!isDeviceCompliant(request.device)) {
+            denialReasons.push_back("CEP-REQ-002: Device posture is non-compliant.");
+        }
+
+        // ---[ RULE: CEP-REQ-007 - Just-in-Time (JIT) Access Enforcement ]---
+        if (!isJitAccessValid(request)) {
+             denialReasons.push_back("CEP-REQ-007: Invalid or expired Just-in-Time session.");
+        }
+
+        // ---[ RULE: CEP-REQ-001 & CEP-REQ-005 - Geo-Location, Data Transfer & Export Control ]---
+        if (!isGeoLocationAndDataTransferAllowed(request)) {
+            denialReasons.push_back("CEP-REQ-001: Cross-border data transfer is not authorized.");
+        }
+        if (!isExportControlCompliant(request)) {
+            denialReasons.push_back("CEP-REQ-005: Access denied due to export control regulations.");
+        }
+
+        // ---[ RULE: CEP-REQ-006 - OT/IT Segregation ]---
+        if (!isOtAccessPolicyRespected(request)) {
+            denialReasons.push_back("CEP-REQ-006: Unauthorized access to OT security zone.");
+        }
+        
+        // ---[ RULE: CEP-REQ-002 - Partner Segmentation ]---
+        if (!isPartnerZoneAccessCorrect(request)) {
+            denialReasons.push_back("CEP-REQ-002: Access denied due to partner zone segmentation rules.");
+        }
+        
+        // ---[ RULE: CEP-REQ-004 - Continuous Monitoring & Anomaly Detection Input ]---
+        // This rule uses dynamic risk scores from an external IDP/SIEM.
+        if (isRiskScoreTooHigh(request)) {
+             denialReasons.push_back("CEP-REQ-004: Access denied due to high risk score or threat level.");
+        }
+
+        // If any denial rule was triggered, deny access.
+        if (!denialReasons.empty()) {
+            // In a real system, these reasons would be logged to a SIEM.
+            // For demonstration, we can print them.
+            // std::cerr << "Access Denied. Reasons:" << std::endl;
+            // for(const auto& reason : denialReasons) { std::cerr << "- " << reason << std::endl; }
+            return AccessDecision::Deny;
+        }
+
+        // ---[ SPECIAL CHECK: CEP-REQ-003 - Human-in-the-Loop for High-Risk AI Actions ]---
+        if (request.action.isHighRiskAIAction && request.subject.role == "ai_agent") {
+            // This action cannot be permitted directly. It requires out-of-band human approval.
+            // The PEP must handle this response by initiating an approval workflow.
+            return AccessDecision::Indeterminate_Requires_Human_Approval;
+        }
+
+        // If no deny rules were triggered and no special handling is needed, access is permitted.
+        // This implies that a base set of permissions (e.g., role-based) is assumed to be valid
+        // if none of the ZTA constraints are violated.
+        return AccessDecision::Permit;
+    }
+
+private:
+    std::set<std::string> gdprAdequacyDecisions;
+
+    // ---[ Policy Check Implementations ]---
+
+    // CEP-REQ-002: Checks if identity is strongly verified.
+    bool isIdentityVerified(const SubjectAttributes& subject) const {
+        return subject.mfaStatus == MfaStatus::Verified;
+    }
+
+    // CEP-REQ-002: Checks if device meets minimum security posture.
+    bool isDeviceCompliant(const DeviceAttributes& device) const {
+        // In a real scenario, these would be checked against a policy database.
+        const std::string requiredMinPatchLevel = "2023-09";
+        return device.edrIsActive && device.patchLevel >= requiredMinPatchLevel;
+    }
+
+    // CEP-REQ-007: Validates JIT access sessions.
+    bool isJitAccessValid(const AccessRequest& request) const {
+        // This is a simplified check. A full PAM/JIT integration is complex.
+        // If the resource requires privileged access (e.g., OT zone or high-value data)
+        bool requiresPrivilegedAccess = (request.resource.securityZone == "OT_Zone" || 
+                                         request.resource.classification == DataClassification::Restricted_Transfer_GDPR);
+        if (requiresPrivilegedAccess) {
+            return request.subject.isJitAccess && request.subject.jitSessionExpiry > request.environment.requestTimestamp;
+        }
+        // If resource doesn't require privileged access, this check doesn't apply.
+        return true;
+    }
+
+    // CEP-REQ-001: Validates geo-location and cross-border data transfer rules.
+    bool isGeoLocationAndDataTransferAllowed(const AccessRequest& request) const {
+        const auto& subjectGeo = request.subject.geoLocation;
+        const auto& resourceClass = request.resource.classification;
+        const auto& resourceResidency = request.resource.dataResidency;
+
+        // If data must stay within its residency zone
+        if (!resourceResidency.empty() && subjectGeo != resourceResidency) {
+            
+            // Check for GDPR-specific cross-border transfer
+            if (resourceClass == DataClassification::Restricted_Transfer_GDPR && resourceResidency == "EU") {
+                // Allow if accessing from a country with an adequacy decision
+                if (gdprAdequacyDecisions.count(subjectGeo) || subjectGeo == "US") { // Assume USA has a valid framework like DPF
+                    return true;
+                }
+                return false; // Not in EU and no adequacy decision -> Deny
+            }
+            
+            // Check for India DPDP. Assume strict data residency for now.
+            if (resourceClass == DataClassification::Restricted_Transfer_DPDP && resourceResidency == "IN") {
+                return false; // Access from outside India is denied by default.
+            }
+            
+            // Add other country-specific rules here...
+
+        }
+        // Default case: no specific cross-border violation found.
+        return true;
+    }
+
+    // CEP-REQ-005: Validates access against export control regulations.
+    bool isExportControlCompliant(const AccessRequest& request) const {
+        const auto& tag = request.resource.exportControl;
+        const auto& citizenship = request.subject.citizenship;
+        const auto& organization = request.subject.organization;
+
+        if (tag == ExportControlTag::None) {
+            return true;
+        }
+        
+        // Example Rule: Deny access to EAR-controlled data for users from specific countries/orgs
+        if (tag == ExportControlTag::EAR_Controlled || tag == ExportControlTag::ITAR_Controlled) {
+            // This list would be managed by a compliance department
+            std::set<std::string> restrictedCitizenships = {"CN", "RU", "IR", "KP"};
+            if (restrictedCitizenships.count(citizenship)) {
+                return false;
+            }
+        }
+        
+        // Example Rule: Specific "No-China-Access" rule implementation
+        if (organization.find("China") != std::string::npos || citizenship == "CN") {
+             if (tag == ExportControlTag::EAR_Controlled || tag == ExportControlTag::ITAR_Controlled){
+                 return false;
+             }
+        }
+
+        return true;
+    }
+
+    // CEP-REQ-006: Enforces secure access to the OT zone.
+    bool isOtAccessPolicyRespected(const AccessRequest& request) const {
+        if (request.resource.securityZone == "OT_Zone") {
+            // All access to OT must be JIT/privileged, which is already checked by isJitAccessValid.
+            // Additionally, we could check if the request is coming via a specific PAM/Gateway IP, etc.
+            // Here, we just rely on the JIT session flag for simplicity.
+            return request.subject.isJitAccess;
+        }
+        return true;
+    }
+    
+    // CEP-REQ-002: Enforces partner-specific security zones and prevents lateral movement.
+    bool isPartnerZoneAccessCorrect(const AccessRequest& request) const {
+        const std::string& org = request.subject.organization;
+        const std::string& zone = request.resource.securityZone;
+
+        if (org == "Partner_India" && zone != "Partner_India_Zone" && zone != "IT_Zone") {
+            return false; // Partner from India can only access their zone and the general IT zone. No OT or other partner zones.
+        }
+        if (org == "Partner_USA" && zone != "Partner_USA_Zone" && zone != "IT_Zone") {
+            return false; // Partner from USA can only access their zone and the general IT zone.
+        }
+        // This prevents lateral movement between partner zones.
+        return true;
+    }
+
+    // CEP-REQ-004: Uses risk scores from external monitoring systems (IDP/SIEM).
+    bool isRiskScoreTooHigh(const AccessRequest& request) const {
+        // Aggregate risk from user behavior, device state, and network intelligence
+        double totalRisk = request.subject.riskScore + request.environment.networkThreatLevel;
+        const double highRiskThreshold = 0.8; // Policy: Deny access if combined risk is 80% or higher
+        
+        return totalRisk >= highRiskThreshold;
+    }
+};
+
+// ---[ 4. Helper & Main Function for Demonstration ]---
+
+// Helper to convert decision enum to string for printing.
+std::string decisionToString(AccessDecision decision) {
+    switch (decision) {
+        case AccessDecision::Permit: return "Permit";
+        case AccessDecision::Deny: return "Deny";
+        case AccessDecision::Indeterminate_Requires_Human_Approval: return "Indeterminate (Requires Human Approval)";
+        default: return "Unknown";
+    }
+}
+
+// Main function to simulate access requests and evaluate them.
+int main() {
+    PolicyDecisionPoint pdp;
+
+    long now = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+
+    std::cout << "---[ Industry 4.0 ZTA ABAC Simulation ]---\n\n";
+
+    // --- Scenario 1: Compliant Engineer from Canada accessing a non-sensitive design ---
+    AccessRequest req1 = {
+        { "eng_jane", "engineer", "OurCompany", "CA", "CA", MfaStatus::Verified, 0.1 },
+        { "dev_111", "CA", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "CAD_File_ABC.dwg", "EngineeringDesign", DataClassification::Internal, "", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "203.0.113.10", 0.1 }
+    };
+    std::cout << "Scenario 1 (Compliant CA Engineer): " << decisionToString(pdp.evaluate(req1)) << std::endl; // Expected: Permit
+
+    // --- Scenario 2: Partner from India trying to access OT network (Violation of CEP-REQ-002, CEP-REQ-006) ---
+    AccessRequest req2 = {
+        { "partner_raj", "partner", "Partner_India", "IN", "IN", MfaStatus::Verified, 0.2 },
+        { "dev_222", "IN", "Windows-11", "2023-10", true, DevicePosture::Compliant },
+        { "OT_PLC_123", "OT_Controller", DataClassification::Confidential, "", ExportControlTag::None, "OT_Zone" },
+        { ActionType::Write, false },
+        { now, "198.51.100.55", 0.1 }
+    };
+    std::cout << "Scenario 2 (Partner accessing OT): " << decisionToString(pdp.evaluate(req2)) << std::endl; // Expected: Deny
+
+    // --- Scenario 3: Engineer from USA accessing EU data from Japan (Allowed by GDPR Adequacy, CEP-REQ-001) ---
+    AccessRequest req3 = {
+        { "eng_john", "engineer", "OurCompany", "JP", "US", MfaStatus::Verified, 0.1, true, now + 3600 },
+        { "dev_333", "JP", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "Spec_XYZ.pdf", "TechnicalData", DataClassification::Restricted_Transfer_GDPR, "EU", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "192.0.2.88", 0.0 }
+    };
+    std::cout << "Scenario 3 (US Engineer in JP accessing EU Data): " << decisionToString(pdp.evaluate(req3)) << std::endl; // Expected: Permit
+
+    // --- Scenario 4: Engineer from Singapore accessing EU data (Not allowed, no adequacy decision, CEP-REQ-001) ---
+    AccessRequest req4 = {
+        { "eng_lee", "engineer", "OurCompany", "SG", "SG", MfaStatus::Verified, 0.1, true, now + 3600 },
+        { "dev_444", "SG", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "Spec_XYZ.pdf", "TechnicalData", DataClassification::Restricted_Transfer_GDPR, "EU", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "203.0.113.20", 0.0 }
+    };
+    std::cout << "Scenario 4 (SG Engineer accessing EU Data): " << decisionToString(pdp.evaluate(req4)) << std::endl; // Expected: Deny
+
+    // --- Scenario 5: User with CN citizenship trying to access ITAR data (Violation of CEP-REQ-005) ---
+    AccessRequest req5 = {
+        { "research_wei", "researcher", "OurCompany", "DE", "CN", MfaStatus::Verified, 0.0 },
+        { "dev_555", "DE", "Linux-6.5", "2023-10", true, DevicePosture::Compliant },
+        { "propulsion_data.dat", "TechnicalData", DataClassification::Confidential, "", ExportControlTag::ITAR_Controlled, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "192.0.2.99", 0.0 }
+    };
+    std::cout << "Scenario 5 (CN Citizen accessing ITAR data): " << decisionToString(pdp.evaluate(req5)) << std::endl; // Expected: Deny
+
+    // --- Scenario 6: AI Agent trying to perform a high-risk action (Triggers CEP-REQ-003) ---
+    AccessRequest req6 = {
+        { "ai_optimizer_v2", "ai_agent", "OurCompany", "US", "N/A", MfaStatus::Verified, 0.0 }, // AI has verified identity via token/cert
+        { "vm_gpu_01", "US", "N/A", "N/A", true, DevicePosture::Compliant },
+        { "production_line_A_params", "ProductionParameters", DataClassification::Confidential, "", ExportControlTag::None, "OT_Zone" },
+        { ActionType::Modify_Production_Params, true }, // Action is flagged as high-risk
+        { now, "10.1.1.5", 0.0 }
+    };
+    std::cout << "Scenario 6 (AI agent high-risk action): " << decisionToString(pdp.evaluate(req6)) << std::endl; // Expected: Indeterminate
+
+    // --- Scenario 7: User with a high risk score from IDP (Violation of CEP-REQ-004) ---
+    AccessRequest req7 = {
+        { "eng_jane", "engineer", "OurCompany", "CA", "CA", MfaStatus::Verified, 0.9 }, // High risk score due to impossible travel alert
+        { "dev_111", "CA", "macOS-14.0", "2023-10", true, DevicePosture::Compliant },
+        { "CAD_File_ABC.dwg", "EngineeringDesign", DataClassification::Internal, "", ExportControlTag::None, "IT_Zone" },
+        { ActionType::Read, false },
+        { now, "203.0.113.10", 0.1 }
+    };
+    std::cout << "Scenario 7 (User with high risk score): " << decisionToString(pdp.evaluate(req7)) << std::endl; // Expected: Deny
+
+    // --- Scenario 8: Privileged access to OT via JIT session (Allowed by CEP-REQ-007) ---
+    AccessRequest req8 = {
+        { "ot_admin", "admin", "OurCompany", "DE", "DE", MfaStatus::Verified, 0.1, true, now + 3600 }, // JIT session is active
+        { "dev_admin_pc", "DE", "Windows-11", "2023-10", true, DevicePosture::Compliant },
+        { "OT_PLC_123", "OT_Controller", DataClassification::Confidential, "", ExportControlTag::None, "OT_Zone" },
+        { ActionType::Write, false },
+        { now, "10.0.0.5", 0.0 }
+    };
+    std::cout << "Scenario 8 (Admin JIT access to OT): " << decisionToString(pdp.evaluate(req8)) << std::endl; // Expected: Permit
+
+    return 0;
+}

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+           PolicySetId="urn:example:company:policyset:collaborative-engineering-platform"
+           PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-overrides"
+           Version="1.0">
+
+    <Description>
+        Main PolicySet for the Collaborative Engineering Platform (CEP) based on Zero Trust principles.
+        This policy set enforces security requirements for an Industry 4.0 environment.
+    </Description>
+
+    <Target>
+        <!-- This PolicySet applies to all access requests within the CEP scope -->
+    </Target>
+
+    <!--
+        Policy for CEP-REQ-001 & Specific Partner Country Access
+        Description: Enforce granular, geo-location-based access control for all platform resources and data.
+                     Data transfers across national borders must be explicitly authorized.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-001:geo-location"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="1.0">
+        <Description>Controls access based on user geo-location, data residency, and cross-border transfer rules.</Description>
+        <Target/>
+
+        <Rule RuleId="urn:example:company:rule:geo-location:permit-same-country" Effect="Permit">
+            <Description>Permit access if the user's location matches the data's designated residency.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </AttributeValue>
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:resource:data-residency" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </AttributeValue>
+                </Apply>
+            </Condition>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:log-access" FulfillOn="Permit">
+                    <AttributeAssignmentExpression AttributeId="urn:example:company:obligation:log:level" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">INFO</AttributeValue>
+                    </AttributeAssignmentExpression>
+                    <AttributeAssignmentExpression AttributeId="urn:example:company:obligation:log:message" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+                         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Permitted same-country access.</AttributeValue>
+                    </AttributeAssignmentExpression>
+                </ObligationExpression>
+            </ObligationExpressions>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:geo-location:permit-authorized-partners" Effect="Permit">
+            <Description>Permits access from specified partner countries (USA, CAN, IND, SGP, JPN) to resources designated for international collaboration.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">International-Collaboration</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:collaboration-scope" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">USA</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">CAN</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">IND</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                     <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">SGP</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                     <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">JPN</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:geo-location" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:geo-location:deny-unauthorized-cross-border" Effect="Deny">
+            <Description>Deny all other cross-border access attempts for data marked as 'Restricted-Transfer' by default.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">Restricted-Transfer</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:data-classification" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:alert-ioc" FulfillOn="Deny">
+                     <AttributeAssignmentExpression AttributeId="urn:example:company:obligation:alert:type" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">UnauthorizedCrossBorderAccess</AttributeValue>
+                    </AttributeAssignmentExpression>
+                </ObligationExpression>
+            </ObligationExpressions>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-005: Export Control
+        Description: Enforce access controls based on data classification and export control status.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-005:export-control"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides"
+            Version="1.0">
+        <Description>Controls access to data based on export control regulations like ITAR and EAR.</Description>
+        <Target/>
+
+        <Rule RuleId="urn:example:company:rule:export-control:deny-itar-to-non-us" Effect="Deny">
+            <Description>Denies access to ITAR-controlled data for users without US citizenship.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ITAR</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:export-control" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">USA</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:citizenship" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+        
+        <Rule RuleId="urn:example:company:rule:export-control:deny-entity-list" Effect="Deny">
+            <Description>Denies access to EAR-controlled data for any subject associated with an organization on the Entity List.</Description>
+             <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">EAR-Controlled</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:resource:export-control" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                 <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">true</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:subject:is-on-entity-list" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-002: Third-party and Device Posture
+        Description: Implement strict identity and device posture validation for all third-party and supply chain partner access.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-002:third-party-and-posture"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides"
+            Version="1.0">
+        <Description>Enforces device compliance and strong authentication for all users, especially third parties.</Description>
+        <Target/>
+
+        <Rule RuleId="urn:example:company:rule:posture:deny-non-compliant-device" Effect="Deny">
+            <Description>Deny access from any device that does not meet compliance standards (patch level, EDR, etc.).</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">non-compliant</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:environment:device-posture" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:third-party:deny-no-mfa" Effect="Deny">
+            <Description>Deny access to all external partners if they have not authenticated with MFA.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                        <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-regexp-match">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">^Partner-.*</AttributeValue>
+                            <AttributeDesignator AttributeId="urn:example:company:attribute:subject:group" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">false</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:subject:mfa-authenticated" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+        </Rule>
+    </Policy>
+    
+    <!--
+        Policy for CEP-REQ-007: Just-in-Time (JIT) Access
+        Description: Enforce Just-in-Time (JIT) and time-bound access for all privileged roles.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-007:jit-access"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="1.0">
+        <Description>Enforces time-bound access for privileged users.</Description>
+        <Target>
+            <!-- This policy applies only to users in a privileged role -->
+             <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">privileged-user</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:role" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+        
+        <Rule RuleId="urn:example:company:rule:jit:deny-expired-access" Effect="Deny">
+            <Description>Denies access if the current time is outside the approved JIT window.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:or">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:time-less-than">
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:environment:access-start-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                    </Apply>
+                     <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:time-greater-than-or-equal">
+                        <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:environment:current-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:environment:access-end-time" DataType="http://www.w3.org/2001/XMLSchema#time" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" MustBePresent="true"/>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:jit:permit-in-window" Effect="Permit">
+            <Description>Permit access if within the JIT window.</Description>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-006: OT/IT Segmentation
+        Description: Isolate Operational Technology (OT) networks from the IT-based collaborative platform.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-006:ot-segmentation"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-overrides"
+            Version="1.0">
+        <Description>Controls all access to the critical OT network zone.</Description>
+        <Target>
+            <!-- This policy applies only to resources in the OT Zone -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">OT-Zone</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:resource:network-zone" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+
+        <Rule RuleId="urn:example:company:rule:ot-access:deny-direct-access" Effect="Deny">
+            <Description>Denies any access to the OT zone that is not brokered through a secure PAM or ZTNA gateway.</Description>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:not">
+                    <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:environment:access-gateway" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                        <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">pam-gateway</AttributeValue>
+                            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">ztna-gateway</AttributeValue>
+                        </Apply>
+                    </Apply>
+                </Apply>
+            </Condition>
+        </Rule>
+        
+        <Rule RuleId="urn:example:company:rule:ot-access:permit-brokered-access" Effect="Permit">
+            <Description>Permits access via a secure gateway and mandates session recording.</Description>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:initiate-session-recording" FulfillOn="Permit"/>
+            </ObligationExpressions>
+        </Rule>
+    </Policy>
+
+    <!--
+        Policy for CEP-REQ-003: AI & Human-in-the-Loop
+        Description: Mandate human-in-the-loop approval for any high-risk operations conducted by AI/ML systems.
+    -->
+    <Policy PolicyId="urn:example:company:policy:cep-req-003:ai-oversight"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable"
+            Version="1.0">
+        <Description>Requires human oversight for high-risk actions performed by AI agents.</Description>
+        <Target>
+            <!-- This policy applies only to subjects that are AI agents -->
+            <AnyOf>
+                <AllOf>
+                    <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                        <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">true</AttributeValue>
+                        <AttributeDesignator AttributeId="urn:example:company:attribute:subject:is-ai-agent" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                    </Match>
+                </AllOf>
+            </AnyOf>
+        </Target>
+
+        <Rule RuleId="urn:example:company:rule:ai-oversight:deny-high-risk-no-approval" Effect="Deny">
+            <Description>Denies high-risk AI actions without explicit human approval and triggers the approval workflow.</Description>
+            <Target>
+                <AnyOf>
+                    <AllOf>
+                         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-is-in">
+                            <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true"/>
+                             <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-bag">
+                                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">modify-design</AttributeValue>
+                                <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">modify-production-params</AttributeValue>
+                            </Apply>
+                        </Match>
+                    </AllOf>
+                </AnyOf>
+            </Target>
+            <Condition>
+                <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:boolean-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#boolean">false</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:example:company:attribute:environment:human-approval-provided" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" DataType="http://www.w3.org/2001/XMLSchema#boolean" MustBePresent="true"/>
+                </Apply>
+            </Condition>
+             <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:trigger-human-approval-workflow" FulfillOn="Deny"/>
+            </ObligationExpressions>
+        </Rule>
+
+        <Rule RuleId="urn:example:company:rule:ai-oversight:permit-with-approval" Effect="Permit">
+            <Description>Permits high-risk AI action once human approval is provided and logs it immutably.</Description>
+            <ObligationExpressions>
+                <ObligationExpression ObligationId="urn:example:company:obligation:log-immutable-ai-decision" FulfillOn="Permit"/>
+            </ObligationExpressions>
+        </Rule>
+    </Policy>
+
+</PolicySet>
