@@ -1,0 +1,81 @@
+
+*** GPT 5 ****
+{
+  "Domain": "SAP",
+  "ObjectName": "BAPI_USER_GET_DETAIL",
+  "SystemType": "SAP ABAP Server",
+  "Requirements": [
+    {
+      "ID": "REQ-001",
+      "Description": "Enforce strict least-privilege access to BAPI_USER_GET_DETAIL for both human and technical users.",
+      "Rationale": "This BAPI exposes sensitive user details (roles, profiles, logon data), enabling reconnaissance and privilege escalation if misused. Limiting who can execute it materially reduces risk.",
+      "Control": "Grant S_RFC only for RFC_NAME = 'BAPI_USER_GET_DETAIL' (no wildcards, no SAP_ALL). Limit to designated user administration roles. Apply S_USER_GRP to permit display only for explicitly approved user groups (CLASS values) with ACTVT=03. Prohibit generic/shared accounts and require named identities for dialog use.",
+      "Standard": "ISO/IEC 27001:2013 A.9.1, A.9.2, A.9.4; ISO/IEC 27001:2022 A.5.15, A.5.18; IEC 62443-3-3 SR 1.4, SR 1.5; ISO 31000 (Risk treatment: least privilege)"
+    },
+    {
+      "ID": "REQ-002",
+      "Description": "Control remote (RFC) access paths with Zero Trust allowlisting and strong service identity.",
+      "Rationale": "The RFC-enabled nature of this BAPI increases exposure to external systems. Improperly secured RFC access can be abused for remote reconnaissance.",
+      "Control": "Allow RFC calls only from vetted SM59 destinations mapped to trusted systems and managed service accounts. Enforce SNC/mutual TLS for RFC, rotate service credentials, and disallow wildcard RFC authorizations (S_RFC). Require just-in-time, time-bound elevation for exceptional remote use with approvals and session recording.",
+      "Standard": "ISO/IEC 27001:2013 A.13.1, A.9.4.2; ISO/IEC 27001:2022 A.8.20, A.8.21; IEC 62443-3-3 SR 1.3, SR 2.1, SR 3.1, SR 4.1; ISO 31000 (Risk control selection)"
+    },
+    {
+      "ID": "REQ-003",
+      "Description": "Implement granular authorization by user group for data minimization.",
+      "Rationale": "Limiting the user groups whose data can be viewed reduces blast radius and aligns to need-to-know.",
+      "Control": "Use S_USER_GRP to constrain CLASS values to only the specific user groups that an operator is responsible for. Deny access when CLASS is unspecified or wildcarded. Periodically reconcile CLASS values with HR/Identity data to ensure continued relevance.",
+      "Standard": "ISO/IEC 27001:2013 A.9.1.2, A.9.4.1; ISO/IEC 27001:2022 A.5.15, A.5.18; IEC 62443-3-3 SR 1.5; ISO 31000 (Risk mitigation via scope reduction)"
+    },
+    {
+      "ID": "REQ-004",
+      "Description": "Prevent exposure of highly sensitive credential artifacts and default/security configuration details through this BAPI.",
+      "Rationale": "Returned password-related structures or hashes enable offline cracking and accelerate privilege escalation; security defaults/configs can aid attacks.",
+      "Control": "Block or strip any request/response fields that return password hashes or credential artifacts (e.g., PASSWORD structures) and suppress unneeded security-default data unless formally justified. Where custom wrappers exist, ensure sensitive fields are never logged or forwarded in plaintext and that downstream applications enforce equivalent controls.",
+      "Standard": "ISO/IEC 27001:2013 A.9.4.1, A.10.1, A.12.3; ISO/IEC 27001:2022 A.8.11, A.8.12; IEC 62443-3-3 SR 4.2 (Confidentiality), SR 3.4; ISO 31000 (Risk treatment: avoid/mitigate high-impact data exposure)"
+    },
+    {
+      "ID": "REQ-005",
+      "Description": "Enable comprehensive audit logging and continuous monitoring for execution of BAPI_USER_GET_DETAIL.",
+      "Rationale": "Early detection of enumeration and reconnaissance (e.g., wildcard username, bulk queries, queries on SAP*/DDIC) is critical to limit attack progression.",
+      "Control": "Activate SAP Security Audit Log (SM20) to capture RFC caller, destination, input parameters, target username, and result codes for this BAPI. Forward logs to SIEM. Generate alerts for: use of wildcard '' in username, high-volume access across many users, access to privileged users (SAP, DDIC, system or admin roles), and executions from new/untrusted RFC destinations or generic technical users.",
+      "Standard": "ISO/IEC 27001:2013 A.12.4; ISO/IEC 27001:2022 A.8.15, A.8.16; IEC 62443-3-3 SR 6.1, SR 6.2, SR 6.8; ISO 31000 (Monitoring and review)"
+    },
+    {
+      "ID": "REQ-006",
+      "Description": "Detect and contain enumeration and abuse with policy-based thresholds and automated response.",
+      "Rationale": "Automated reconnaissance often exhibits anomalous frequency and breadth; rate controls and kill-switches reduce risk quickly.",
+      "Control": "In the Zero Trust access engine, enforce rate limits per identity and per RFC destination for this BAPI, with automatic temporary block/quarantine on threshold breaches (e.g., N attempts/minute or M distinct user IDs/hour). Require step-up authentication for spikes. Notify security operations and create incidents for investigation.",
+      "Standard": "ISO/IEC 27001:2013 A.12.1.1, A.12.4.1; ISO/IEC 27001:2022 A.8.16; IEC 62443-3-3 SR 7.6 (Resource management/DoS resilience), SR 2.8; ISO 31000 (Risk treatment: mitigate likelihood)"
+    },
+    {
+      "ID": "REQ-007",
+      "Description": "Secure development and change control for custom ABAP and integrations that call this BAPI.",
+      "Rationale": "Custom code can bypass intended controls or leak sensitive data if not properly checked.",
+      "Control": "Mandate AUTHORITY-CHECK for S_RFC and S_USER_GRP before invocation. Prohibit logging of returned personal/credential data in plaintext. Mask sensitive fields in UIs and interfaces. Subject all changes to code review and transport approval with security sign-off, including scanning for use of wildcard parameters and debug backdoors.",
+      "Standard": "ISO/IEC 27001:2013 A.14.2.1–A.14.2.9; ISO/IEC 27001:2022 A.8.28 (Secure coding), A.8.9 (Configuration), A.8.8 (Secure development lifecycle); IEC 62443-4-1 (Secure product development), 62443-3-3 SR 3.3; ISO 31000 (Risk control in change management)"
+    },
+    {
+      "ID": "REQ-008",
+      "Description": "Conduct periodic access recertification and role hygiene for all permissions enabling this BAPI.",
+      "Rationale": "Over time, access creep increases the chance of misuse; regular review sustains least privilege.",
+      "Control": "Quarterly, review and certify all roles and users with S_RFC access to RFC_NAME 'BAPI_USER_GET_DETAIL' and S_USER_GRP permissions. Remove unnecessary or dormant access, eliminate wildcard authorizations, and document risk acceptance for any exceptions. Validate technical user ownership and purpose.",
+      "Standard": "ISO/IEC 27001:2013 A.9.2.5, A.9.2.6; ISO/IEC 27001:2022 A.5.16, A.5.18; IEC 62443-3-3 SR 1.1 (Account management); ISO 31000 (Continual improvement and review)"
+    },
+    {
+      "ID": "REQ-009",
+      "Description": "Harden RFC destinations and network paths used for this BAPI within a Zero Trust architecture.",
+      "Rationale": "Reducing network reachability and hardening communications limits attack surface and lateral movement.",
+      "Control": "Restrict network access to the RFC gateway from only approved segments; disable unused RFC destinations (SM59) and remove test connections. Enforce encryption-in-transit (SNC/mTLS), modern ciphers, and certificate lifecycle management. Continuously validate posture of calling systems (patch level, device identity) before allowing calls.",
+      "Standard": "ISO/IEC 27001:2013 A.13.1, A.13.2; ISO/IEC 27001:2022 A.8.20, A.8.21; IEC 62443-3-3 SR 3.1, SR 4.1; ISO 31000 (Risk reduction by control enhancement)"
+    },
+    {
+      "ID": "REQ-010",
+      "Description": "Establish misuse response, testing, and AI/automation governance for access to this BAPI.",
+      "Rationale": "Prepared response limits impact; governance ensures bots/AI or automation (if any) do not over-collect sensitive user data.",
+      "Control": "Maintain runbooks to immediately revoke S_RFC access, disable RFC destinations, and block calls at the ZT gateway upon detection of abuse. Perform periodic red-team/purple-team tests simulating user enumeration and password-hash exfiltration attempts to validate detection and response. If AI/automation systems invoke this BAPI, register them, apply purpose limitation, data minimization, and audit their calls for compliance.",
+      "Standard": "ISO/IEC 27001:2013 A.16.1 (Information security incident management), A.18.2 (Compliance); ISO/IEC 27001:2022 A.5.24 (Information security in supplier relationships), A.8.16; IEC 62443-3-3 SR 6.2, SR 6.8; ISO/IEC 42001:2023 (Operational control, risk and data governance for AI/automation); ISO 31000 (Risk monitoring and treatment)"
+    }
+  ]
+}
+
+

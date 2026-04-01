@@ -1,0 +1,88 @@
+**** Mistral Large Instruct
+
+{
+   "Domain": "SAP",
+   "ObjectName": "BAPI_USER_GET_DETAIL",
+   "SystemType": "SAP ABAP Server",
+   "Requirements": [
+       {
+           "ID": "REQ-001",
+           "Description": "Enforce least privilege for all users and systems accessing BAPI_USER_GET_DETAIL.",
+           "Rationale": "Reduces attack surface by limiting access to only necessary roles (Recommendation).",
+           "Control": "Regularly review roles granting S_RFC and S_USER_GRP access. Remove unnecessary permissions.",
+           "Standard": "ISO 27001 A.9.2 (User Access Management), NIST SP 800-207 (Least Privilege)"
+       },
+       {
+           "ID": "REQ-002",
+           "Description": "Strictly limit execution rights for BAPI_USER_GET_DETAIL using authorization object S_USER_GRP.",
+           "Rationale": "Prevents unauthorized access to sensitive user details (Recommendation).",
+           "Control": "Configure S_USER_GRP to restrict data display for user groups. Review and adjust as necessary.",
+           "Standard": "ISO 27001 A.9.4 (Access control policy), ISO 31000 (Risk Management)"
+       },
+       {
+           "ID": "REQ-003",
+           "Description": "Regularly review and adjust roles and users with access to BAPI_USER_GET_DETAIL.",
+           "Rationale": "Ensures only necessary administrative roles have access (Recommendation).",
+           "Control": "Perform periodic audits of user roles. Implement the principle of least privilege.",
+           "Standard": "ISO 27001 A.9.1 (User access management), NIST SP 800-53 (Access Control)"
+       },
+       {
+           "ID": "REQ-004",
+           "Description": "Secure RFC communications and destinations (SM59) related to BAPI_USER_GET_DETAIL.",
+           "Rationale": "Protects against unauthorized remote access (OtherInformation).",
+           "Control": "Implement strong encryption and authentication for RFC destinations. Monitor for remote executions.",
+           "Standard": "ISO 27001 A.10.1 (Cryptographic controls), IEC 62443 (Secure Product Development)"
+       },
+       {
+           "ID": "REQ-005",
+           "Description": "Monitor execution of BAPI_USER_GET_DETAIL for unusual patterns and activities.",
+           "Rationale": "Helps detect reconnaissance and privilege escalation attempts (Recommendation).",
+           "Control": "Use Security Audit Log (SM20) or SIEM solutions. Pay attention to wildcard usage in username parameters.",
+           "Standard": "ISO 27001 A.4.1 (Monitoring activities), ISO 31000 (Risk Management)"
+       },
+       {
+           "ID": "REQ-006",
+           "Description": "Ensure secure handling of data retrieved from BAPI_USER_GET_DETAIL.",
+           "Rationale": "Prevents exposure of sensitive data like password hashes (OtherInformation).",
+           "Control": "Ensure data is not logged in plaintext. Implement secure handling practices.",
+           "Standard": "ISO 27001 A.10.1 (Cryptographic controls), IEC 62443 (Secure Communication)"
+       },
+       {
+           "ID": "REQ-007",
+           "Description": "Scrutinize custom ABAP programs that call BAPI_USER_GET_DETAIL.",
+           "Rationale": "Prevents unintended exposure of sensitive data (OtherInformation).",
+           "Control": "Review and audit custom programs. Ensure they follow secure coding practices.",
+           "Standard": "IEC 62443 (Secure Design), ISO 42001 (Requirements for Structural Design)"
+       },
+       {
+           "ID": "REQ-008",
+           "Description": "Restrict execution permissions for BAPI_USER_GET_DETAIL via authorization object S_RFC.",
+           "Rationale": "Limits which remote users/systems can call it (Recommendation).",
+           "Control": "Ensure strict 'actvt' and 'RFC_NAME' controls. Regularly review and adjust permissions.",
+           "Standard": "ISO 27001 A.9.4 (Access control policy), NIST SP 800-53 (Access Control)"
+       },
+       {
+           "ID": "REQ-009",
+           "Description": "Implement granular checks using authorization object S_USER_GRP to control displayed user group details.",
+           "Rationale": "Ensures only necessary user group details are accessible (Recommendation).",
+           "Control": "Configure S_USER_GRP to restrict data display. Regularly review and adjust settings.",
+           "Standard": "ISO 27001 A.9.4 (Access control policy), NIST SP 800-53 (Access Control)"
+       },
+       {
+           "ID": "REQ-010",
+           "Description": "Execute and monitor logs for BAPI_USER_GET_DETAIL calls made with a wildcard '*' in the username parameter.",
+           "Rationale": "Detects attempts to enumerate system users (OtherInformation).",
+           "Control": "Use Security Audit Log (SM20) or SIEM solutions to monitor for unusual patterns.",
+           "Standard": "ISO 27001 A.4.1 (Monitoring activities), ISO 31000 (Risk Management)"
+       },
+       {
+           "ID": "REQ-011",
+           "Description": "Ensure calling applications handle data retrieved from BAPI_USER_GET_DETAIL securely.",
+           "Rationale": "Protects sensitive information from unauthorized exposure (OtherInformation).",
+           "Control": "Implement secure data handling practices. Avoid logging sensitive data in plaintext.",
+           "Standard": "ISO 27001 A.10.1 (Cryptographic controls), IEC 62443 (Secure Communication)"
+       }
+   ]
+}
+
+
