@@ -1,0 +1,240 @@
+"""
+Zero Trust Architecture (ZTA) Policy Enforcement Module for SAP BAPI_USER_GET_DETAIL
+
+This module implements a Python-based ABAC (Attribute-Based Access Control) engine
+for enforcing security requirements in a Zero Trust environment. It integrates with:
+- Access Control Module: Evaluates access requests using subject, resource, and environment attributes.
+- IDP (Intrusion Detection/Prevention): Analyzes network traffic for anomalies and high-risk patterns.
+
+Requirements mapped:
+- REQ-SAP-BAPIUSER-001: Least Privilege via S_RFC and S_USER_GRP
+- REQ-SAP-BAPIUSER-002: Logging & Monitoring
+- REQ-SAP-BAPIUSER-003: Secure RFC Destinations
+- REQ-SAP-BAPIUSER-004: Secure Data Handling
+- REQ-SAP-BAPIUSER-005: Periodic Access Review
+
+Compliance: IEC 62443, NIST SP 800-207, ISO 27001, ISO 42001, EU AI Act (Art. 9–14)
+"""
+
+from datetime import datetime, timedelta
+from typing import Dict, Any, List, Optional
+import logging
+import json
+import hashlib
+import re
+
+# Configure logging for audit trail (REQ-SAP-BAPIUSER-002)
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s | %(levelname)s | %(name)s | %(message)s',
+    handlers=[
+        logging.FileHandler("zta_bapi_user_audit.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("ZTA_BAPI_POLICY")
+
+# IDP Traffic Analysis Module (REQ-SAP-BAPIUSER-002, NIST SP  fof 800-207 Continuous Monitoring)
+class IDPAnalyzer:
+    def __init__(self):
+        self.call_history = {}  # {source_ip: [timestamps]}
+        self.high_risk_users = {"SAP*", "DDIC"}
+
+    def analyze_traffic(self, request: Dict) -> Dict[str, Any]:
+        source_ip = request.get("client_ip")
+        username_param = request.get("parameters", {}).get("USERNAME", "")
+        current_time = datetime.now()
+
+        # Track frequency
+        if source_ip not in self.call_history:
+            self.call_history[source_ip] = []
+        self.call_history[source_ip].append(current_time)
+        # Clean old entries (>5 min)
+        self.call_history[source_ip] = [
+            t for t in self.call_history[source_ip]
+            if current_time - t < timedelta(minutes=5)
+        ]
+
+        alerts = []
+        if len(self.call_history[source_ip]) > 10:
+            alerts.append("HIGH_FREQUENCY_CALLS")
+        if username_param == "*":
+            alerts.append("WILDCARD_USERNAME")
+        if any(re.match(pattern.replace("*", ".*"), username_param, re.IGNORECASE)
+               for pattern in self.high_risk_users):
+            alerts.append("CRITICAL_USER_ACCESS")
+
+        return {"alerts": alerts, "risk_score": len(alerts) * 30}
+
+# ZTA Access Control Module (ABAC Engine)
+class ZTAAccessControl:
+    def __init__(self):
+        self.idp = IDPAnalyzer()
+        self.last_review_date = datetime.now() - timedelta(days=180)  # Simulate last review
+        self.review_cycle_days = 180  # Semi-annual
+
+    def _check_least_privilege(self, subject: Dict) -> bool:
+        """REQ-SAP-BAPIUSER-001: Enforce S_RFC and S_USER_GRP with least privilege"""
+        s_rfc = subject.get("authorizations", {}).get("S_RFC", {})
+        s_user_grp = subject.get("authorizations", {}).get("S_USER_GRP", {})
+
+        # S_RFC: RFC_TYPE='FUGR', RFC_NAME='SU_USER', ACTVT='16'
+        rfc_valid = (
+            s_rfc.get("RFC_TYPE") == "FUGR" and
+            s_rfc.get("RFC_NAME") == "SU_USER" and
+            s_rfc.get("ACTVT") == "16"
+        )
+
+        # S_USER_GRP: ACTVT in ['03', '05'] and restricted scope
+        user_grp_valid = s_user_grp.get("ACTVT") in ["03", "05"]
+
+        # Only admin roles allowed
+        role_valid = "ADMIN" in subject.get("roles", [])
+
+        return rfc_valid and user_grp_valid and role_valid
+
+    def _check_secure_remote_access(self, request: Dict, subject: Dict) -> bool:
+        """REQ-SAP-BAPIUSER-003: Secure RFC destinations"""
+        rfc_dest = request.get("rfc_destination", {})
+        user_type = subject.get("user_type")
+
+        return (
+            rfc_dest.get("protocol") in ["SNC", "TLS"] and
+            user_type == "NON_DIALOG" and
+            rfc_dest.get("authorization_scope") == "MINIMAL"
+        )
+
+    def _check_secure_data_handling(self, request: Dict, subject: Dict) -> bool:
+        """REQ-SAP-BAPIUSER-004: No logging of sensitive data"""
+        app_code_compliant = request.get("application", {}).get("code_review_status") == "APPROVED"
+        no_sensitive_log = not request.get("application", {}).get("logs_password_hash", False)
+        view_authorized = subject.get("data_view_authorization") == "AUTHORIZED"
+
+        return app_code_compliant and no_sensitive_log and view_authorized
+
+    def _check_periodic_review(self, subject: Dict) -> bool:
+        """REQ-SAP-BAPIUSER-005: Semi-annual recertification"""
+        if datetime.now() - self.last_review_date > timedelta(days=self.review_cycle_days):
+            logger.warning("Access review overdue. Recertification required.")
+            return False
+        return subject.get("role_recertification") == "CURRENT"
+
+    def _enforce_logging(self, request: Dict, decision: str, risk_data: Dict):
+        """REQ-SAP-BAPIUSER-002: Log all attempts"""
+        log_entry = {
+            "timestamp": datetime.now().isoformat(),
+            "decision": decision,
+            "user": request["subject"]["user_id"],
+            "source_ip": request["client_ip"],
+            "function": "BAPI_USER_GET_DETAIL",
+            "parameters": request.get("parameters", {}),
+            "risk_alerts": risk_data["alerts"],
+            "risk_score": risk_data["risk_score"]
+        }
+        logger.info(json.dumps(log_entry))
+
+        # Trigger SIEM alert on high risk
+        if risk_data["risk_score"] >= 60:
+            logger.critical(f"ALERT: High-risk access attempt - {log_entry}")
+
+    def evaluate(self, request: Dict) -> Dict[str, Any]:
+        """
+        Main ABAC evaluation function.
+        Returns: {'decision': 'Permit'|'Deny', 'obligations': [...], 'reason': '...'}
+        """
+        subject = request.get("subject", {})
+        resource = request.get("resource", {})
+        environment = request.get("environment", {})
+
+        # Resource must be BAPI_USER_GET_DETAIL
+        if resource.get("function_module") != "BAPI_USER_GET_DETAIL":
+            return {"decision": "NotApplicable", "obligations": [], "reason": "Resource mismatch"}
+
+        # Step 1: IDP Traffic Analysis
+        risk_data = self.idp.analyze_traffic(request)
+
+        # Step 2: Least Privilege Check
+        if not self._check_least_privilege(subject):
+            self._enforce_logging(request, "Deny", risk_data)
+            return {
+                "decision": "Deny",
+                "obligations": [],
+                "reason": "Least privilege violation (S_RFC/S_USER_GRP)"
+            }
+
+        # Step 3: Secure Remote Access
+        if request.get("is_remote") and not self._check_secure_remote_access(request, subject):
+            self._enforce_logging(request, "Deny", risk_data)
+            return {
+                "decision": "Deny",
+                "obligations": [],
+                "reason": "Insecure RFC destination"
+            }
+
+        # Step 4: Secure Data Handling
+        if not self._check_secure_data_handling(request, subject):
+            self._enforce_logging(request, "Deny", risk_data)
+            return {
+                "decision": "Deny",
+                "obligations": [],
+                "reason": "Insecure sensitive data handling"
+            }
+
+        # Step 5: Periodic Review
+        if not self._check_periodic_review(subject):
+            self._enforce_logging(request, "Deny", risk_data)
+            return {
+                "decision": "Deny",
+                "obligations": [],
+                "reason": "Access rights not recertified"
+            }
+
+        # All checks passed
+        self._enforce_logging(request, "Permit", risk_data)
+        obligations = [
+            {"action": "log_execution", "details": "BAPI_USER_GET_DETAIL access granted"},
+            {"action": "notify_idp", "alerts": risk_data["alerts"]},
+            {"action": "mask_sensitive_output", "fields": ["PASSWORD", "LOGONDATA"]}
+        ]
+
+        return {
+            "decision": "Permit",
+            "obligations": obligations,
+            "reason": "All ZTA requirements satisfied",
+            "risk_score": risk_data["risk_score"]
+        }
+
+# Example Usage & Test
+if __name__ == "__main__":
+    zta = ZTAAccessControl()
+
+    # Sample request (should be PERMIT)
+    valid_request = {
+        "subject": {
+            "user_id": "ADMIN_001",
+            "roles": ["ADMIN"],
+            "user_type": "NON_DIALOG",
+            "authorizations": {
+                "S_RFC": {"RFC_TYPE": "FUGR", "RFC_NAME": "SU_USER", "ACTVT": "16"},
+                "S_USER_GRP": {"ACTVT": "05"}
+            },
+            "data_view_authorization": "AUTHORIZED",
+            "role_recertification": "CURRENT"
+        },
+        "resource": {"function_module": "BAPI_USER_GET_DETAIL"},
+        "client_ip": "10.0.0.50",
+        "is_remote": True,
+        "rfc_destination": {"protocol": "SNC", "authorization_scope": "MINIMAL"},
+        "application": {"code_review_status": "APPROVED", "logs_password_hash": False},
+        "parameters": {"USERNAME": "USER123"}
+    }
+
+    result = zta.evaluate(valid_request)
+    print(json.dumps(result, indent=2))
+
+    # Simulate high-frequency attack
+    for i in range(15):
+        attack_request = valid_request.copy()
+        attack_request["client_ip"] = "10.0.0.666"
+        attack_request["parameters"]["USERNAME"] = "*"
+        result = zta.evaluate(attack_request)

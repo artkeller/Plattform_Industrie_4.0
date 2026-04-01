@@ -1,0 +1,269 @@
+REPORT z_zta_bapi_user_policy.
+
+* Zero Trust Architecture (ZTA) Policy Enforcement for SAP BAPI_USER_GET_DETAIL
+* This ABAP program implements ABAC via GRC_AC for access control and simulates IDP for traffic analysis.
+* Requirements implemented:
+* - REQ-SAP-BAPIUSER-001: Least Privilege via S_RFC and S_USER_GRP
+* - REQ-SAP-BAPIUSER-002: Logging & Monitoring with SM20/SIEM alerts
+* - REQ-SAP-BAPIUSER-003: Secure RFC Destinations
+* - REQ-SAP-BAPIUSER-004: Secure Data Handling
+* - REQ-SAP-BAPIUSER-005: Periodic Access Review
+* Compliance: IEC 62443, NIST SP 800-207, ISO 27001, ISO 42001, EU AI Act (Art. 9–14)
+
+* Data Structures
+DATA: BEGIN OF gs_request,
+        user_id TYPE string,
+        roles TYPE TABLE OF string,
+        user_type TYPE string,
+        authorizations TYPE REF TO data,  " S_RFC and S_USER_GRP structures
+        client_ip TYPE string,
+        is_remote TYPE abap_bool,
+        rfc_destination TYPE REF TO data,  " Protocol, Scope
+        application TYPE REF TO data,  " Code review status, logging flags
+        parameters TYPE REF TO data,  " e.g. USERNAME
+      END OF gs_request.
+
+DATA: gv_high_risk_users TYPE TABLE OF string VALUE ('SAP*' 'DDIC'),
+      gv_call_history TYPE TABLE OF ty_call_entry,  " {ip: timestamps}
+      gv_last_review_date TYPE dats,
+      gv_review_cycle_days TYPE i VALUE 180.
+
+* Types
+TYPES: BEGIN OF ty_call_entry,
+         ip TYPE string,
+         timestamp TYPE timestamp,
+       END OF ty_call_entry.
+
+* GRC_AC Integration (Access Control Module)
+CLASS cl_grc_ac_checker DEFINITION.
+  PUBLIC SECTION.
+    METHODS check_access
+      IMPORTING is_request TYPE gs_request
+      RETURNING VALUE(rv_decision) TYPE abap_bool
+      RAISING cx_grc_ac_exception.
+ENDCLASS.
+
+CLASS cl_grc_ac_checker IMPLEMENTATION.
+  METHOD check_access.
+    * REQ-001: Least Privilege - Check S_RFC and S_USER_GRP
+    AUTHORITY-CHECK OBJECT 'S_RFC'
+      ID 'RFC_TYPE' FIELD 'FUGR'
+      ID 'RFC_NAME' FIELD 'SU_USER'
+      ID 'ACTVT' FIELD '16'.
+    IF sy-subrc <> 0.
+      rv_decision = abap_false. RETURN.
+    ENDIF.
+
+    AUTHORITY-CHECK OBJECT 'S_USER_GRP'
+      ID 'ACTVT' FIELD '05'.
+    IF sy-subrc <> 0.
+      rv_decision = abap_false. RETURN.
+    ENDIF.
+
+    * Check dedicated admin roles
+    IF NOT line_exists( is_request-roles[ table_line = 'ADMIN' ] ).
+      rv_decision = abap_false. RETURN.
+    ENDIF.
+
+    rv_decision = abap_true.
+  ENDMETHOD.
+ENDCLASS.
+
+* IDP Traffic Analysis Module
+CLASS cl_idp_analyzer DEFINITION.
+  PUBLIC SECTION.
+    METHODS analyze_traffic
+      IMPORTING is_request TYPE gs_request
+      RETURNING VALUE(rs_risk) TYPE ty_risk_data.
+ENDCLASS.
+
+CLASS cl_idp_analyzer IMPLEMENTATION.
+  METHOD analyze_traffic.
+    DATA: lv_current_time TYPE timestamp.
+    GET TIME STAMP FIELD lv_current_time.
+
+    * Track frequency
+    APPEND VALUE #( ip = is_request-client_ip timestamp = lv_current_time ) TO gv_call_history.
+    DELETE gv_call_history WHERE timestamp < lv_current_time - 300.  " 5 min
+
+    DATA(lt_alerts) = VALUE string_table( ).
+
+    IF lines( FILTER #( gv_call_history WHERE ip = is_request-client_ip ) ) > 10.
+      APPEND 'HIGH_FREQUENCY_CALLS' TO lt_alerts.
+    ENDIF.
+
+    DATA(lv_username) = is_request-parameters->*-username.
+    IF lv_username = '*'.
+      APPEND 'WILDCARD_USERNAME' TO lt_alerts.
+    ENDIF.
+
+    LOOP AT gv_high_risk_users ASSIGNING FIELD-SYMBOL(<lv_high_risk>).
+      IF lv_username CP <lv_high_risk>.
+        APPEND 'CRITICAL_USER_ACCESS' TO lt_alerts.
+      ENDIF.
+    ENDLOOP.
+
+    rs_risk-alerts = lt_alerts.
+    rs_risk-risk_score = lines( lt_alerts ) * 30.
+  ENDMETHOD.
+ENDCLASS.
+
+* Secure Data Handling Check
+FUNCTION z_secure_data_handling.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(IS_REQUEST) TYPE GS_REQUEST
+*"  RETURNING
+*"     VALUE(RV_VALID) TYPE ABAP_BOOL
+*"----------------------------------------------------------------------
+
+  * REQ-004: Check code review, no logging of sensitive data
+  IF is_request-application->code_review_status <> 'APPROVED' OR
+     is_request-application->logs_password_hash = abap_true.
+    rv_valid = abap_false. RETURN.
+  ENDIF.
+
+  AUTHORITY-CHECK OBJECT 'S_DATA_VIEW'  " Custom auth object example
+    ID 'ACTVT' FIELD '03'.
+  IF sy-subrc <> 0.
+    rv_valid = abap_false. RETURN.
+  ENDIF.
+
+  rv_valid = abap_true.
+ENDFUNCTION.
+
+* Periodic Review
+FUNCTION z_periodic_review_check.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(IS_SUBJECT) TYPE GS_REQUEST-SUBJECT
+*"  RETURNING
+*"     VALUE(RV_VALID) TYPE ABAP_BOOL
+*"----------------------------------------------------------------------
+
+  * REQ-005: Check if review is due
+  DATA(lv_current_date) TYPE dats.
+  lv_current_date = sy-datum.
+
+  IF lv_current_date - gv_last_review_date > gv_review_cycle_days.
+    CALL FUNCTION 'Z_TRIGGER_REVIEW'  " Simulate review trigger
+      EXPORTING
+        roles = is_subject-roles.
+    rv_valid = abap_false. RETURN.
+  ENDIF.
+
+  IF is_subject-role_recertification <> 'CURRENT'.
+    rv_valid = abap_false. RETURN.
+  ENDIF.
+
+  rv_valid = abap_true.
+ENDFUNCTION.
+
+* Main Enforcement Function
+FUNCTION z_zta_enforce_bapi_access.
+*"----------------------------------------------------------------------
+*"*"Local Interface:
+*"  IMPORTING
+*"     VALUE(IS_REQUEST) TYPE GS_REQUEST
+*"  RETURNING
+*"     VALUE(RS_RESULT) TYPE TY_ZTA_RESULT  " {decision: ABAP_BOOL, obligations: TABLE, reason: STRING}
+*"----------------------------------------------------------------------
+
+  DATA: lo_grc_checker TYPE REF TO cl_grc_ac_checker,
+        lo_idp TYPE REF TO cl_idp_analyzer,
+        lv_least_priv TYPE abap_bool,
+        lv_secure_remote TYPE abap_bool,
+        lv_secure_data TYPE abap_bool,
+        lv_review TYPE abap_bool,
+        ls_risk TYPE ty_risk_data.
+
+  CREATE OBJECT lo_grc_checker.
+  CREATE OBJECT lo_idp.
+
+  * IDP Analysis (REQ-002)
+  ls_risk = lo_idp->analyze_traffic( is_request ).
+
+  * Access Control (REQ-001)
+  lv_least_priv = lo_grc_checker->check_access( is_request ).
+
+  IF lv_least_priv = abap_false.
+    PERFORM log_attempt USING is_request 'Deny' ls_risk 'Least privilege violation'.
+    rs_result-decision = abap_false.
+    rs_result-reason = 'Least privilege violation (S_RFC/S_USER_GRP)'.
+    RETURN.
+  ENDIF.
+
+  * Secure Remote (REQ-003)
+  IF is_request-is_remote = abap_true.
+    * Check RFC protocol, user type, auth scope
+    lv_secure_remote = ( is_request-rfc_destination-protocol IN ('SNC' 'TLS') AND
+                         is_request-user_type = 'NON_DIALOG' AND
+                         is_request-rfc_destination-authorization_scope = 'MINIMAL' ).
+    IF lv_secure_remote = abap_false.
+      PERFORM log_attempt USING is_request 'Deny' ls_risk 'Insecure RFC destination'.
+      rs_result-decision = abap_false.
+      rs_result-reason = 'Insecure RFC destination'.
+      RETURN.
+    ENDIF.
+  ENDIF.
+
+  * Secure Data Handling (REQ-004)
+  CALL FUNCTION 'Z_SECURE_DATA_HANDLING'
+    EXPORTING is_request = is_request
+    IMPORTING rv_valid = lv_secure_data.
+  IF lv_secure_data = abap_false.
+    PERFORM log_attempt USING is_request 'Deny' ls_risk 'Insecure sensitive data handling'.
+    rs_result-decision = abap_false.
+    rs_result-reason = 'Insecure sensitive data handling'.
+    RETURN.
+  ENDIF.
+
+  * Periodic Review (REQ-005)
+  CALL FUNCTION 'Z_PERIODIC_REVIEW_CHECK'
+    EXPORTING is_subject = is_request-subject
+    IMPORTING rv_valid = lv_review.
+  IF lv_review = abap_false.
+    PERFORM log_attempt USING is_request 'Deny' ls_risk 'Access rights not recertified'.
+    rs_result-decision = abap_false.
+    rs_result-reason = 'Access rights not recertified'.
+    RETURN.
+  ENDIF.
+
+  * Permit with obligations
+  PERFORM log_attempt USING is_request 'Permit' ls_risk 'All ZTA requirements satisfied'.
+  APPEND 'log_execution' TO rs_result-obligations.
+  APPEND 'notify_idp_alerts' TO rs_result-obligations.
+  APPEND 'mask_sensitive_output' TO rs_result-obligations.
+  rs_result-decision = abap_true.
+  rs_result-reason = 'All ZTA requirements satisfied'.
+  rs_result-risk_score = ls_risk-risk_score.
+ENDFUNCTION.
+
+* Logging Form Routine (REQ-002)
+FORM log_attempt USING ps_request TYPE gs_request
+                       pv_decision TYPE string
+                       ps_risk TYPE ty_risk_data
+                       pv_reason TYPE string.
+  DATA: ls_log TYPE ty_audit_log.
+
+  ls_log-timestamp = sy-datum && sy-uzeit.
+  ls_log-decision = pv_decision.
+  ls_log-user = ps_request-user_id.
+  ls_log-source_ip = ps_request-client_ip.
+  ls_log-function = 'BAPI_USER_GET_DETAIL'.
+  ls_log-parameters = ps_request-parameters.
+  ls_log-risk_alerts = ps_risk-alerts.
+  ls_log-risk_score = ps_risk-risk_score.
+  ls_log-reason = pv_reason.
+
+  * Write to SM20 or SIEM (simulate)
+  CALL FUNCTION 'Z_WRITE_TO_SM20'
+    EXPORTING is_log = ls_log.
+
+  IF ps_risk-risk_score >= 60.
+    CALL FUNCTION 'Z_TRIGGER_SIEM_ALERT'
+      EXPORTING is_log = ls_log.
+  ENDIF.
+ENDFORM.
