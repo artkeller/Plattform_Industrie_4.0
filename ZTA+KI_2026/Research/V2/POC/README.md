@@ -18,7 +18,7 @@ The POC firstly was near to fail, as to too many current issues with LLMs, relat
 
 ## Current obstacles by using LLMs related to complex tasks
 
-The obstacles found were:
+The obstacles found were (as examples):
 
 * Reproducibility of machine readable output: The provisioning of machine readable output (i.e. JSON/XML based structures) does not happen in a reliable way, and must be enforced with corresponding prompting methodologies in an LLM-agnostic mode
 * Hallucinations: These must not occur at all in a security and ZTA environment, which must be enforced with corresponding prompting to reduce them to a minimum
@@ -34,7 +34,8 @@ The obstacles found were:
   * Lost in the Middle **(Link)**
   * etc.
 
-
+The above list is not final, other effects exist and might interfere with any queries towards a LLM.
+**Additional Hint: Semantic Fähigkeiten were not examined so far !!!!**
 
 All those effects need to be minimized, or even overcome, if a trustful LLM usage shall be established for use cases, where exactness is a base requirement (as this is the case for usage in Security tasks).
 
