@@ -108,6 +108,7 @@ As a result, the above mentioned obstacles could be removed, or the risk of thei
 
 * **Mitigation of Seed-Variance:** Repetition of the queries towards one LLM help mitigating the Seed Variance, as several different answers can be combined to an aggregated answer (see Step 1.3), which contains the commonalities as well as the deviations, and does not omit any data.
 * **Mitigation of Biasing Effects:** Repetition of the queries towards different LLMs help reducing Biasing effects, happening with each LLM
+* **Mitigation of Vendor Lock-In Effects** Prompt towards differentz LLMs, to proof for LLM agnostic answers.
 * **Mitigation of Context-Effects:** Prompting the questions always in a new session without previous history/context, removes any kind of context effects.
 
 **In order to receive a reduced statistical Variance/Standard Deviation, a repetition of 3 times per LLM x 3 different LLMs are highly recommended**
