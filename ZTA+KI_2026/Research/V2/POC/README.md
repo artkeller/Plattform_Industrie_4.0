@@ -31,6 +31,7 @@ The obstacles found were:
   * Silent Arbitration **(Link)**
   * Instruction Drift **(Link)**
   * Attention Erosion **(Link)**
+  * Lost in the Middle **(Link)**
   * etc.
 
 
