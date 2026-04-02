@@ -109,7 +109,7 @@ As a result, the above mentioned obstacles could be removed, or the risk of thei
 **Problems solved by context-less repetition of the same Prompt (several times per LLM, and same with different LLMs):**
 
 * **Mitigation of Seed-Variance:** Repetition of the queries towards one LLM help mitigating the Seed Variance, as several different answers can be combined to an aggregated answer (see Step 1.3), which contains the commonalities as well as the deviations, and does not omit any data.
-* **Mitigation of Biasing Effects:** Repetition of the queries towards different LLMs help reducing Biasing effects, happening with each LLM
+* **Mitigation of Biasing Effects:** Repetition of the queries towards different LLMs help reducing Biasing effects, happening with each LLM. There is a certain probability that BIASing is neutralized, but might in reality not be the case, if all LLMs have a similar BIAS drift.
 * **Mitigation of Vendor Lock-In Effects** Prompt towards differentz LLMs, to proof for LLM agnostic answers.
 * **Mitigation of Context-Effects:** Prompting the questions always in a new session without previous history/context, removes any kind of context effects.
 
