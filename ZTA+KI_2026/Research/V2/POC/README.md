@@ -87,7 +87,7 @@ The corresponding results for a chosen security question (Prompts and LLM Answer
 
 
 
-For each of the steps, a folder is available, which contains the LLM-agnostic Prompt, and several answers from the same, as well as from different LLM versions/vendors. The files can be
+For each of the steps, a folder is available, which contains the LLM-agnostic Prompt, and several answers from the same, as well as from different LLM versions/vendors.
 
 
 
