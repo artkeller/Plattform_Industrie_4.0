@@ -1,6 +1,6 @@
 # 1. Ausgangspunkt: Was ein Sprachmodell formal tut
 
-Ein Language Modell approximiert:
+Es approximiert:
 
 $$
 P(x_t \mid x_1, \dots, x_{t-1})
