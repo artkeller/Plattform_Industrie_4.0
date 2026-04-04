@@ -3,7 +3,7 @@
 Wie gezeigt, approximieren Sprachmodelle primär:
 
 $$
-P(x_t \mid x_{<t})
+P(x_t \mid x_{< t})
 $$
 
 Das führt zu:
