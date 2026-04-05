@@ -271,7 +271,7 @@ Das Ziel ist nicht, „Verstehen einzubauen“, sondern:
 Formal:
 
 $$
-P_\theta(x_t \mid x_{<t}, G)
+P_\theta(x_t \mid x_{< t}, G)
 $$
 
 mit zusätzlicher Nebenstruktur (G).
