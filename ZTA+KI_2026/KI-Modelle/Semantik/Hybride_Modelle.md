@@ -108,7 +108,7 @@ Das bedeutet:
 Externe Wissensbasis:
 
 $$
-\text{Kontext} = x_{<t} \cup \text{retrieve}(G)
+\text{Kontext} = x_{< t} \cup \text{retrieve}(G)
 $$
 
 → das Modell bekommt strukturierte Information zusätzlich
