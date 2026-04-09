@@ -21,7 +21,7 @@ Industrie-4.0-Systeme sind verteilt, dynamisch und sicherheitskritisch. ZTA verl
 - SLM/
 - Semantik/
 - ZTA-Kaskade.md
-- Abstract.md   ← übergeordnetes Abstract
+- Abstract.md   ← übergeordnetes Abstract der KI-Modelle
 
 ## Empfohlene Lesereihenfolge
 1. KI-Modelle-Abstract.md (Zusammenfassung aller Perspektiven)
