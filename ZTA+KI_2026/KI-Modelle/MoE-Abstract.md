@@ -7,7 +7,11 @@ Mixture-of-Experts-Architekturen als skalierbare Lösung für bedingte Berechnun
 Die Mixture-of-Experts (MoE)-Architektur stellt eine Weiterentwicklung der klassischen Transformer-Architektur dar, die das Skalierungs-Dilemma von Large Language Models (LLMs) durch sparsame Aktivierung (sparse activation) auflöst. Anstelle einer dichten Feed-Forward-Schicht (FFN) wird pro Transformer-Layer ein MoE-Modul eingesetzt, bestehend aus mehreren spezialisierten Experten-Netzwerken und einem lernbaren Gating-Netzwerk (Router). Für jedes Token berechnet der Router eine Passgenauigkeit und aktiviert mittels Top-k-Routing lediglich eine kleine feste Anzahl von Experten (typischerweise Top-2), wodurch bei Modellen mit Hunderten Milliarden Parametern nur ein Bruchteil der Parameter pro Inferenz aktiv ist.
 
 Die mathematische Ausgabe einer MoE-Schicht lautet  
-\[ y = \sum_{i=1}^{n} G(x)_i \cdot E_i(x) \]  
+
+$$
+y = \sum_{i=1}^{n} G(x)_i \cdot E_i(x)
+$$  
+
 wobei \( G(x) \) ein sparse Gating-Vektor mit ausschließlich Top-\( k \)-Einträgen ungleich null ist. Zur Vermeidung von Expert Collapse wird eine zusätzliche Load-Balancing-Loss-Funktion  
 \[ \mathcal{L}_{aux} = w \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i \]  
 integriert, die eine gleichmäßige Auslastung der Experten erzwingt.
