@@ -244,8 +244,5 @@ Und daraus folgt:
 
 > Man kann einem System kein Vertrauen übertragen, wenn es nicht versteht, was es tut.
 
-Dieses Repository zeigt, warum – und wo die eigentlichen Herausforderungen liegen.
+---
 
-
-
-Dieses Repository liefert die Grundlage, um genau diese Zusammenhänge zu verstehen und systematisch zu adressieren.
