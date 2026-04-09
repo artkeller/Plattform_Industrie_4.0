@@ -1,7 +1,7 @@
-**Titel**  
+## **Titel**  
 Kaskade der Aufmerksamkeitserosion in Transformer-Modellen: Mechanismen und Implikationen für zuverlässige Entscheidungsfindung in Zero-Trust-Architekturen
 
-**Abstract**  
+## **Abstract**  
 Transformer-basierte Large Language Models leiden unter systematischer Degradation der Aufmerksamkeitsmechanismen bei langen Kontexten, bekannt als Attention-Erosion. Der zentrale Mechanismus ist die Softmax-Funktion 
 
 $$
