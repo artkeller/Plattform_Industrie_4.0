@@ -1,6 +1,6 @@
-### Abstract – MoE-Ordner
+### Abstract
 
-**Titel des Abstracts**  
+**Titel**  
 Mixture-of-Experts-Architekturen als skalierbare Lösung für bedingte Berechnung in Zero-Trust-Architekturen der Industrie 4.0
 
 **Abstract**  
