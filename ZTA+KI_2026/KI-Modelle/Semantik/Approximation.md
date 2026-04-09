@@ -117,7 +117,7 @@ $$
 h \approx \sum_k \lambda_k \phi_k
 $$
 
-wobei einige SS\phi_k$$ interpretierbar sind als:
+wobei einige $$\phi_k$$ interpretierbar sind als:
 
 * „Implikation“
 * „Negation“
