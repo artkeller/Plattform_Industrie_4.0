@@ -17,13 +17,13 @@ Wenn man „Verstehen“ formalisiert, landet man typischerweise bei:
 * **Semantikfunktion**
 
 $$
-\llbracket \cdot \rrbracket : \text{Syntax} \to \text{Bedeutung}
+\lbrack\!\lbrack \cdot \rbrack\!\rbrack : \text{Syntax} \to \text{Bedeutung}
 $$
 
 * **Wahrheitsbewertung** (Logik)
 
 $$
-\llbracket \varphi \rrbracket \in {\text{wahr}, \text{falsch}}
+\lbrack\!\lbrack \varphi \rbrack\!\rbrack \in \{\text{wahr}, \text{falsch}\}
 $$
 
 * **Ableitbarkeit**
