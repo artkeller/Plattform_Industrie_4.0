@@ -286,7 +286,7 @@ Logik erscheint darin als Spezialfall:
 
 $$
 \vdash ;\approx; \arg\max P_\theta(\cdot \mid \cdot)
-%%
+$$
 
 ---
 
