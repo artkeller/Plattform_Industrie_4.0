@@ -1,6 +1,6 @@
 # 1. Ausgangspunkt: Defizit rein statistischer Modelle
 
-Wie gezeigt, approximieren Sprachmodelle primär:
+Wie [gezeigt](Transformer.md), approximieren Sprachmodelle primär:
 
 $$
 P(x_t \mid x_{< t})
