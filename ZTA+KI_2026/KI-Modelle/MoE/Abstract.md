@@ -1,7 +1,7 @@
-**Titel**  
+## **Titel**  
 Mixture-of-Experts-Architekturen als skalierbare Lösung für bedingte Berechnung in Zero-Trust-Architekturen der Industrie 4.0
 
-**Abstract**  
+## **Abstract**  
 Die Mixture-of-Experts (MoE)-Architektur stellt eine Weiterentwicklung der klassischen Transformer-Architektur dar, die das Skalierungs-Dilemma von Large Language Models (LLMs) durch sparsame Aktivierung (sparse activation) auflöst. Anstelle einer dichten Feed-Forward-Schicht (FFN) wird pro Transformer-Layer ein MoE-Modul eingesetzt, bestehend aus mehreren spezialisierten Experten-Netzwerken und einem lernbaren Gating-Netzwerk (Router). Für jedes Token berechnet der Router eine Passgenauigkeit und aktiviert mittels Top-k-Routing lediglich eine kleine feste Anzahl von Experten (typischerweise Top-2), wodurch bei Modellen mit Hunderten Milliarden Parametern nur ein Bruchteil der Parameter pro Inferenz aktiv ist.
 
 Die mathematische Ausgabe einer MoE-Schicht lautet  
