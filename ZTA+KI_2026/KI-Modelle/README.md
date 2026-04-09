@@ -11,6 +11,7 @@ Industrie-4.0-Systeme sind verteilt, dynamisch und sicherheitskritisch. ZTA verl
 - Kritisch ist nicht das einzelne Modell, sondern das Zusammenspiel in verteilten Systemen.
 - Semantik muss explizit ergänzt werden; Vertrauen kann nicht allein von KI getragen werden.
 - ZTA-Anforderungen (Verifikation, Nachvollziehbarkeit, Kontext) übersteigen die natürlichen Fähigkeiten reiner KI.
+- Das neue KI-Modelle-Abstract fasst die sechs Unter-Abstracts (Semantik, Attention-Erosion, SLM, MoE, KI-Datenblatt, KI-Fingerprint) zusammen und stellt den übergeordneten wissenschaftlichen Rahmen dar.
 
 ## Dokumente im Ordner
 - Attention-Erosion/
@@ -20,13 +21,15 @@ Industrie-4.0-Systeme sind verteilt, dynamisch und sicherheitskritisch. ZTA verl
 - SLM/
 - Semantik/
 - ZTA-Kaskade.md
+- Abstract.md   ← übergeordnetes Abstract
 
 ## Empfohlene Lesereihenfolge
-1. Semantik (Grundlagen & Grenzen)
-2. Attention-Erosion (Modellverhalten im Betrieb)
-3. KI-Datenblatt + KI-Fingerprint (konkrete Modelle & Dokumentation)
-4. SLM + MoE (Architekturvarianten)
-5. ZTA-Kaskade.md (Systemdynamik)
+1. KI-Modelle-Abstract.md (Zusammenfassung aller Perspektiven)
+2. Semantik (Grundlagen & Grenzen)
+3. Attention-Erosion (Modellverhalten im Betrieb)
+4. KI-Datenblatt + KI-Fingerprint (konkrete Modelle & Dokumentation)
+5. SLM + MoE (Architekturvarianten)
+6. ZTA-Kaskade.md (Systemdynamik)
 
 ## Verbindung zum Gesamtprojekt ZTA+KI_2026
 Dieser Ordner liefert die technische und theoretische Basis für alle weiteren Compliance-, Architektur- und Sicherheitsentscheidungen im Projekt.
