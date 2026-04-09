@@ -12,7 +12,7 @@ $$
 y = \sum_{i=1}^{n} G(x)_i \cdot E_i(x)
 $$  
 
-wobei $$G(x)$$ ein sparse Gating-Vektor mit ausschließlich Top-$$k$$-Einträgen ungleich null ist. Zur Vermeidung von Expert Collapse wird eine zusätzliche Load-Balancing-Loss-Funktion 
+wobei $$G(x)$$ ein sparse Gating-Vektor mit ausschließlich Top- $$k$$ -Einträgen ungleich null ist. Zur Vermeidung von Expert Collapse wird eine zusätzliche Load-Balancing-Loss-Funktion 
 
 $$
 \mathcal{L}_{aux} = w \cdot N \cdot \sum_{i=1}^{N} f_i \cdot P_i
