@@ -253,7 +253,7 @@ Dabei gilt:
 Das Modell lernt:
 
 $$
-\max I(x_t; x_{<t})
+\max I(x_t; x_{< t})
 $$
 
 Wenn logische Strukturen stark informativ sind:
