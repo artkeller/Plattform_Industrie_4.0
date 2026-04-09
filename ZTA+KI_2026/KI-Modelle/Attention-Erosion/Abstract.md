@@ -1,4 +1,4 @@
-**Titel des Abstracts**  
+**Titel**  
 Kaskade der Aufmerksamkeitserosion in Transformer-Modellen: Mechanismen und Implikationen für zuverlässige Entscheidungsfindung in Zero-Trust-Architekturen
 
 **Abstract**  
