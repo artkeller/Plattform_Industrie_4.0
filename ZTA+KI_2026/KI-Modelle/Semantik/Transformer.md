@@ -78,6 +78,10 @@ $$
 \text{Bedeutung im Sinne von } \llbracket \cdot \rrbracket
 $$
 
+$$
+\text{Bedeutung im Sinne von } \lbrack\!\lbrack \cdot \rbrack\!\rbrack
+$$
+
 Das ist genau die Trennung, die auch in der Philosophie diskutiert wird (vgl. Chinese Room):
 
 > Korrekte Symbolmanipulation ≠ Verstehen
