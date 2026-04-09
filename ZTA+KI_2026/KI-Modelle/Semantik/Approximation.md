@@ -220,7 +220,7 @@ Trainingsdaten wachsen nur polynomial.
 Ein echtes logisches System erfüllt:
 
 $$
-\llbracket f(g(x)) \rrbracket = F(\llbracket g(x) \rrbracket)
+\lbrack\!\lbrack f(g(x)) \rbrack\!\rbrack = F(\lbrack\!\lbrack g(x) \rbrack\!\rbrack)
 $$
 
 Ein Sprachmodell approximiert:
