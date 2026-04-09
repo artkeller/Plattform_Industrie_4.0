@@ -100,15 +100,6 @@ ZTA macht diese Notwendigkeit sichtbar, Industrie 4.0 macht sie unvermeidbar.
 ---
 ---
 ---
-
-Alles klar – dann bleibt deine bestehende README **inhaltlich exakt unverändert**, und ich ergänze **nur gezielt**:
-
-1. das **Beispiel (beispiel.md)**
-2. die **Chinese-Room-Erklärung (chinese-room.md)**
-3. eine **kurze Lesehilfe**, sauber integriert
-
-Hier ist die **minimal-invasive Erweiterung**:
-
 ---
 
 # ZTA + KI in der Industrie 4.0
@@ -155,9 +146,9 @@ Die folgenden Dokumente bilden die theoretische Basis:
 
 | Kapitel                                                                                                                            | Inhalt                     | Leitfrage                          |
 | ---------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------------------------------- |
-| [Transformer](https://github.com/artkeller/Plattform_Industrie_4.0/tree/main/ZTA%2BKI_2026/KI-Modelle/Semantik/Transformer.md)     | Funktionsweise heutiger KI | Wie arbeitet KI wirklich?          |
-| [Hybrid-Modell](https://github.com/artkeller/Plattform_Industrie_4.0/tree/main/ZTA%2BKI_2026/KI-Modelle/Semantik/Hybrid-Modell.md) | Kombination mit Wissen     | Wie ergänzt man Semantik?          |
-| [Approximation](https://github.com/artkeller/Plattform_Industrie_4.0/tree/main/ZTA%2BKI_2026/KI-Modelle/Semantik/Approximation.md) | fundamentale Grenze        | Warum bleibt das Problem bestehen? |
+| [Transformer](Transformer.md)     | Funktionsweise heutiger KI | Wie arbeitet KI wirklich?          |
+| [Hybrid-Modell](Hybrid-Modell.md) | Kombination mit Wissen     | Wie ergänzt man Semantik?          |
+| [Approximation](Approximation.md) | fundamentale Grenze        | Warum bleibt das Problem bestehen? |
 
 Diese drei Kapitel erklären, warum KI strukturell kein echtes Verständnis entwickeln kann.
 
@@ -169,8 +160,8 @@ Die theoretischen Grundlagen werden durch zwei zusätzliche Perspektiven ergänz
 
 | Dokument                                                                                                                                           | Rolle     | Nutzen                                    |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------------------------------------- |
-| [Beispiel: Autonome Fertigungszelle](https://github.com/artkeller/Plattform_Industrie_4.0/tree/main/ZTA%2BKI_2026/KI-Modelle/Semantik/beispiel.md) | Praxis    | zeigt das Problem im realen Systemverbund |
-| [Chinese Room Erklärung](https://github.com/artkeller/Plattform_Industrie_4.0/tree/main/ZTA%2BKI_2026/KI-Modelle/Semantik/chinese-room.md)         | Intuition | macht das Problem einfach verständlich    |
+| [Beispiel: Autonome Fertigungszelle](Beispiel.md) | Praxis    | zeigt das Problem im realen Systemverbund |
+| [Chinese Room Erklärung](Chinese-room.md)         | Intuition | macht das Problem einfach verständlich    |
 
 Das Beispiel zeigt konkret, wie ein dreistufiges System aus Embedded GNN, Edge SLM und LLM in einer ZTA-geschützten Fertigung formal korrekt arbeitet – und dennoch falsche Entscheidungen trifft.
 
