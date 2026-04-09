@@ -14,4 +14,5 @@ Zusätzliche Phänomene wie Token Fatigue und abnehmende Attention-Coherence-Sco
 
 Die Dokumentation schlägt die Messung mittels Attention-Coherence-Score und explizite Gegenmaßnahmen (Hybride-Architekturen, Semantik-Overlay) vor, um die Grenzen reiner statistischer Approximation sichtbar zu machen.
 
-**Schlüsselwörter:** Attention-Erosion, Softmax, Lost-in-the-Middle, Instruction Drift, Token Fatigue, Transformer, Zero Trust Architecture, Industrie 4.0
+### **Schlüsselwörter:** 
+Attention-Erosion, Softmax, Lost-in-the-Middle, Instruction Drift, Token Fatigue, Transformer, Zero Trust Architecture, Industrie 4.0
