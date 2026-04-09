@@ -290,6 +290,6 @@ $$
 
 # 14. Was wir wirklich erhalten
 
-Es bleibt bei [Approximation](Approximation.md)
+Es bleibt bei [Approximation logikähnlichen Verhaltens](Approximation.md)
 
 ---
