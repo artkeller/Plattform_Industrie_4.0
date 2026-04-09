@@ -24,4 +24,5 @@ Systemische Limitationen umfassen erhöhten VRAM-Bedarf, All-to-All-Kommunikatio
 
 Die vorliegende Dokumentation liefert damit die architektonische Grundlage für den Einsatz von MoE in der dynamischen ZTA-Kaskade (Stufe 2) und unterstreicht die Notwendigkeit einer expliziten Integration von Semantik und Verifikationsmechanismen, um die Grenzen reiner Funktionsapproximation nicht zu überschreiten.
 
-### **Schlüsselwörter:** Mixture of Experts, Sparse Activation, Top-k-Routing, Expert Collapse, Load Balancing, Industrie 4.0, Zero Trust Architecture
+### **Schlüsselwörter:** 
+Mixture of Experts, Sparse Activation, Top-k-Routing, Expert Collapse, Load Balancing, Industrie 4.0, Zero Trust Architecture
