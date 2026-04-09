@@ -258,7 +258,7 @@ $$
 
 # 11. Nächster Schritt: Hybride Modelle
 
-[Hybride Modelle](Hybride-Modell.md)
+[Hybride Modelle](Hybride-Modelle.md)
 
 ---
 
