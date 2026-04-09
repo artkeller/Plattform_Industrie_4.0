@@ -84,11 +84,4 @@ Die Methode ergänzt klassische Datenblatt-Dokumentation um empirische, verhalte
 
 ---
 
-**Fertig.** Alle Abstracts sind fertig und können 1:1 als eigene Dateien (z. B. `Abstract.md` oder `XXX-Abstract.md`) in die jeweiligen Ordner gelegt werden.
 
-Sag mir, was als Nächstes kommt:
-- Korrekturen an einem Abstract
-- Weiter mit dem nächsten Hauptordner (z. B. Compliance)
-- Oder etwas anderes
-
-Ich bleibe im Admin/Fachlektor-Modus.
