@@ -35,7 +35,7 @@ The obstacles found were (as examples):
   * etc.
 
 The above list is not final, other effects exist and might interfere with any queries towards a LLM.
-**Additional Hint: Semantic Fähigkeiten were not examined so far !!!!**
+**Additional Hint: Semantic abilities were not examined so far !!!!**
 
 All those effects need to be minimized, or even overcome, if a trustful LLM usage shall be established for use cases, where exactness is a base requirement (as this is the case for usage in Security tasks).
 
