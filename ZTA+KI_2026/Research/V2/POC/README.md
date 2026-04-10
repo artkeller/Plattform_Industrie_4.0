@@ -35,7 +35,7 @@ The obstacles found were (as examples):
   * etc.
 
 The above list is not final, other effects exist and might interfere with any queries towards a LLM.
-**Additional Hint: Semantic abilities were not examined so far !!!!**
+**Additional Hint: Semantic abilities were not examined so far**
 
 All those effects need to be minimized, or even overcome, if a trustful LLM usage shall be established for use cases, where exactness is a base requirement (as this is the case for usage in Security tasks).
 
@@ -75,36 +75,24 @@ The iterative steps were identified as the following:
 * **Step 2:** In this step, requirements are generated from the aggregated data from Stage 1.3. These requirements connect the implementation of solution proposals with security standards, to be analysed by the AI. These requirements are independent of the ZTA architecture (i.e., runtime-agnostic). No executable code is generated at this point; instead, human-readable requirements are produced in the format of a security control
 * **Step 3:** In this step, executable code (e.g., C++, XACML, Python) is generated from the requirements in Step 2. The code is created in various forms depending on the specific ZTA architecture
 * **Step 4:** In this step, the result is evaluated by a 'Human in the loop' and subjected to testing with the goal of final productive deployment. At this stage, a specialist in the corresponding security domain is required to conduct appropriate quality assurance
-
+See this **(Link)** to the document.
 
 
 The corresponding results for a chosen security question (Prompts and LLM Answers) are shown within the following folders for the steps 1.1, 1.3, 2, and 3 for two selected use cases:
 
-
-
 1. A security question in the SAP Security Domain. The description is provided **here/Link**
 2. A security question in the Industrie 4,0 Security Domain. The description is provided **here/Link**
 
-
-
 For each of the steps, a folder is available, which contains the LLM-agnostic Prompt, and several answers from the same, as well as from different LLM versions/vendors.
-
-
-
-
 
 ## POC results
 
 As a result, the above mentioned obstacles could be removed, or the risk of their occurrence could massively reduced.
 
-
-
 **Problems solved by iterative, stepwise approach with small prompts:**
 
 * **Traceability requirement (regulations-based):** Each single step of the approach can be separately triggered and logged/traced with information about LLM Type, version, date, and, if needed, the complete output. Additionally, after each step, a 'Human in the loop' can review the results, by that he is able to understand the activity per each step, and has a chance to find out if the data is consistent, correct, and valuable. **For the review, a Domain Expert is, however, needed.**
 * **Remediation of Silent-Truncation and Token-Drop effects, optimization issues:** Small Prompts (i.e. small number of tokens) per each step (instead one big prompt) reduce these effects to a minimum, as they occur especially with a bigger number of tokens.
-
-
 
 **Problems solved by context-less repetition of the same Prompt (several times per LLM, and same with different LLMs):**
 
@@ -114,8 +102,6 @@ As a result, the above mentioned obstacles could be removed, or the risk of thei
 * **Mitigation of Context-Effects:** Prompting the questions always in a new session without previous history/context, removes any kind of context effects.
 
 **In order to receive a reduced statistical Variance/Standard Deviation, a repetition of 3 times per LLM x 3 different LLMs are highly recommended**
-
-
 
 **Problems solved by specialized, dedicated prompting**
 
@@ -132,15 +118,11 @@ As a result, the above mentioned obstacles could be removed, or the risk of thei
   * Explicit ask about deviations listing of the set of variant answers
   * Explicit ask for an Aggregation (not Summary) of data, with directive key words, like 'verbatim', 'greedy', or 'temperature=0'
 
-
-
 * **Hallucinations**
 
   * Explicitly forbid the invention of hallucinated answers
   * Provide directive how the output structure is to be filled if the answer is unknown. e.g. Provide an attribute of type 'bool', stating if the object, context etc. is known.
   * A 'Human in the loop' needs, however, to review that the answers are not based on hallucinations
-
-
 
 **Final result:**
 
