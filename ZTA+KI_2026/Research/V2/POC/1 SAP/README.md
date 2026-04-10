@@ -19,3 +19,4 @@ The following directories show the results for stages 1.1, 1.3, 2, and 3 in deta
 
 All steps could be successfully executed within the scope of the POC and verified based on the available domain-specific knowledge.
 
+**!! Approximation approach only!!**
