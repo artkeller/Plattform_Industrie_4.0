@@ -18,3 +18,5 @@ In a transfer from Variant 1, all steps within the scope of the POC could be suc
 
 Additionally, by modifying the question, it was possible to generate not only the requirements for the ZTA from the available data, but also the requirements for management and the legal department.
 
+**!! Approximation approach only!!**
+
