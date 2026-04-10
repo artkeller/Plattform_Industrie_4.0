@@ -75,6 +75,7 @@ The iterative steps were identified as the following:
 * **Step 2:** In this step, requirements are generated from the aggregated data from Stage 1.3. These requirements connect the implementation of solution proposals with security standards, to be analysed by the AI. These requirements are independent of the ZTA architecture (i.e., runtime-agnostic). No executable code is generated at this point; instead, human-readable requirements are produced in the format of a security control
 * **Step 3:** In this step, executable code (e.g., C++, XACML, Python) is generated from the requirements in Step 2. The code is created in various forms depending on the specific ZTA architecture
 * **Step 4:** In this step, the result is evaluated by a 'Human in the loop' and subjected to testing with the goal of final productive deployment. At this stage, a specialist in the corresponding security domain is required to conduct appropriate quality assurance
+
 See this **(Link)** to the document.
 
 
